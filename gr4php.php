@@ -24,10 +24,10 @@ class GR4PHP{
 	 * Return SPARQL Query for gr:getStoreInfo
 	 * @param Input Array with search elements
 	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 0 --> see configuration.php)
+	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getStore($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=0 ){
+	function getStore($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -97,12 +97,8 @@ class GR4PHP{
 		}
 		
 		//set LIMIT of query
-		$sparql.="} LIMIT ";
-		
-		if ($limit==0){
-			$limit=GR4PHP_Configuration::Limit;	
-		}
-		$sparql.=$limit;
+		$sparql.="} LIMIT ".$limit;
+
 		return self::connectGR4PHP($sparql,"getStore");	
 	}
 	
@@ -111,10 +107,10 @@ class GR4PHP{
 	 * Return SPARQL Query for gr:getBusinessEntity
 	 * @param Input Array with search elements
 	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 0 --> see configuration.php)
+	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getCompany($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=0 ){
+	function getCompany($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -184,12 +180,7 @@ class GR4PHP{
 		}
 		
 		//set LIMIT of query
-		$sparql.="} LIMIT ";
-		
-		if ($limit==0){
-			$limit=GR4PHP_Configuration::Limit;	
-		}
-		$sparql.=$limit;
+		$sparql.="} LIMIT ".$limit;
 		
 		return self::connectGR4PHP($sparql,"getCompany");
 	}
@@ -199,10 +190,10 @@ class GR4PHP{
 	 * Return SPARQL Query for gr:getProductModelInfo
 	 * @param Input Array with search elements
 	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 0 --> see configuration.php)
+	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getProductModel($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=0 ){
+	function getProductModel($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -271,12 +262,7 @@ class GR4PHP{
 		}
 		
 		//set LIMIT of query
-		$sparql.="} LIMIT ";
-		
-		if ($limit==0){
-			$limit=GR4PHP_Configuration::Limit;	
-		}
-		$sparql.=$limit;
+		$sparql.="} LIMIT ".$limit;
 
 		return self::connectGR4PHP($sparql,"getProductModel");
 	}
@@ -286,10 +272,10 @@ class GR4PHP{
 	 * Return SPARQL Query for gr:getOffers
 	 * @param Input Array with search elements
 	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 0 --> see configuration.php)
+	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getOffers($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=0 ){
+	function getOffers($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -357,12 +343,7 @@ class GR4PHP{
 		}
 		
 		//set LIMIT of query
-		$sparql.="} LIMIT ";
-		
-		if ($limit==0){
-			$limit=GR4PHP_Configuration::Limit;	
-		}
-		$sparql.=$limit;
+		$sparql.="} LIMIT ".$limit;
 
 		return self::connectGR4PHP($sparql,"getOffers");
 	}
@@ -372,10 +353,10 @@ class GR4PHP{
 	 * Return SPARQL Query for all opening hours of the store
 	 * @param Input Array with search elements
 	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 0 --> see configuration.php)
+	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getOpeningHours($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=0 ){
+	function getOpeningHours($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 
 		// At first check all possible errors
 		// 1) not empty input array?
@@ -437,12 +418,7 @@ class GR4PHP{
 		}
 		
 		//set LIMIT of query
-		$sparql.="} LIMIT ";
-		
-		if ($limit==0){
-			$limit=GR4PHP_Configuration::Limit;	
-		}
-		$sparql.=$limit;
+		$sparql.="} LIMIT ".$limit;
 
 		return self::connectGR4PHP($sparql,"getOpeningHours");	
 	}
@@ -452,10 +428,10 @@ class GR4PHP{
 	 * Return SPARQL Query for all stores close to the given distance
 	 * @param Input Array that contains gln, long, lat and distance
 	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 0 --> see configuration.php)
+	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getLocation($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=0 ){
+	function getLocation($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -525,12 +501,7 @@ class GR4PHP{
 		}
 		
 		//set LIMIT of query
-		$sparql.="} LIMIT ";
-		
-		if ($limit==0){
-			$limit=GR4PHP_Configuration::Limit;	
-		}
-		$sparql.=$limit;
+		$sparql.="} LIMIT ".$limit;
 
 		return self::connectGR4PHP($sparql,"getLocation");
 	}
