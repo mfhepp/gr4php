@@ -112,7 +112,7 @@ class GR4PHP_Template{
 								"post"=>"OPTIONAL {{{?y vcard:postal-code ?postalcode.} UNION {?y vc:Pobox ?postalcode.}}} ",
 								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:locality ?city.}}} ",
 								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:country ?country.}}} ",
-								"telephon"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
+								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   			OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
 								"geoposition"=>"OPTIONAL{{{?y vcard:geo ?z.?z vcard:latitude ?lat.?z vcard:longitude ?long.}
@@ -132,7 +132,7 @@ class GR4PHP_Template{
 								"post"=>"OPTIONAL {{{?y vcard:postal-code ?postalcode.} UNION {?y vc:Pobox ?postalcode.}}} ",
 								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:locality ?city.}}} ",
 								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:country ?country.}}} ",
-								"telephon"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
+								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   	  OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
 								"geoposition"=>"OPTIONAL{{{?y vcard:geo ?z.?z vcard:latitude ?lat.?z vcard:longitude ?long.}
@@ -180,7 +180,7 @@ class GR4PHP_Template{
 								"availabilityEnds"=>"Optional{?offering gr:availabilityEnds ?availabilityEnds.}",
 								"availableDeliveryMethods"=>"Optional{?offering gr:availableDeliveryMethods ?availableDeliveryMethods.}",
 								"availableAtOrFrom"=>"Optional{?offering gr:availableAtOrFrom ?availableAtOrFrom.}",
-								"paymanetChargeSpec"=>"Optional{?pricespec gr:hasCurrency ?paymentCurrency.?pricespec gr:hasCurrencyValue ?paymentCurrencyValue.
+								"paymentChargeSpec"=>"Optional{?pricespec gr:hasCurrency ?paymentCurrency.?pricespec gr:hasCurrencyValue ?paymentCurrencyValue.
 													   ?pricespec gr:valueAddedTaxIncluded ?paymentTaxIncluded.}",
 								"deliverySpec"=>"Optional{?pricespec gr:eligibleRegions ?deliveryRegion.?pricespec gr:hasCurrency ?deliveryCurrency.
 														  ?pricespec gr:hasCurrencyValue ?deliveryCurrencyValue.?pricespec gr:valueAddedTaxIncluded ?deliveryTaxIncluded.}"),
