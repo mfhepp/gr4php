@@ -67,5 +67,23 @@ function getDateByValue($value){
 			}
 		return $resultArray;
 	}
+
+/**
+ *
+ * An array of elements, which should be shown 
+ * @param Array with wanted elements
+ * @param Array of all possible elements which are given by function
+ * @return Array of all wanted elements
+ */
+function getWantedElements($wantedElements,$possibleElements){
+	$resultArray=array();
+	foreach ($wantedElements as $ownElement){
+		if (in_array("?".$ownElement,$possibleElements)){
+			$resultArray[]="?".$ownElement;
+		}
+	}
+	
+	return $resultArray;
+}
 	
 	

@@ -23,11 +23,15 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:getStoreInfo
 	 * @param Input Array with search elements
+	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
 	 * @param Mode (strict || lax)
 	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getStore($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getStore($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX,$limit=GR4PHP_Configuration::Limit ){
+		//define variable 
+		$sparql="";
+		
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -61,13 +65,20 @@ class GR4PHP{
 		// get SELECT-parts of getStoreInfo
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getStore");
 		
-		
 		// get SELECT-part (here:general-part)
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 		
 		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
 		
-		$sparql.= "SELECT DISTINCT ".getArray2String($selectPartComplete)." WHERE { ";
+		//get only wanted Elements
+		if ($wantedElements==FALSE){
+			$selectPart=$selectPartComplete;
+		}
+		else{
+			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+		}
+		
+		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
 		$deleteOptionalInput=array();
 
@@ -89,16 +100,17 @@ class GR4PHP{
 		foreach($outputValues as $aloneOutput => $output){
 		
 		// set OPTIONAL-part
-		if (!in_array($aloneOutput , $deleteOptionalInput)){
+		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
-			$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);}
+				$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);
+			}
 			$sparql.=$output;
 			}
 		}
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-
+		
 		return self::connectGR4PHP($sparql,"getStore");	
 	}
 	
@@ -106,11 +118,15 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:getBusinessEntity
 	 * @param Input Array with search elements
+	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
 	 * @param Mode (strict || lax)
 	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getCompany($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getCompany($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+		//define variable 
+		$sparql="";
+		
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -148,9 +164,17 @@ class GR4PHP{
 		
 		// get SELECT-part (here:general-part)
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
-		$selctPartComplete=array_merge($selectPartDefault,$selectPartspec);
+		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
 		
-		$sparql.= "SELECT DISTINCT ".getArray2String($selctPartComplete)." WHERE { ";
+		//get only wanted Elements
+		if ($wantedElements==FALSE){
+			$selectPart=$selectPartComplete;
+		}
+		else{
+			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+		}
+		
+		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
 		$deleteOptionalInput=array();
  		
@@ -172,7 +196,7 @@ class GR4PHP{
 		
 		foreach($outputValues as $aloneOutput => $output){
 
-		if (!in_array($aloneOutput , $deleteOptionalInput)){
+		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
 			$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);}
 			$sparql.=$output;
@@ -181,7 +205,7 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-		
+
 		return self::connectGR4PHP($sparql,"getCompany");
 	}
 	
@@ -189,11 +213,15 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:getProductModelInfo
 	 * @param Input Array with search elements
+	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
 	 * @param Mode (strict || lax)
 	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getProductModel($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getProductModel($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+		//define variable 
+		$sparql="";
+		
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -233,7 +261,15 @@ class GR4PHP{
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
 		
-		$sparql.= "SELECT DISTINCT ".getArray2String($selectPartComplete)." WHERE { ";
+		//get only wanted Elements
+		if ($wantedElements==FALSE){
+			$selectPart=$selectPartComplete;
+		}
+		else{
+			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+		}
+		
+		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
 		$deleteOptionalInput=array(); 
 
@@ -254,7 +290,7 @@ class GR4PHP{
 		
 		foreach($outputValues as $aloneOutput => $output){
 
-		if (!in_array($aloneOutput , $deleteOptionalInput)){
+		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
 			$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);}
 			$sparql.=$output;
@@ -263,7 +299,7 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-
+		
 		return self::connectGR4PHP($sparql,"getProductModel");
 	}
 	
@@ -271,11 +307,15 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:getOffers
 	 * @param Input Array with search elements
+	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
 	 * @param Mode (strict || lax)
 	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getOffers($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getOffers($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+		//define variable 
+		$sparql="";
+		
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -315,7 +355,15 @@ class GR4PHP{
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
 		
-		$sparql.= "SELECT DISTINCT ".getArray2String($selectPartComplete)." WHERE { ";
+		//get only wanted Elements
+		if ($wantedElements==FALSE){
+			$selectPart=$selectPartComplete;
+		}
+		else{
+			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+		}
+		
+		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
 		$deleteOptionalInput=array();
 
@@ -335,7 +383,7 @@ class GR4PHP{
 		
 		foreach($outputValues as $aloneOutput => $output){
 		
-		if (!in_array($aloneOutput , $deleteOptionalInput)){
+		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
 			$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);}
 			$sparql.=$output;
@@ -344,7 +392,7 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-
+		
 		return self::connectGR4PHP($sparql,"getOffers");
 	}
 	
@@ -352,12 +400,15 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for all opening hours of the store
 	 * @param Input Array with search elements
+	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
 	 * @param Mode (strict || lax)
 	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getOpeningHours($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
-
+	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+		//define variable 
+		$sparql="";
+		
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -389,7 +440,15 @@ class GR4PHP{
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
 		
-		$sparql.= "SELECT DISTINCT ".getArray2String($selectPartComplete)." WHERE { ";
+		//get only wanted Elements
+		if ($wantedElements==FALSE){
+			$selectPart=$selectPartComplete;
+		}
+		else{
+			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+		}
+		
+		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 			
 		$deleteOptionalInput=array();
 		// set WHERE-part of query
@@ -410,7 +469,7 @@ class GR4PHP{
 		
 		foreach($outputValues as $aloneOutput => $output){
 		
-		if (!in_array($aloneOutput , $deleteOptionalInput)){
+		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
 			$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);}
 			$sparql.=$output;
@@ -419,7 +478,7 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-
+		
 		return self::connectGR4PHP($sparql,"getOpeningHours");	
 	}
 	
@@ -427,11 +486,15 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for all stores close to the given distance
 	 * @param Input Array that contains gln, long, lat and distance
+	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
 	 * @param Mode (strict || lax)
 	 * @param Result-Limit (Default: 20 --> see configuration.php)
 	 * @return SPARQL Query
 	 */
-	function getLocation($inputArray,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getLocation($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+		//define variable 
+		$sparql="";
+		
 		// At first check all possible errors
 		// 1) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
@@ -471,7 +534,15 @@ class GR4PHP{
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec,$selectPartspec2);
 		
-		$sparql.= "SELECT DISTINCT ".getArray2String($selectPartComplete)." WHERE { ";
+		//get only wanted Elements
+		if ($wantedElements==FALSE){
+			$selectPart=$selectPartComplete;
+		}
+		else{
+			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+		}
+		
+		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
 		$deleteOptionalInput=array();
 
@@ -493,7 +564,7 @@ class GR4PHP{
 		
 		foreach($outputValues as $aloneOutput => $output){
 		
-		if (!in_array($aloneOutput , $deleteOptionalInput)){
+		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
 			$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);}
 			$sparql.=$output;
@@ -502,8 +573,8 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-
-		return self::connectGR4PHP($sparql,"getLocation");
+		return htmlentities($sparql);
+		//return self::connectGR4PHP($sparql,"getLocation");
 	}
 	
 	/**
