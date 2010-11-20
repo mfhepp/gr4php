@@ -145,4 +145,27 @@ class GR4PHP_Exception extends Exception{
 				}
 		
 	}
+	
+	/**
+	 *
+	 * Check the allowed using of SELECT elements in a function  
+	 * @param SELECT Array with search elements
+	 * @param currently function 
+	 * @return ErrorException
+	 */
+	public static function isPossibleSelectElementOfFunction($selectArray,$function){
+		$elements=GR4PHP_Template::getSelectPartsByFunction($function);
+		// get SELECT-part (here:general-part)
+		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
+		$possibleElements=array_merge($selectPartDefault,$elements);
+		try {
+			foreach ($selectArray as $element) {
+					if (!in_array("?".$element, $possibleElements)){
+						throw new GR4PHP_Exception("The SELECT-element -".$element."- is not allowed in function: ".$function.". Please check the manual!");}
+			}
+		} catch (GR4PHP_Exception $e) {
+			echo "<b>Error: ".$e->getMessage()."<b>";
+  			exit;
+		}
+	}
 }

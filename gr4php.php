@@ -52,6 +52,11 @@ class GR4PHP{
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
+		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		if (is_array($wantedElements)){
+			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getStore");
+		}
+		
 		// No error! The query building begins
 		// get Ontologies for getStoreInfo
 		$ontologies=GR4PHP_Template::getPrefixByFunction("getStore");
@@ -146,6 +151,11 @@ class GR4PHP{
 		// 6) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
+		}
+		
+		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		if (is_array($wantedElements)){
+			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getCompany");
 		}
 
 		// No error! The query building begins
@@ -243,6 +253,11 @@ class GR4PHP{
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
+		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		if (is_array($wantedElements)){
+			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getProductModel");
+		}
+		
 		// No error! The query building begins
 		// get Ontologies for getProductModelInfo
 		$ontologies=GR4PHP_Template::getPrefixByFunction("getProductModel");
@@ -335,6 +350,11 @@ class GR4PHP{
 		// 6) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
+		}
+		
+		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		if (is_array($wantedElements)){
+			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getOffers");
 		}
 		
 		// No error! The query building begins
@@ -430,6 +450,11 @@ class GR4PHP{
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
+		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		if (is_array($wantedElements)){
+			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getOpeningHours");
+		}
+		
 		// No error! The query building begins
 		$dayArray=array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
 		
@@ -516,6 +541,11 @@ class GR4PHP{
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
+		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		if (is_array($wantedElements)){
+			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getLocation");
+		}
+		
 		// No error! The query building begins; 
 		if (empty($inputArray['geo']['distance'])){
 			$inputArray['geo']['distance']=100;
@@ -573,8 +603,8 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-		return htmlentities($sparql);
-		//return self::connectGR4PHP($sparql,"getLocation");
+
+		return self::connectGR4PHP($sparql,"getLocation");
 	}
 	
 	/**
