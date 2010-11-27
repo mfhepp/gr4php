@@ -10,9 +10,9 @@ include_once 'gr4php_configuration.php';
 /**
  *
  * Convert a String in Array by split the String
- * @param String, that want to be convert
- * @param Char, that shows the cut-off point (Default: ",")
- * @return Array
+ * @param 		string		$string String that want to be convert
+ * @param 		string		$zeichen Char that shows the cut-off point (Default: ",")
+ * @return 		array		$arrayOfStrings Array
  */
 function getString2Array($string,$zeichen=","){
 	
@@ -24,8 +24,8 @@ function getString2Array($string,$zeichen=","){
 /**
  *
  * Convert Array in String
- * @param Array
- * @return String
+ * @param 		array		$array Array
+ * @return 		string		$string String
  */
 function getArray2String($array){
 	
@@ -41,8 +41,8 @@ function getArray2String($array){
 /**
  *
  * Return a specific time-format by using the assign value
- * @param value (day or time)
- * @return time format
+ * @param 		string		$value Value (day or time)
+ * @return 		date		$date Date format
  */
 function getDateByValue($value){
 	$date=array("day"=>"l","time"=>"H:i");
@@ -52,8 +52,8 @@ function getDateByValue($value){
 /**
  *
  * Check the length of certain input elements 
- * @param Input Array with search elements
- * @return Input Aray with elements of right length
+ * @param 		array		$inputArray Input Array with search elements
+ * @return 		array		$resultArray Input Array with elements of right length
  */
  function isLengthOfElementRight($inputArray){
 		$elementLength=GR4PHP_Template::checkLengthOfElements();
@@ -71,9 +71,9 @@ function getDateByValue($value){
 /**
  *
  * An array of elements, which should be shown 
- * @param Array with wanted elements
- * @param Array of all possible elements which are given by function
- * @return Array of all wanted elements
+ * @param 		array		$wantedElements Array with wanted elements
+ * @param 		string		$possibleElements Array of all possible elements which are given by function
+ * @return 		array		$resultArray Array of all wanted elements
  */
 function getWantedElements($wantedElements,$possibleElements){
 	$resultArray=array();
@@ -82,8 +82,5 @@ function getWantedElements($wantedElements,$possibleElements){
 			$resultArray[]="?".$ownElement;
 		}
 	}
-	
 	return $resultArray;
 }
-	
-	

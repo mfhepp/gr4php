@@ -28,7 +28,7 @@ class GR4PHP_Template{
 									?spec gr:closes ?closeTime.FILTER (?closeTime >"," \"","time","\" ","^^xsd:time).
 									?spec gr:opens ?openTime.FILTER (?openTime < "," \"","time","\" "," ^^xsd:time)."),
 						"sku"=>array("?x gr:hasStockKeepingUnit ?sku . ?sku bif:contains '\"","value","*\"' ."),
-						"ean13"=>array("?x gr:hasEAN_UCC-13  ?ean. ?ean bif:contains '\"","value","*\"' ."),
+						"ean13"=>array("?x gr:hasEAN_UCC-13  ?ean13. ?ean13 bif:contains '\"","value","*\"' ."),
 						"gtin"=>array("?x gr:hasGTIN-14 ?gtin. ?gtin bif:contains '\"","value","*\"' ."),
 						"manufacturer"=>array("?x gr:hasManufacturer ?manufacturer. ?manufacturer bif:contains '\"","value","*\"' ."),
 						// because of the minimal using..some elements of GR arent in use (at the moment!)
@@ -149,7 +149,7 @@ class GR4PHP_Template{
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku .}",
-								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean.}",
+								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
 								"gtin"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin.}",
 								"description"=>"OPTIONAL {{?x gr:description   ?description.} UNION {?x rdfs:comment ?description.}}",
 								"website"=>"OPTIONAL {{?x foaf:page   ?website.} UNION {?x rdfs:seeAlso ?website.}}",
@@ -167,7 +167,7 @@ class GR4PHP_Template{
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku.}",
-								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean.}",
+								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
 								"gtin"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin.}",
 								"description"=>"OPTIONAL {{?x gr:description   ?description.} UNION {?x rdfs:comment ?description.}}",
 								"manufacturer"=>"OPTIONAL {?x gr:hasManufacturer ?manufacturer.}",
@@ -260,7 +260,7 @@ class GR4PHP_Template{
 						"getProductModel"=>array(
 										"?x",
 										"?sku",
-										"?ean",
+										"?ean13",
 										"?gtin",
 										"?description",
 										"?website",
@@ -275,7 +275,7 @@ class GR4PHP_Template{
 									),
 						"getOffers"=>array(
 									"?x",
-									"?ean",
+									"?ean13",
 									"?gtin",
 									"?sku",
 									"?manufacturer",
@@ -438,8 +438,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return path to specifice ontologie libs depend on function 
-	 * @param function
-	 * @return finished ontologie information of the whole query 
+	 * @param 		string		$part Function
+	 * @return 		array		$prefix	Prefix of the ontologie 
 	 */
 	static function getPrefixByFunction($part){
 		return self::$prefix[$part];
@@ -448,8 +448,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return SELECT-part of a query depend on function
-	 * @param function
-	 * @return finished SELECT-part of the query 
+	 * @param 		string		$part Function
+	 * @return 		array		$possibleSelectParts Possible SELECT elements  
 	 */
 	static function getSelectPartsByFunction($part){
 		return self::$possibleSelectParts[$part];
@@ -458,10 +458,10 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return the input part and assign values  depend on function 
-	 * @param mode of Sparql (lax or strict)
-	 * @param input part
-	 * @param assign value to the input part
-	 * @return finished input order
+	 * @param 		string		$mode Mode of Sparql (lax or strict)
+	 * @param 		string		$column Input part
+	 * @param 		string		$value Assign value to the input part
+	 * @return 		string		$sparql	Finished input order
 	 */ 
 	static function getInputValues($mode,$column,$value){
 
@@ -490,8 +490,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return part of specific output values of a query
-	 * @param function
-	 * @return finished specific output values of the query 
+	 * @param 		string		$part Function
+	 * @return 		string		$sparql Finished specific output values of the query 
 	 */
 	static function getSpecialOutputValues($part){
 		$sparql="";
@@ -507,8 +507,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return optional output-part of a query depend on function
-	 * @param function
-	 * @return finished optional output-part of the query 
+	 * @param 		string		$part Function
+	 * @return 		array		$possibleOutputValues Finished optional output-part of the query 
 	 */
 	static function getOutputValuesByFunction($part){
 		return self::$possibleOutputValues[$part];
@@ -517,8 +517,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return an array of all possible input values of the given function
-	 * @param function
-	 * @return array of possible input values 
+	 * @param 		string		$part Function
+	 * @return 		array		$possibleInputValuesByFunction Array of possible input values 
 	 */
 	static function possibleInputValuesByFunction($function){
 		return self::$possibleInputValuesByFunction[$function];
@@ -527,8 +527,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return the real format of an element to prove the datatype of the input
-	 * @param element in input array
-	 * @return format of the element
+	 * @param 		string		$element Element in input array
+	 * @return 		string		$type Format of the element
 	 */
 	static function checkFormatOfInputValue($element){
 		$type=NULL;
@@ -544,7 +544,7 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return an array with information of certain elements and length
-	 * @return array of lengths 
+	 * @return 		array		$correctLengthOfElements Array of lengths 
 	 */
 	static function checkLengthOfElements(){
 		return self::$correctLengthOfElements;
@@ -553,8 +553,8 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return an array of special select parts (e.g. for getLocation())
-	 * @param input Array
-	 * @return special select statement 
+	 * @param 		array		$inputArray Input array
+	 * @return 		array		$statement	Special select statement 
 	 */
 	static function getSpecialSelectPartsByFunction($inputArray){
 	$prepare="( bif:round ( bif:st_distance ( ?geo,bif:st_point(".$inputArray['geo']['lat'].", ".$inputArray['geo']['long'].") ) ) ) AS ?distance";

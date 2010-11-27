@@ -14,7 +14,7 @@ class GR4PHP_Exception extends Exception{
 	/**
 	 *
 	 * Is input array empty? 
-	 * @param Input Array with search elements
+	 * @param 		array		$inputArray Input Array with search elements
 	 * @return ErrorException
 	 */
 	public static function isNotEmptyInputArray($inputArray){
@@ -32,8 +32,8 @@ class GR4PHP_Exception extends Exception{
 	/**
 	 *
 	 * Check the allowed using of input elements in a function  
-	 * @param Input Array with search elements
-	 * @param currently function 
+	 * @param 		array		$inputArray	Input Array with search elements
+	 * @param 		string		$function Currently function 
 	 * @return ErrorException
 	 */
 	public static function isPossibleInputElementOfFunction($inputArray,$function){
@@ -52,7 +52,7 @@ class GR4PHP_Exception extends Exception{
 	/**
 	 *
 	 * Check the amount of elements and associated values  
-	 * @param Input Array with search elements
+	 * @param 		array		$inputArray Input Array with search elements
 	 * @return ErrorException
 	 */
 	public static function isEqualElementAndValueAmount($inputArray){
@@ -71,7 +71,7 @@ class GR4PHP_Exception extends Exception{
 /**
 	 *
 	 * Check the value format of every element in array
-	 * @param Input Array with search elements
+	 * @param 		array		$inputArray Input Array with search elements
 	 * @return ErrorException
 	 */
 	public static function isCorrectValueForInputElement($inputArray){
@@ -104,7 +104,7 @@ class GR4PHP_Exception extends Exception{
 	/**
 	 *
 	 * Check length of all input values in lax-Mode, because bif:contains and Wildcard have a problem by value length less than 4
-	 * @param Input Array with search elements
+	 * @param 		array		$inputArray Input Array with search elements
 	 * @return ErrorException
 	 */
 	public static function isCorrectLengthOfValueCausedByWildcardRule($inputArray){
@@ -126,7 +126,7 @@ class GR4PHP_Exception extends Exception{
 /**
 	 *
 	 * Check length of some input values only in strict mode
-	 * @param Input Array with search elements
+	 * @param 		array		$inputArray Input Array with search elements
 	 * @return ErrorException
 	 */
 	public static function correctLengthOfValueInSrictMode($inputArray){
@@ -149,8 +149,8 @@ class GR4PHP_Exception extends Exception{
 	/**
 	 *
 	 * Check the allowed using of SELECT elements in a function  
-	 * @param SELECT Array with search elements
-	 * @param currently function 
+	 * @param 		array		$selectArray SELECT Array with search elements
+	 * @param 		string		$function Currently function 
 	 * @return ErrorException
 	 */
 	public static function isPossibleSelectElementOfFunction($selectArray,$function){
@@ -167,5 +167,36 @@ class GR4PHP_Exception extends Exception{
 			echo "<b>Error: ".$e->getMessage()."<b>";
   			exit;
 		}
+	}
+	
+	/**
+ 	 *
+	 * Check the mode
+     * @param 		string		$mode Mode
+     * @return 		string		$mode Allowed Mode
+ 	 */
+	function checkMode($mode){
+		$mode_array=array(GR4PHP_Configuration::Mode_LAX,GR4PHP_Configuration::Mode_STRICT);
+	
+		if (in_array($mode,$mode_array)) {
+			return $mode;
+		}
+	
+		return GR4PHP_Configuration::Mode_LAX;
+	}
+
+	/**
+ 	 *
+ 	 * Check the limit
+ 	 * @param 		integer		$limit Limit
+ 	 * @return 		integer		$limit Allowed Limit
+ 	 */
+	function checkLimit($limit){
+	
+		if (is_integer($limit)) {
+			return $limit;
+		}
+	
+		return GR4PHP_Configuration::Limit;
 	}
 }

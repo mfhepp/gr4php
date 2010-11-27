@@ -21,44 +21,61 @@ class GR4PHP{
 	} 
 	/**
 	 *
-	 * Return SPARQL Query for gr:getStoreInfo
-	 * @param Input Array with search elements
-	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
-	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 20 --> see configuration.php)
-	 * @return SPARQL Query
+	 * Return SPARQL Query for gr:LocationOfSalesOrServiceProvisioning
+	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are:gln,title,country,city (see example 1)
+	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+	 * 
+	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
+	 * Allowed elements are: gln,street,post,city,country,phone,email,long,lat,openTime,closeTime (see example 2)
+	 * @example example 2: $wantedElements=array("street","post")
+	 * 
+	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
+	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
+	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * 
+	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
+	 * 
+	 * @return 		string		$sparql	SPARQL Query
 	 */
 	function getStore($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX,$limit=GR4PHP_Configuration::Limit ){
 		//define variable 
 		$sparql="";
 		
-		// At first check all possible errors
-		// 1) not empty input array?
+		///// Exception-Part: At first check all possible errors
+		
+		// 1) check Mode
+		$mode=GR4PHP_Exception::checkMode($mode);
+		
+		// 2) check Limit
+		$limit=GR4PHP_Exception::checkLimit($limit);
+		
+		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		
-		// 2) all input elments are allowed?
+		// 4) all input elments are allowed?
 		GR4PHP_Exception::isPossibleInputElementOfFunction($inputArray,"getStore");
 		
-		// 3) Control amount of elements and values (equal)
+		// 5) Control amount of elements and values (equal)
 		GR4PHP_Exception::isEqualElementAndValueAmount($inputArray);
 		
-		// 4) Control format of input values
+		// 6) Control format of input values
 		GR4PHP_Exception::isCorrectValueForInputElement($inputArray);
 		
-		// 5) Control length of values in input Array 
+		// 7) Control length of values in input Array 
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
-		// 6) Correct length of some gr-values (only in strict mode.)
+		// 8) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
-		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		// 9) Check the SELECT elements (only by using a specific SELECT-part)
 		if (is_array($wantedElements)){
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getStore");
 		}
 		
-		// No error! The query building begins
-		// get Ontologies for getStoreInfo
+		///// Ontologies-Part (PREFIX)
+		
+		// get Ontologies of function
 		$ontologies=GR4PHP_Template::getPrefixByFunction("getStore");
 		
 		//add Ontologies to query
@@ -67,7 +84,10 @@ class GR4PHP{
 			$sparql.=$prefix." ";
 		}
 		}
-		// get SELECT-parts of getStoreInfo
+		
+		///// SELECT-Part
+		
+		//get SELECT-Part of function
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getStore");
 		
 		// get SELECT-part (here:general-part)
@@ -85,6 +105,8 @@ class GR4PHP{
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
+		///// WHERE-Part
+		
 		$deleteOptionalInput=array();
 
 			// set WHERE-part of query
@@ -98,6 +120,8 @@ class GR4PHP{
 			}
 		
 		$sparql.=" ?x a gr:LocationOfSalesOrServiceProvisioning. ";
+		
+		///// OPTIONAL-Part
 		
 		// get OPTIONAL-part of getStoreInfo (depend on input array)
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getStore");
@@ -113,6 +137,8 @@ class GR4PHP{
 			}
 		}
 		
+		/////LIMIT-Part
+		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
 		
@@ -121,44 +147,61 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return SPARQL Query for gr:getBusinessEntity
-	 * @param Input Array with search elements
-	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
-	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 20 --> see configuration.php)
-	 * @return SPARQL Query
+	 * Return SPARQL Query for gr:BusinessEntity
+	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: legalName, title, duns, gln, isicv4, naics (see example 1)
+	 * @example example 1: $inputArray=array("legalName"=>"value1","title"=>value2)
+	 * 
+	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
+	 * Allowed elements are: gln, name, duns, isicv4, naics, street, post, city, country, phone, email, long, lat (see example 2)
+	 * @example example 2: $wantedElements=array("street","post")
+	 * 
+	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
+	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
+	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * 
+	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
+	 * 
+	 * @return 		string		$sparql	SPARQL Query
 	 */
 	function getCompany($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		//define variable 
 		$sparql="";
 		
-		// At first check all possible errors
-		// 1) not empty input array?
+		///// Exception-Part: At first check all possible errors
+		
+		// 1) check Mode
+		$mode=GR4PHP_Exception::checkMode($mode);
+		
+		// 2) check Limit
+		$limit=GR4PHP_Exception::checkLimit($limit);
+		
+		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		
-		// 2) all input elments are allowed?
+		// 4) all input elments are allowed?
 		GR4PHP_Exception::isPossibleInputElementOfFunction($inputArray,"getCompany");
 		
-		// 3) Control amount of elements and values (equal)
+		// 5) Control amount of elements and values (equal)
 		GR4PHP_Exception::isEqualElementAndValueAmount($inputArray);
 		
-		// 4) Control format of input values
+		// 6) Control format of input values
 		GR4PHP_Exception::isCorrectValueForInputElement($inputArray);
 		
-		// 5) Control length of values in input Array 
+		// 7) Control length of values in input Array 
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
-		// 6) Correct length of some gr-values (only in strict mode.)
+		// 8) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
-		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		// 9) Check the SELECT elements (only by using a specific SELECT-part)
 		if (is_array($wantedElements)){
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getCompany");
 		}
 
-		// No error! The query building begins
+		///// Ontologies-Part (PREFIX)
+		
 		// get Ontologies for getBusinessEntity
 		$ontologies=GR4PHP_Template::getPrefixByFunction("getCompany");
 		
@@ -168,6 +211,8 @@ class GR4PHP{
 			$sparql.=$prefix;
 		}
 		}
+		
+		///// SELECT-Part
 		
 		// get SELECT-part of getBusinessEntity
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getCompany");
@@ -186,6 +231,8 @@ class GR4PHP{
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
+		///// WHERE-Part
+		
 		$deleteOptionalInput=array();
  		
 		// set WHERE-part of query
@@ -199,7 +246,8 @@ class GR4PHP{
 		}
 		
 		$sparql.=" ?x a gr:BusinessEntity. ";
-
+		
+		///// OPTIONAL-Part
 		
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getCompany");
@@ -213,6 +261,8 @@ class GR4PHP{
 			}
 		}
 		
+		/////LIMIT-Part
+		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
 
@@ -221,44 +271,61 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return SPARQL Query for gr:getProductModelInfo
-	 * @param Input Array with search elements
-	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
-	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 20 --> see configuration.php)
-	 * @return SPARQL Query
+	 * Return SPARQL Query for gr:ProductModelInfo
+	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: ean13, gtin, title, manufacturer (see example 1)
+	 * @example example 1: $inputArray=array("ean13"=>"value1","title"=>value2)
+	 * 
+	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
+	 * Allowed elements are: sku, ean13, gtin, description, website, manufacturer (see example 2)
+	 * @example example 2: $wantedElements=array("sku","ean13")
+	 * 
+	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
+	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
+	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * 
+	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
+	 * 
+	 * @return 		string		$sparql	SPARQL Query
 	 */
 	function getProductModel($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		//define variable 
 		$sparql="";
 		
-		// At first check all possible errors
-		// 1) not empty input array?
+		///// Exception-Part: At first check all possible errors
+		
+		// 1) check Mode
+		$mode=GR4PHP_Exception::checkMode($mode);
+		
+		// 2) check Limit
+		$limit=GR4PHP_Exception::checkLimit($limit);
+		
+		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		
-		// 2) all input elments are allowed?
+		// 4) all input elments are allowed?
 		GR4PHP_Exception::isPossibleInputElementOfFunction($inputArray,"getProductModel");
 		
-		// 3) Control amount of elements and values (equal)
+		// 5) Control amount of elements and values (equal)
 		GR4PHP_Exception::isEqualElementAndValueAmount($inputArray);
 		
-		// 4) Control format of input values
+		// 6) Control format of input values
 		GR4PHP_Exception::isCorrectValueForInputElement($inputArray);
 		
-		// 5) Control length of values in input Array 
+		// 7) Control length of values in input Array 
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
-		// 6) Correct length of some gr-values (only in strict mode.)
+		// 8) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
-		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		// 6) Check the SELECT elements (only by using a specific SELECT-part)
 		if (is_array($wantedElements)){
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getProductModel");
 		}
 		
-		// No error! The query building begins
+		///// Ontologies-Part (PREFIX)
+		
 		// get Ontologies for getProductModelInfo
 		$ontologies=GR4PHP_Template::getPrefixByFunction("getProductModel");
 		
@@ -268,6 +335,8 @@ class GR4PHP{
 			$sparql.=$prefix." ";
 		}
 		}
+		
+		///// SELECT-Part
 		
 		// get SELECT-part of getProductModelInfo
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getProductModel");
@@ -286,6 +355,8 @@ class GR4PHP{
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
+		///// WHERE-Part
+		
 		$deleteOptionalInput=array(); 
 
 		// set WHERE-part of query
@@ -300,6 +371,8 @@ class GR4PHP{
 		
 		$sparql.=" ?x a gr:ProductOrServiceModel. ";
 
+		///// OPTIONAL-Part
+		
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getProductModel");
 		
@@ -312,6 +385,8 @@ class GR4PHP{
 			}
 		}
 		
+		/////LIMIT-Part
+		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
 		
@@ -320,44 +395,66 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return SPARQL Query for gr:getOffers
-	 * @param Input Array with search elements
-	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
-	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 20 --> see configuration.php)
-	 * @return SPARQL Query
+	 * Return SPARQL Query for gr:ProductModelInfo
+	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: ean13, gtin14, title, sku, manufacturer,
+	 * validThrough, validFrom, maxPrice, currency, acceptedPaymentMethod, businessFunction, minWarrantyInMonths, eligibleCustomerTypes,
+	 * eligibleRegions, availabilityStarts, availabilityAtOrFrom (see example 1)
+	 * @example example 1: $inputArray=array("ean13"=>"value1","title"=>value2)
+	 * 
+	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
+	 * Allowed elements are: ean13, gtin, sku, manufacturer, businessFunction, acceptedPaymentMethod, price, currency,
+	 * eligibleRegions, eligibleCustomerTypes, minValue, validFrom, validThrough, description, availableAtOrFrom, availabilityStarts,
+	 * availabilityEnds, availableDeliveryMethods, minWarrantyInMonths, paymentCurrency, paymentCurrencyValue, paymentTaxIncluded,
+	 * deliveryRegion, deliveryCurrency, deliveryCurrencyValue, deliveryTaxIncluded (see example 2)
+	 * @example example 2: $wantedElements=array("sku","ean13")
+	 * 
+	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
+	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
+	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * 
+	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
+	 * 
+	 * @return 		string		$sparql	SPARQL Query
 	 */
 	function getOffers($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		//define variable 
 		$sparql="";
+
+		///// Exception-Part: At first check all possible errors
 		
-		// At first check all possible errors
-		// 1) not empty input array?
+		// 1) check Mode
+		$mode=GR4PHP_Exception::checkMode($mode);
+		
+		// 2) check Limit
+		$limit=GR4PHP_Exception::checkLimit($limit);
+		
+		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		
-		// 2) all input elments are allowed?
+		// 4) all input elments are allowed?
 		GR4PHP_Exception::isPossibleInputElementOfFunction($inputArray,"getOffers");
 		
-		// 3) Control amount of elements and values (equal)
+		// 5) Control amount of elements and values (equal)
 		GR4PHP_Exception::isEqualElementAndValueAmount($inputArray);
 		
-		// 4) Control format of input values
+		// 6) Control format of input values
 		GR4PHP_Exception::isCorrectValueForInputElement($inputArray);
 		
-		// 5) Control length of values in input Array 
+		// 7) Control length of values in input Array 
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
-		// 6) Correct length of some gr-values (only in strict mode.)
+		// 8) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
-		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		// 9) Check the SELECT elements (only by using a specific SELECT-part)
 		if (is_array($wantedElements)){
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getOffers");
 		}
 		
-		// No error! The query building begins
+		///// Ontologies-Part (PREFIX)
+		
 		// get Ontologies for getOffers
 		$ontologies=GR4PHP_Template::getPrefixByFunction("getOffers");
 		
@@ -367,6 +464,8 @@ class GR4PHP{
 			$sparql.=$prefix." ";
 		}
 		}
+		
+		///// SELECT-Part
 		
 		// get SELECT-part of getOffers
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getOffers");
@@ -385,6 +484,8 @@ class GR4PHP{
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
+		///// WHERE-Part
+		
 		$deleteOptionalInput=array();
 
 		// set WHERE-part of query
@@ -398,6 +499,8 @@ class GR4PHP{
 		}
 		$sparql.=" ?offering a gr:Offering. ";
 		
+		///// OPTIONAL-Part
+		
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getOffers");
 		
@@ -410,6 +513,8 @@ class GR4PHP{
 			}
 		}
 		
+		/////LIMIT-Part
+		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
 		
@@ -418,45 +523,64 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return SPARQL Query for all opening hours of the store
-	 * @param Input Array with search elements
-	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
-	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 20 --> see configuration.php)
-	 * @return SPARQL Query
+	 * Return SPARQL Query for gr:LocationOfSalesOrServiceProvisioning
+	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: gln, title (see example 1)
+	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+	 * 
+	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
+	 * Allowed elements are: openMonday, closeMonday, openTuesday, closeTuesday, openWednesday, closeWednesday, openThursday,
+	 * closeThursday, openFriday, closeFriday, openSaturday, closeSaturday, openSunday, closeSunday (see example 2)
+	 * @example example 2: $wantedElements=array("openMonday","closeMonday")
+	 * 
+	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
+	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
+	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * 
+	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
+	 * 
+	 * @return 		string		$sparql	SPARQL Query
 	 */
 	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		//define variable 
 		$sparql="";
+
+		///// Exception-Part: At first check all possible errors
 		
-		// At first check all possible errors
-		// 1) not empty input array?
+		// 1) check Mode
+		$mode=GR4PHP_Exception::checkMode($mode);
+		
+		// 2) check Limit
+		$limit=GR4PHP_Exception::checkLimit($limit);
+		
+		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		
-		// 2) all input elments are allowed?
+		// 4) all input elments are allowed?
 		GR4PHP_Exception::isPossibleInputElementOfFunction($inputArray,"getOpeningHours");
 		
-		// 3) Control amount of elements and values (equal)
+		// 5) Control amount of elements and values (equal)
 		GR4PHP_Exception::isEqualElementAndValueAmount($inputArray);
 		
-		// 4) Control format of input values
+		// 6) Control format of input values
 		GR4PHP_Exception::isCorrectValueForInputElement($inputArray);
 		
-		// 5) Control length of values in input Array 
+		// 7) Control length of values in input Array 
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
-		// 6) Correct length of some gr-values (only in strict mode.)
+		// 8) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
-		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		// 9) Check the SELECT elements (only by using a specific SELECT-part)
 		if (is_array($wantedElements)){
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getOpeningHours");
 		}
 		
 		// No error! The query building begins
 		$dayArray=array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
+		
+		///// SELECT-Part
 		
 		// get SELECT-part of getOffers
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getOpeningHours");
@@ -474,7 +598,9 @@ class GR4PHP{
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
-			
+
+		///// WHERE-Part
+		
 		$deleteOptionalInput=array();
 		// set WHERE-part of query
 		//cut the length of certain elements (here: gln)
@@ -489,6 +615,8 @@ class GR4PHP{
 			
 		$sparql.= "?x a gr:LocationOfSalesOrServiceProvisioning. ?x gr:hasOpeningHoursSpecification ?spec. ";
 
+		///// OPTIONAL-Part
+		
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getOpeningHours");
 		
@@ -501,61 +629,82 @@ class GR4PHP{
 			}
 		}
 		
+		/////LIMIT-Part
+		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
 		
 		return self::connectGR4PHP($sparql,"getOpeningHours");	
 	}
 	
-/**
+	/**
 	 *
-	 * Return SPARQL Query for all stores close to the given distance
-	 * @param Input Array that contains gln, long, lat and distance
-	 * @param Select Array (Which elements should be shown?) Default: All elements of the function
-	 * @param Mode (strict || lax)
-	 * @param Result-Limit (Default: 20 --> see configuration.php)
-	 * @return SPARQL Query
+	 * Return SPARQL Query for stores near by...
+	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: gln, title (see example 1)
+	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+	 * 
+	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
+	 * Allowed elements are: gln, geo (see example 2)
+	 * @example example 2: $wantedElements=array("gln","geo")
+	 * 
+	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
+	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
+	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * 
+	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
+	 * 
+	 * @return 		string		$sparql	SPARQL Query
 	 */
 	function getLocation($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
 		//define variable 
 		$sparql="";
+
+		///// Exception-Part: At first check all possible errors
 		
-		// At first check all possible errors
-		// 1) not empty input array?
+		// 1) check Mode
+		$mode=GR4PHP_Exception::checkMode($mode);
+		
+		// 2) check Limit
+		$limit=GR4PHP_Exception::checkLimit($limit);
+		
+		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		
-		// 2) all input elments are allowed?
+		// 4) all input elments are allowed?
 		GR4PHP_Exception::isPossibleInputElementOfFunction($inputArray,"getLocation");
 		
-		// 3) Control amount of elements and values (equal)
+		// 5) Control amount of elements and values (equal)
 		GR4PHP_Exception::isEqualElementAndValueAmount($inputArray);
 		
-		// 4) Control format of input values
+		// 6) Control format of input values
 		GR4PHP_Exception::isCorrectValueForInputElement($inputArray);
 		
-		//5 ) Control length of values in input Array 
+		// 7) Control length of values in input Array 
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
-		// 6) Correct length of some gr-values (only in strict mode.)
+		// 8) Correct length of some gr-values (only in strict mode.)
 		if ($mode==GR4PHP_Configuration::Mode_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
-		// 7) Check the SELECT elements (only by using a specific SELECT-part)
+		// 9) Check the SELECT elements (only by using a specific SELECT-part)
 		if (is_array($wantedElements)){
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,"getLocation");
 		}
 		
 		// No error! The query building begins; 
+		// default: latitude and longitude of Munich!
 		if (empty($inputArray['geo']['distance'])){
 			$inputArray['geo']['distance']=100;
 		}
 		if (empty($inputArray['geo']['lat'])){
-			$inputArray['geo']['lat']=0;
+			$inputArray['geo']['lat']=11.87455;
 		}
 		if (empty($inputArray['geo']['long'])){
-			$inputArray['geo']['long']=70;
+			$inputArray['geo']['long']=48.13155;
 		}
+		
+		///// SELECT-Part
 		
 		// get SELECT-part of getOffers
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction("getLocation");
@@ -574,6 +723,8 @@ class GR4PHP{
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 		
+		///// WHERE-Part
+		
 		$deleteOptionalInput=array();
 
 		// set WHERE-part of query
@@ -586,10 +737,12 @@ class GR4PHP{
 					$deleteOptionalInput[]=$column;
 				}
 		}
-		//TO-DO
+		
 		$sparql.= " ?x a gr:LocationOfSalesOrServiceProvisioning.";
 		
-	//Optional-Values
+		///// OPTIONAL-Part
+		
+		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getLocation");
 		
 		foreach($outputValues as $aloneOutput => $output){
@@ -601,6 +754,8 @@ class GR4PHP{
 			}
 		}
 		
+		/////LIMIT-Part
+		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
 
@@ -609,10 +764,10 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return result array of query
-	 * @param SPARQL Query
-	 * @param Function
-	 * @return result array
+	 * Send Query to endpoint and give result back
+	 * @param 		string		$query SPARQL Query
+	 * @param 		string		$function Function
+	 * @return 		array		$resultArray Result array
 	 */
 	function connectGR4PHP($query,$function){
 		
@@ -627,9 +782,9 @@ class GR4PHP{
 	/**
 	 *
 	 * Return URL with SPARQL Query (converted for HTTP GET)
-	 * @param SPARQL Query
-	 * @param result format(here: json)
-	 * @return URL
+	 * @param 		string		$query SPARQL Query
+	 * @param 		string		$result_format Result format(here: json)
+	 * @return 		string		$url	Complete URL
 	 */
 	function buildURL($query, $result_format){
     	$url = $this->endpoint."?default-graph-uri=&should-sponge=&query=".str_replace("%26", "&", str_replace("%29", ")", str_replace("%28", "(", str_replace("%7D", "}",str_replace("%7B", "{", str_replace("%3B", ";", str_replace("%26amp%3B", "&", urlencode($query))))))));; // \" to "
@@ -641,8 +796,8 @@ class GR4PHP{
 	/**
 	 *
 	 * Response of HTTP GET
-	 * @param URL
-	 * @return HTTP GET Response 
+	 * @param 		string		$url	URL
+	 * @return 		string		HTTP GET Response 
 	 */
 	function httpGet($url)
 	{
@@ -687,10 +842,10 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return Result query as Array
-	 * @param HTTP GET Result
-	 * @param GR function
-	 * @return Result array
+	 * Return result as Array
+	 * @param 		string		$httpResult HTTP GET Result
+	 * @param 		string		$sparqlQuery Function gr function
+	 * @return 		array		$resultArray Result array
 	 */
 	function getResultArray($httpResult, $sparqlQueryFunction){
 		$httpResultArray = json_decode($httpResult, true);
