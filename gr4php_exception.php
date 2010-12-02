@@ -1,8 +1,14 @@
 <?php
 /**
- * --- GEFSA (GoodRelations Extractor For SPARQL API) ---
+ * --- GR4PHP (GoodRelations FOR PHP) ---
  * This class has all error messages.
  * 
+ * @author	Martin Anding, Stefan Dietrich (Students at Universität der Bundeswehr München)
+ * 			API is a result of a study project in "GoodRelations" in the year of 2010.
+ * 			This work is based on the GoodRelations ontology, developed by Martin Hepp.
+ * @link    http://purl.org/goodrelations/
+ * @license GNU LESSER GENERAL PUBLIC LICENSE
+ * @version 1.0
  */
 
 include_once 'gr4php_template.php';

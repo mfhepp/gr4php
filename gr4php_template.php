@@ -1,9 +1,16 @@
 <?php
 /**
-* --- GEFSA (GoodRelations Extractor For SPARQL API) ---
+* --- GR4PHP (GoodRelations FOR PHP) ---
 * All function directions, that are used to create the SPARQL-Query can you find in this class.
 * To add new values for a function you have to upgrade the private attributes in this class.
-*/ 
+* 
+* @author	Martin Anding, Stefan Dietrich (Students at Universität der Bundeswehr München )
+* 			API is a result of a study project in "GoodRelations" in the year of 2010.
+* 			This work is based on the GoodRelations ontology, developed by Martin Hepp.
+* @link    http://purl.org/goodrelations/
+* @license GNU LESSER GENERAL PUBLIC LICENSE
+* @version 1.0
+*/
 include_once 'gr4php_general.php';
 
 class GR4PHP_Template{
