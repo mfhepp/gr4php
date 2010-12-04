@@ -17,7 +17,7 @@ set_time_limit(60);
 
 if (empty($_GET["array1"])){$default1="gln";} else {$default1=$_POST["array1"];}
 if (empty($_GET["array2"])){ $default2="12345";} else {$default2=$_POST["array2"];}
-if (empty($_GET["array3"])){ $default3="";} else {$default3=$_POST["array3"];}
+if (empty($_GET["array3"])){ $default3="gln,title";} else {$default3=$_POST["array3"];}
 if (empty($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
 if (empty($_GET["mode"])){ $mode=GR4PHP_Configuration::Mode_LAX;} else {$mode=$_POST["mode"];}
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
@@ -79,8 +79,10 @@ Values of array:&nbsp;
 <input  name="array2" size="50" type="text" value="<?php echo $default2;?>"/>
 <br />
 <br />
-Which elements would you see?:&nbsp;
+Which elements would you like to see?:&nbsp;
 <input  name="array3" size="50" type="text" value="<?php echo $default3;?>"/>
+<br />
+Possible SELECT-elements are:&nbsp; <?php echo str_replace("?","",getArray2String(array_merge((array)GR4PHP_Template::getSelectPartsByFunction("general"),(array)GR4PHP_Template::getSelectPartsByFunction($_POST["function"])))); ?>
 <br />
 <br />
 Result limit:&nbsp;
@@ -91,7 +93,7 @@ Result limit:&nbsp;
 
 <hr></hr>
 <?php 
-if (isset($_GET["array1"]) && isset($_GET["array2"])){
+if (isset($_GET["array1"]) && isset($_GET["array2"])&& isset($_GET["array3"])){
 
 if (isset($_POST["functionChance"])){
 	if (count(getString2Array(stripslashes($_POST["array1"])))!= count(getString2Array(stripslashes($_POST["array2"])))){
@@ -102,7 +104,14 @@ if (isset($_POST["functionChance"])){
 	echo "<b>Selected function: </b><i>".$_POST["function"]."</i>";
 	echo '<br /><br />';
 	//ToDo
-	$wantedElements=getString2Array(stripslashes($_POST["array3"]));
+	if (empty($_POST["array3"])){
+		$wantedElements=NULL;
+	}
+	else{
+		$wantedElements=getString2Array(stripslashes($_POST["array3"]));
+	}
+	
+	
 ?>
 <b>Given Array:&nbsp; </b><i><?php print_r($inputArray)?></i>
 <br />
@@ -118,7 +127,7 @@ if (empty($function)){
 	$function="getStore";	
 }
 
-$resultArray=(array)getFunction($endpoint,$function,$inputArray,$wantedElements=NULL,$mode,$limit);
+$resultArray=(array)getFunction($endpoint,$function,$inputArray,$wantedElements,$mode,$limit);
 
 echo "<center><b>---- Query ----- </b></center> <br />";
 
@@ -135,6 +144,9 @@ $selctPartComplete=array_merge($selectPartDefault,$selectPartspec);
 
 echo "<center><table border='1'>";
 echo "<tr>";
+if ($wantedElements!=NULL){
+$selctPartComplete=getWantedElements($wantedElements,$selctPartComplete);
+}
 foreach($selctPartComplete as $spc){
 				echo "<th>". str_replace("?", "", $spc)."</th>" ;
 			}	

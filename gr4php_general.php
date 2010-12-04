@@ -79,12 +79,13 @@ function getDateByValue($value){
  * An array of elements, which should be shown 
  * @param 		array		$wantedElements Array with wanted elements
  * @param 		string		$possibleElements Array of all possible elements which are given by function
+ * @param 		string		$char Char for an element
  * @return 		array		$resultArray Array of all wanted elements
  */
-function getWantedElements($wantedElements,$possibleElements){
+function getWantedElements($wantedElements,$possibleElements,$char="?"){
 	$resultArray=array();
 	foreach ($wantedElements as $ownElement){
-		if (in_array("?".$ownElement,$possibleElements)){
+		if (in_array($char.$ownElement,$possibleElements)){
 			$resultArray[]="?".$ownElement;
 		}
 	}
