@@ -20,17 +20,23 @@ if (empty($_GET["array2"])){ $default2="12345";} else {$default2=$_POST["array2"
 if (empty($_GET["array3"])){ $default3="gln,title";} else {$default3=$_POST["array3"];}
 if (empty($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
 if (empty($_GET["mode"])){ $mode=GR4PHP_Configuration::Mode_LAX;} else {$mode=$_POST["mode"];}
+if (empty($_POST["array3"])){$wantedElements=NULL;} else{$wantedElements=getString2Array(stripslashes($_POST["array3"]));}
+$endpoint=$_POST["endpoint"];
+if (empty($endpoint)){$endpoint=GR4PHP_Configuration::Endpoint_URIBURNER;}
+$function=$_POST["function"];
+if (empty($function)){$function="getStore";}
+
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
 $arrayEndpoint=array(GR4PHP_Configuration::Endpoint_URIBURNER,GR4PHP_Configuration::Endpoint_LDURIBURNER,GR4PHP_Configuration::Endpoint_LOC,GR4PHP_Configuration::Endpoint_LOD);
 $arrayMode=array(GR4PHP_Configuration::Mode_LAX,GR4PHP_Configuration::Mode_STRICT);
 
 //First DropDown -Enpoint-
 echo "Select an endpoint:&nbsp;";
-echo '<select style="width:169px;" name="enpoint">'."\n";
+echo '<select style="width:169px;" name="endpoint">'."\n";
 $str="";
 foreach($arrayEndpoint as $part){
 $str.='<option value="'.$part.'" ';
-if ($part==$_POST["endpoint"]){
+if ($part==$endpoint){
 	$str.='selected';
 }
 $str.='>'.$part.'</option>'."\n";
@@ -45,7 +51,7 @@ echo '<select style="width:169px;" name="function">'."\n";
 $str="";
 foreach($arrayfunktion as $part){
 $str.='<option value="'.$part.'" ';
-if ($part==$_POST["Function"]){
+if ($part==$function){
 	$str.='selected';
 }
 $str.='>'.$part.'</option>'."\n";
@@ -60,7 +66,7 @@ echo '<select style="width:169px;" name="mode">'."\n";
 $str="";
 foreach($arrayMode as $part){
 $str.='<option value="'.$part.'" ';
-if ($part==$_POST["mode"]){
+if ($part==$mode){
 	$str.='selected';
 }
 $str.='>'.$part.'</option>'."\n";
@@ -71,18 +77,16 @@ echo "<br /><br />";
 ?>
 Keys of array:&nbsp;
 <input  name="array1" size="50" type="text" value="<?php echo $default1;?>"/>
-<br />
-Possible keys:&nbsp; <?php echo getArray2String(GR4PHP_Template::possibleInputValuesByFunction($_POST["function"])); ?>
-<br />
-<br />
 Values of array:&nbsp;
 <input  name="array2" size="50" type="text" value="<?php echo $default2;?>"/>
+<br />
+<i>Possible keys:&nbsp; <?php echo getArray2String(GR4PHP_Template::possibleInputValuesByFunction($function));?></i>
 <br />
 <br />
 Which elements would you like to see?:&nbsp;
 <input  name="array3" size="50" type="text" value="<?php echo $default3;?>"/>
 <br />
-Possible SELECT-elements are:&nbsp; <?php echo str_replace("?","",getArray2String(array_merge((array)GR4PHP_Template::getSelectPartsByFunction("general"),(array)GR4PHP_Template::getSelectPartsByFunction($_POST["function"])))); ?>
+<i>Possible SELECT-elements are:&nbsp; <?php echo str_replace("?","",getArray2String(array_merge((array)GR4PHP_Template::getSelectPartsByFunction("general"),(array)GR4PHP_Template::getSelectPartsByFunction($function))));?></i>
 <br />
 <br />
 Result limit:&nbsp;
@@ -101,31 +105,18 @@ if (isset($_POST["functionChance"])){
 		exit;
 	}
 	$inputArray=array_combine(getString2Array(stripslashes($_POST["array1"])),getString2Array(stripslashes($_POST["array2"])));
-	echo "<b>Selected function: </b><i>".$_POST["function"]."</i>";
-	echo '<br /><br />';
-	//ToDo
-	if (empty($_POST["array3"])){
-		$wantedElements=NULL;
-	}
-	else{
-		$wantedElements=getString2Array(stripslashes($_POST["array3"]));
-	}
-	
-	
 ?>
-<b>Given Array:&nbsp; </b><i><?php print_r($inputArray)?></i>
-<br />
-
+<b>Selected Endpoint: </b><i><?php echo $endpoint;?></i>
+<br /><br />
+<b>Selected Function: </b><i><?php echo $function;?></i>
+<br /><br />
+<b>Selected Array:&nbsp; </b><i><?php print_r($inputArray)?></i>
+<br /><br />
+<b>Selected Elements:&nbsp; </b><i><?php print_r($wantedElements)?></i>
+<br /><br />
 <?php 
 }
-$endpoint=$_POST["endpoint"];
-if (empty($endpoint)){
-	$endpoint=GR4PHP_Configuration::Endpoint_URIBURNER;
-}
-$function=$_POST["function"];
-if (empty($function)){
-	$function="getStore";	
-}
+
 
 $resultArray=(array)getFunction($endpoint,$function,$inputArray,$wantedElements,$mode,$limit);
 

@@ -232,10 +232,10 @@ class GR4PHP_Template{
 	// "general"=> all functions use it!
 	private static $possibleSelectParts=array(
 						"general"=>array(
+									"?x",
 									"?title"
 									),
 						"getStore"=>array(
-									"?x",
 									"?gln",
 									"?street",
 									"?post",
@@ -249,7 +249,6 @@ class GR4PHP_Template{
 									"?closeTime"
 									),
 						"getCompany"=>array(
-									"?x",
 									"?gln",
 									"?name", 
 									"?duns",
@@ -265,7 +264,6 @@ class GR4PHP_Template{
 									"?lat"
 									),
 						"getProductModel"=>array(
-										"?x",
 										"?sku",
 										"?ean13",
 										"?gtin",
@@ -281,7 +279,6 @@ class GR4PHP_Template{
 										//"?accessory"
 									),
 						"getOffers"=>array(
-									"?x",
 									"?ean13",
 									"?gtin",
 									"?sku",
@@ -310,7 +307,6 @@ class GR4PHP_Template{
 								 	"?deliveryTaxIncluded"
 									),
 						"getOpeningHours"=>array(
-									"?x",
 									"?openMonday",
 									"?closeMonday",
 									"?openTuesday",
@@ -327,7 +323,6 @@ class GR4PHP_Template{
 									"?closeSunday"
 									),
 						"getLocation"=>array(
-									"?x",
 									"?gln",
 									"?geo"
 									)

@@ -35,7 +35,7 @@ function getString2Array($string,$zeichen=","){
  */
 function getArray2String($array){
 	
-		foreach ($array as $content){
+		foreach ((array)$array as $content){
     		$str.=$content.",";
 		}
 		
@@ -64,7 +64,7 @@ function getDateByValue($value){
  function isLengthOfElementRight($inputArray){
 		$elementLength=GR4PHP_Template::checkLengthOfElements();
 		$resultArray=$inputArray;
-			foreach ($inputArray as $element=>$value) {
+			foreach ((array)$inputArray as $element=>$value) {
 					if (array_key_exists($element, $elementLength)){
 						if (strlen($value)>$elementLength[$element]){
 							$resultArray[$element]=substr($value,0,$elementLength[$element]);
@@ -84,7 +84,7 @@ function getDateByValue($value){
  */
 function getWantedElements($wantedElements,$possibleElements,$char="?"){
 	$resultArray=array();
-	foreach ($wantedElements as $ownElement){
+	foreach ((array)$wantedElements as $ownElement){
 		if (in_array($char.$ownElement,$possibleElements)){
 			$resultArray[]="?".$ownElement;
 		}
