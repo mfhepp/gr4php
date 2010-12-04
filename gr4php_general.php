@@ -24,7 +24,7 @@ function getString2Array($string,$zeichen=","){
 	
 	$arrayOfStrings=explode($zeichen, $string);
 	
-	return $arrayOfStrings; 
+	return (array)$arrayOfStrings; 
 }
 
 /**

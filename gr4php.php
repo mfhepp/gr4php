@@ -19,6 +19,8 @@ class GR4PHP{
 	
 	private $endpoint;
 	private $timeout;
+	private $sparqlQuery;
+	private $url;
 	
 	// Constructor of Class
 	public function __construct($endpoint=GR4PHP_Configuration::Endpoint_URIBURNER,$timeout=10000){
@@ -87,7 +89,7 @@ class GR4PHP{
 		//add Ontologies to query
 		if(!empty($ontologies)){
 		foreach($ontologies as $ontologie => $prefix){
-			$sparql.=$prefix." ";
+			$sparql.=$prefix." "."\n";
 		}
 		}
 		
@@ -271,7 +273,7 @@ class GR4PHP{
 		
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
-
+		
 		return self::connectGR4PHP($sparql,"getCompany");
 	}
 	
@@ -776,12 +778,12 @@ class GR4PHP{
 	 * @return 		array		$resultArray Result array
 	 */
 	function connectGR4PHP($query,$function){
-		
+		$url="";
+		$this->sparqlQuery=$query;		
 		$url = self::buildURL($query, "json");
 		$result = self::httpGet($url);
 		$resultArray = self::getResultArray($result, $function);
-		echo htmlentities($query)."<br />";
-		echo $url."<br />";
+		$this->url=$url;
 		return $resultArray;
 	}
 	
@@ -793,9 +795,10 @@ class GR4PHP{
 	 * @return 		string		$url	Complete URL
 	 */
 	function buildURL($query, $result_format){
-    	$url = $this->endpoint."?default-graph-uri=&should-sponge=&query=".str_replace("%26", "&", str_replace("%29", ")", str_replace("%28", "(", str_replace("%7D", "}",str_replace("%7B", "{", str_replace("%3B", ";", str_replace("%26amp%3B", "&", urlencode($query))))))));; // \" to "
-    	$url = $url."&format=".$result_format;
-    	$url = $url."&timeout=".$this->timeout;
+    	$url="";
+		$url .= $this->endpoint."?default-graph-uri=&should-sponge=&query=".str_replace("%26", "&", str_replace("%29", ")", str_replace("%28", "(", str_replace("%7D", "}",str_replace("%7B", "{", str_replace("%3B", ";", str_replace("%26amp%3B", "&", urlencode($query))))))));; // \" to "
+    	$url .= "&format=".$result_format;
+    	$url .= "&timeout=".$this->timeout;
     	return $url;
 	}
 	
@@ -872,5 +875,23 @@ class GR4PHP{
 		}
 		return $resultArray;
 
+	}
+	
+	/**
+	 *
+	 * Return SPARQL Query
+	 * @return 		string		SPARQL QUERY
+	 */
+	function getSparqlQuery(){
+		return htmlentities($this->sparqlQuery);
+	}
+	
+	/**
+	 *
+	 * Return URL for endpoint
+	 * @return 		string		URL
+	 */
+	function getCompleteURL(){
+		return $this->url;
 	}
 }
