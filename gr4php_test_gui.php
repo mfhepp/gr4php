@@ -5,6 +5,17 @@
 </head> 
 <body>
 <?php
+/**
+ * --- GR4PHP (GoodRelations FOR PHP) ---
+ * A GUI to test GR4PHP. 
+ * 
+ * @author	Martin Anding, Stefan Dietrich (University of German Armed Forces Munich)
+ * 			API is a result of a study project in "GoodRelations" in the year of 2010.
+ * 			This work is based on the GoodRelations ontology, developed by Martin Hepp.
+ * @link    http://purl.org/goodrelations/
+ * @license GNU LESSER GENERAL PUBLIC LICENSE
+ * @version 1.0
+ */
 include_once 'gr4php.php';
 include_once 'gr4php_configuration.php';
 include_once 'gr4php_general.php';

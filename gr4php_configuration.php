@@ -1,9 +1,9 @@
 <?php
 /**
  * --- GR4PHP (GoodRelations FOR PHP) ---
- * This class has all configuration infos of the API
+ * This class has all configuration attributes of the API
  * 
- * @author	Martin Anding, Stefan Dietrich (Students at Universität der Bundeswehr München)
+ * @author	Martin Anding, Stefan Dietrich (University of German Armed Forces Munich)
  * 			API is a result of a study project in "GoodRelations" in the year of 2010.
  * 			This work is based on the GoodRelations ontology, developed by Martin Hepp.
  * @link    http://purl.org/goodrelations/
