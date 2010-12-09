@@ -36,7 +36,7 @@ class GR4PHP_Template{
 									?spec gr:opens ?openTime.FILTER (?openTime < "," \"","time","\" "," ^^xsd:time)."),
 						"sku"=>array("?x gr:hasStockKeepingUnit ?sku . ?sku bif:contains '\"","value","*\"' ."),
 						"ean13"=>array("?x gr:hasEAN_UCC-13  ?ean13. ?ean13 bif:contains '\"","value","*\"' ."),
-						"gtin"=>array("?x gr:hasGTIN-14 ?gtin. ?gtin bif:contains '\"","value","*\"' ."),
+						"gtin14"=>array("?x gr:hasGTIN-14 ?gtin14. ?gtin14 bif:contains '\"","value","*\"' ."),
 						"manufacturer"=>array("?x gr:hasManufacturer ?manufacturer. ?manufacturer bif:contains '\"","value","*\"' ."),
 						// because of the minimal using..some elements of GR arent in use (at the moment!)
 						//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
@@ -79,7 +79,7 @@ class GR4PHP_Template{
 									?spec gr:opens ?openTime.FILTER (?openTime < "," \"","time","\" "," ^^xsd:time)."),
 						"sku"=>array("?x gr:hasStockKeepingUnit \"","value","\"^^xsd:string."),
 						"ean13"=>array("?x gr:hasEAN_UCC-13  \"","value","\"^^xsd:string."),
-						"gtin"=>array("?x gr:hasGTIN-14 ?gtin. ?gtin bif:contains '\"","value","*\"' ."),
+						"gtin14"=>array("?x gr:hasGTIN-14 ?gtin14 \"","value","\"^^xsd:string."),
 						"manufacturer"=>array("?x gr:hasManufacturer \"","value","\"."),
 						// because of the minimal using..some elements of GR arent in use (at the moment!)
 						//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
@@ -467,7 +467,7 @@ class GR4PHP_Template{
 	 */ 
 	static function getInputValues($mode,$column,$value){
 
-		foreach (self::$possibleInputValues[$mode][$column] as $part){
+		foreach ((array)self::$possibleInputValues[$mode][$column] as $part){
 			
 			if ($part=="value"){
 				$sparql.=$value;
@@ -497,7 +497,7 @@ class GR4PHP_Template{
 	 */
 	static function getSpecialOutputValues($part){
 		$sparql="";
-				foreach (self::$specialOutputValues[$part] as $part){
+				foreach ((array)self::$specialOutputValues[$part] as $part){
 			if ($part=="day"){
 				$sparql.=getDateByValue($part);
 			}
@@ -534,7 +534,7 @@ class GR4PHP_Template{
 	 */
 	static function checkFormatOfInputValue($element){
 		$type=NULL;
-		foreach (self::$inputValueFormat as $formatGroup => $possibleArray){
+		foreach ((array)self::$inputValueFormat as $formatGroup => $possibleArray){
 			if (in_array($element,$possibleArray)){
 				$type=$formatGroup;
 				break;
