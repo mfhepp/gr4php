@@ -16,19 +16,19 @@
  * @license GNU LESSER GENERAL PUBLIC LICENSE
  * @version 1.0
  */
-include_once 'gr4php.php';
-include_once 'gr4php_configuration.php';
-include_once 'gr4php_general.php';
-include_once 'gr4php_template.php';
+include_once '../gr4php.php';
+include_once '../gr4php_configuration.php';
+include_once '../gr4php_general.php';
+include_once '../gr4php_template.php';
 
 set_time_limit(60);
 ?>
-<form method="post" action="gr4php_test_gui.php?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo $_POST["array3"];?>">
+<form method="post" action="gr4php_test_tool.php?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo $_POST["array3"];?>">
 <?php 
 
-if (empty($_GET["array1"])){$default1="gln";} else {$default1=$_POST["array1"];}
-if (empty($_GET["array2"])){ $default2="12345";} else {$default2=$_POST["array2"];}
-if (empty($_GET["array3"])){ $default3="gln,title";} else {$default3=$_POST["array3"];}
+if (empty($_GET["array1"])){$default1="title";} else {$default1=$_POST["array1"];}
+if (empty($_GET["array2"])){ $default2="computer";} else {$default2=$_POST["array2"];}
+if (empty($_GET["array3"])){ $default3="x,title";} else {$default3=$_POST["array3"];}
 if (empty($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
 if (empty($_GET["mode"])){ $mode=GR4PHP_Configuration::Mode_LAX;} else {$mode=$_POST["mode"];}
 if (empty($_POST["array3"])){$wantedElements=NULL;} else{$wantedElements=getString2Array(stripslashes($_POST["array3"]));}
@@ -131,37 +131,37 @@ if (isset($_POST["functionChance"])){
 
 $resultArray=(array)getFunction($endpoint,$function,$inputArray,$wantedElements,$mode,$limit);
 
-echo "<center><b>---- Query ----- </b></center> <br />";
+echo "<center><b>---- Query ----- </b></center> <br />"."\n";
 
 echo $resultArray[1];
 
-echo "<br /><br />";
+echo "<br /><br />"."\n";
 
-echo "<center><b>---- Result ----- </b></center> <br />";
+echo "<center><b>---- Result ----- </b></center> <br />"."\n";
 
 $selectPartspec=(array)GR4PHP_Template::getSelectPartsByFunction($_POST["function"]);
 $selectPartDefault=(array)GR4PHP_Template::getSelectPartsByFunction("general");
 $selctPartComplete=array_merge($selectPartDefault,$selectPartspec);
 
 
-echo "<center><table border='1'>";
-echo "<tr>";
+echo "<center><table border='1'>"."\n";
+echo "<tr>"."\n";
 if ($wantedElements!=NULL){
 $selctPartComplete=getWantedElements($wantedElements,$selctPartComplete);
 }
 foreach($selctPartComplete as $spc){
-				echo "<th>". str_replace("?", "", $spc)."</th>" ;
+				echo "<th>". str_replace("?", "", $spc)."</th>"."\n";
 			}	
 
-echo "</tr>";
+echo "</tr>"."\n";
 foreach((array)$resultArray[0] as $ar){
-	echo "<tr>";
+	echo "<tr>"."\n";
 	foreach($ar as $item){
-		echo "<td>". $item . "</td> ";
+		echo "<td>". $item . "</td> "."\n";
 	}
-	echo "</tr>";
+	echo "</tr>"."\n";
 }
-echo "</table></center>";
+echo "</table></center>"."\n";
 
 }
 ?>
@@ -169,6 +169,8 @@ echo "</table></center>";
 </body>
 </html>
 <?php 
+
+// function to find the wright gr-function 
 function getFunction($endpoint,$function,$inputArray,$wantedElements=NULL,$mode=NULL,$limit=20){
 	$gr4php=new GR4PHP($endpoint);
 	switch ($function){

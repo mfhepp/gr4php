@@ -13,8 +13,8 @@
  */
 
 // Requirements: the following two include tags
-include_once 'gr4php.php';
-include_once 'gr4php_configuration.php';
+include_once '../gr4php.php';
+include_once '../gr4php_configuration.php';
 
 // first instruction: Instantiation of GR4PHP-Class
 $gr4php=new GR4PHP(GR4PHP_Configuration::Endpoint_URIBURNER);
