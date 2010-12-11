@@ -1,7 +1,7 @@
 <?php
 /**
  * --- GR4PHP (GoodRelations FOR PHP) ---
- * This class contains all general functions of GR4PHP 
+ * This class contains all basic functions of GR4PHP 
  * 
  * @author	Martin Anding, Stefan Dietrich (University of German Armed Forces Munich)
  * 			API is a result of a study project in "GoodRelations" in the year of 2010.

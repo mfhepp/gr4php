@@ -7,7 +7,7 @@
 <?php
 /**
  * --- GR4PHP (GoodRelations FOR PHP) ---
- * A GUI to test GR4PHP. 
+ * A GUI to test GR4PHP API. 
  * 
  * @author	Martin Anding, Stefan Dietrich (University of German Armed Forces Munich)
  * 			API is a result of a study project in "GoodRelations" in the year of 2010.
@@ -23,15 +23,14 @@ include_once '../gr4php_template.php';
 
 set_time_limit(60);
 ?>
-<form method="post" action="gr4php_test_tool.php?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo $_POST["array3"];?>">
+<form method="post" action="gr4php_test_tool.php?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo trim($_POST["array3"]);?>">
 <?php 
-
-if (empty($_GET["array1"])){$default1="title";} else {$default1=$_POST["array1"];}
-if (empty($_GET["array2"])){ $default2="computer";} else {$default2=$_POST["array2"];}
-if (empty($_GET["array3"])){ $default3="x,title";} else {$default3=$_POST["array3"];}
-if (empty($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
+if (empty($_GET["array1"])){$default1="title";} else {$default1=trim($_POST["array1"]);}
+if (empty($_GET["array2"])){ $default2="Team EWS Ingenieure";} else {$default2=$_POST["array2"];}
+if (empty($_GET["array3"])){ $default3="x,title";} else {$default3=trim($_POST["array3"]);}
+if (empty($_GET["limit"]) || !is_int($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
 if (empty($_GET["mode"])){ $mode=GR4PHP_Configuration::Mode_LAX;} else {$mode=$_POST["mode"];}
-if (empty($_POST["array3"])){$wantedElements=NULL;} else{$wantedElements=getString2Array(stripslashes($_POST["array3"]));}
+if (empty($_POST["array3"])){$wantedElements=NULL;} else{$wantedElements=getString2Array(trim(stripslashes($_POST["array3"])));}
 $endpoint=$_POST["endpoint"];
 if (empty($endpoint)){$endpoint=GR4PHP_Configuration::Endpoint_URIBURNER;}
 $function=$_POST["function"];
@@ -141,18 +140,18 @@ echo "<center><b>---- Result ----- </b></center> <br />"."\n";
 
 $selectPartspec=(array)GR4PHP_Template::getSelectPartsByFunction($_POST["function"]);
 $selectPartDefault=(array)GR4PHP_Template::getSelectPartsByFunction("general");
-$selctPartComplete=array_merge($selectPartDefault,$selectPartspec);
+$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
 
 
 echo "<center><table border='1'>"."\n";
 echo "<tr>"."\n";
 if ($wantedElements!=NULL){
-$selctPartComplete=getWantedElements($wantedElements,$selctPartComplete);
+	
+$selectPartComplete=getWantedElements($wantedElements,$selectPartComplete);
 }
-foreach($selctPartComplete as $spc){
+foreach($selectPartComplete as $spc){
 				echo "<th>". str_replace("?", "", $spc)."</th>"."\n";
 			}	
-
 echo "</tr>"."\n";
 foreach((array)$resultArray[0] as $ar){
 	echo "<tr>"."\n";

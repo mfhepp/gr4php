@@ -21,6 +21,7 @@ class GR4PHP{
 	private $timeout;
 	private $sparqlQuery;
 	private $url;
+	private $selectedElements=FALSE;
 	
 	// Constructor of Class
 	public function __construct($endpoint=GR4PHP_Configuration::Endpoint_URIBURNER,$timeout=10000){
@@ -88,7 +89,7 @@ class GR4PHP{
 		
 		//add Ontologies to query
 		if(!empty($ontologies)){
-		foreach($ontologies as $ontologie => $prefix){
+		foreach((array)$ontologies as $ontologie => $prefix){
 			$sparql.=$prefix." "."\n";
 		}
 		}
@@ -109,6 +110,7 @@ class GR4PHP{
 		}
 		else{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+			$this->selectedElements=(array)$wantedElements;
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
@@ -120,7 +122,7 @@ class GR4PHP{
 			// set WHERE-part of query
 			//cut the length of certain elements (here: gln)
 			$inputArray=isLengthOfElementRight($inputArray);
-			foreach ($inputArray as $column => $value){
+			foreach ((array)$inputArray as $column => $value){
 				$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
 				if ($mode==GR4PHP_Configuration::Mode_LAX){
 					$deleteOptionalInput[]=$column;
@@ -134,7 +136,7 @@ class GR4PHP{
 		// get OPTIONAL-part of getStoreInfo (depend on input array)
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getStore");
 		
-		foreach($outputValues as $aloneOutput => $output){
+		foreach((array)$outputValues as $aloneOutput => $output){
 		
 		// set OPTIONAL-part
 		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
@@ -215,7 +217,7 @@ class GR4PHP{
 		
 		//add Ontologies to query
 		if(!empty($ontologies)){
-		foreach($ontologies as $ontologie => $prefix){
+		foreach((array)$ontologies as $ontologie => $prefix){
 			$sparql.=$prefix;
 		}
 		}
@@ -235,6 +237,7 @@ class GR4PHP{
 		}
 		else{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+			$this->selectedElements=(array)$wantedElements;
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
@@ -246,7 +249,7 @@ class GR4PHP{
 		// set WHERE-part of query
 		//cut the length of certain elements (here: gln)
 		$inputArray=isLengthOfElementRight($inputArray);
-		foreach ($inputArray as $column => $value){
+		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
 			if ($mode==GR4PHP_Configuration::Mode_LAX){
 					$deleteOptionalInput[]=$column;
@@ -260,7 +263,7 @@ class GR4PHP{
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getCompany");
 		
-		foreach($outputValues as $aloneOutput => $output){
+		foreach((array)$outputValues as $aloneOutput => $output){
 
 		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
@@ -339,7 +342,7 @@ class GR4PHP{
 		
 		//add Ontologies to query
 		if(!empty($ontologies)){
-		foreach($ontologies as $ontologie => $prefix){
+		foreach((array)$ontologies as $ontologie => $prefix){
 			$sparql.=$prefix." ";
 		}
 		}
@@ -359,6 +362,7 @@ class GR4PHP{
 		}
 		else{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+			$this->selectedElements=(array)$wantedElements;
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
@@ -370,7 +374,7 @@ class GR4PHP{
 		// set WHERE-part of query
 		//cut the length of certain elements (here: gln)
 		$inputArray=isLengthOfElementRight($inputArray);
-		foreach ($inputArray as $column => $value){
+		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
 			if ($mode==GR4PHP_Configuration::Mode_LAX){
 					$deleteOptionalInput[]=$column;
@@ -384,7 +388,7 @@ class GR4PHP{
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getProductModel");
 		
-		foreach($outputValues as $aloneOutput => $output){
+		foreach((array)$outputValues as $aloneOutput => $output){
 
 		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
@@ -468,7 +472,7 @@ class GR4PHP{
 		
 		//add Ontologies to query
 		if(!empty($ontologies)){
-		foreach($ontologies as $ontologie => $prefix){
+		foreach((array)$ontologies as $ontologie => $prefix){
 			$sparql.=$prefix." ";
 		}
 		}
@@ -488,6 +492,7 @@ class GR4PHP{
 		}
 		else{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+			$this->selectedElements=(array)$wantedElements;
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
@@ -499,7 +504,7 @@ class GR4PHP{
 		// set WHERE-part of query
 		//cut the length of certain elements (here: gln)
 		$inputArray=isLengthOfElementRight($inputArray);
-		foreach ($inputArray as $column => $value){
+		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
 			if ($mode==GR4PHP_Configuration::Mode_LAX){
 					$deleteOptionalInput[]=$column;
@@ -512,7 +517,7 @@ class GR4PHP{
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getOffers");
 		
-		foreach($outputValues as $aloneOutput => $output){
+		foreach((array)$outputValues as $aloneOutput => $output){
 		
 		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
@@ -603,6 +608,7 @@ class GR4PHP{
 		}
 		else{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+			$this->selectedElements=(array)$wantedElements;
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
@@ -613,7 +619,7 @@ class GR4PHP{
 		// set WHERE-part of query
 		//cut the length of certain elements (here: gln)
 		$inputArray=isLengthOfElementRight($inputArray);
-		foreach ($inputArray as $column => $value){
+		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
 			if ($mode==GR4PHP_Configuration::Mode_LAX){
 					$deleteOptionalInput[]=$column;
@@ -628,7 +634,7 @@ class GR4PHP{
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getOpeningHours");
 		
-		foreach($outputValues as $aloneOutput => $output){
+		foreach((array)$outputValues as $aloneOutput => $output){
 		
 		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
@@ -727,6 +733,7 @@ class GR4PHP{
 		}
 		else{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
+			$this->selectedElements=(array)$wantedElements;
 		}
 		
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
@@ -739,7 +746,7 @@ class GR4PHP{
 		//cut the length of certain elements (here: gln)
 		$inputArray=isLengthOfElementRight($inputArray);
 
-		foreach ($inputArray as $column => $value){
+		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
 			if ($mode==GR4PHP_Configuration::Mode_LAX){
 					$deleteOptionalInput[]=$column;
@@ -753,7 +760,7 @@ class GR4PHP{
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getLocation");
 		
-		foreach($outputValues as $aloneOutput => $output){
+		foreach((array)$outputValues as $aloneOutput => $output){
 		
 		if (!in_array($aloneOutput , $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 			if ($aloneOutput=="openTime"){
@@ -782,7 +789,7 @@ class GR4PHP{
 		$this->sparqlQuery=$query;		
 		$url = self::buildURL($query, "json");
 		$result = self::httpGet($url);
-		$resultArray = self::getResultArray($result, $function);
+		$resultArray = (array)self::getResultArray($result, $function);
 		$this->url=$url;
 		return $resultArray;
 	}
@@ -862,19 +869,23 @@ class GR4PHP{
 		
 		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction($sparqlQueryFunction);
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
-		$selctPartComplete=array_merge($selectPartDefault,$selectPartspec);
+		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
+		//get only wanted Elements
+		if ($this->selectedElements==FALSE){}
+		else{
+			$selectPartComplete=getWantedElements((array)$this->selectedElements,$selectPartComplete);
+		}
 		
 		$elemArray = array();
 		$resultArray = array();
-		foreach($ra as $elem) {
-			foreach($selctPartComplete as $spc){
+		foreach((array)$ra as $elem) {
+			foreach((array)$selectPartComplete as $spc){
 				$ergItem = $elem[str_replace("?", "", $spc)]["value"];
 				$elemArray[str_replace("?", "", $spc)] = $ergItem;
 			}	
 		$resultArray[] = $elemArray;
 		}
 		return $resultArray;
-
 	}
 	
 	/**

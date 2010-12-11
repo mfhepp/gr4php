@@ -25,7 +25,7 @@ class GR4PHP_Exception extends Exception{
 	 */
 	public static function isNotEmptyInputArray($inputArray){
 		try {
-			foreach ($inputArray as $element) {
+			foreach ((array)$inputArray as $element) {
 					if (empty($element) && $element!="0"){
 						throw new GR4PHP_Exception("Please use at least one input value!");}
 			}
@@ -45,7 +45,7 @@ class GR4PHP_Exception extends Exception{
 	public static function isPossibleInputElementOfFunction($inputArray,$function){
 		$possibleElements=GR4PHP_Template::possibleInputValuesByFunction($function);
 		try {
-			foreach ($inputArray as $element=>$value) {
+			foreach ((array)$inputArray as $element=>$value) {
 					if (!in_array($element, $possibleElements)){
 						throw new GR4PHP_Exception("The element -".$element."- is not allowed in function: ".$function.". Please check the manual!");}
 			}
@@ -82,7 +82,7 @@ class GR4PHP_Exception extends Exception{
 	 */
 	public static function isCorrectValueForInputElement($inputArray){
 			try {
-				foreach ($inputArray as $element=>$value) {
+				foreach ((array)$inputArray as $element=>$value) {
 				$format=GR4PHP_Template::checkFormatOfInputValue($element);
 				switch ($format) {
     				case "integer":
@@ -116,7 +116,7 @@ class GR4PHP_Exception extends Exception{
 	public static function isCorrectLengthOfValueCausedByWildcardRule($inputArray){
 				try {
 					$lesserThanFour=array("geo","maxPrice","currency");
-					foreach ($inputArray as $element=>$value) {
+					foreach ((array)$inputArray as $element=>$value) {
 					if (!in_array($element,$lesserThanFour)){	
 						if (strlen((string)$value)<4){
 							throw new GR4PHP_Exception("Check the input value! Some values have a length lesser than 4. It doesn't work!");}
@@ -139,7 +139,7 @@ class GR4PHP_Exception extends Exception{
 				$values=GR4PHP_Template::checkLengthOfElements();
 				try {
 					$lesserThanFour=array("geo","maxPrice","currency");
-					foreach ($inputArray as $element=>$value) {
+					foreach ((array)$inputArray as $element=>$value) {
 					if (array_key_exists($element,$values)){	
 						if (strlen((string)$value)!=$values[$element]){
 							throw new GR4PHP_Exception("Check the length of the input element <i>".$element."</i>. In strict mode the value of the element has to have a length of <i>".$values[$element]."</i>. See also the gr-manual!");}
@@ -165,7 +165,7 @@ class GR4PHP_Exception extends Exception{
 		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 		$possibleElements=array_merge($selectPartDefault,$elements);
 		try {
-			foreach ($selectArray as $element) {
+			foreach ((array)$selectArray as $element) {
 					if (!in_array("?".$element, $possibleElements)){
 						throw new GR4PHP_Exception("The SELECT-element -".$element."- is not allowed in function: ".$function.". Please check the manual!");}
 			}
