@@ -157,7 +157,7 @@ class GR4PHP_Template{
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku .}",
 								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
-								"gtin"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin.}",
+								"gtin14"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin14.}",
 								"description"=>"OPTIONAL {{?x gr:description   ?description.} UNION {?x rdfs:comment ?description.}}",
 								"website"=>"OPTIONAL {{?x foaf:page   ?website.} UNION {?x rdfs:seeAlso ?website.}}",
 								"manufacturer"=>"OPTIONAL {?x gr:hasManufacturer ?manufacturer.}",
@@ -175,7 +175,7 @@ class GR4PHP_Template{
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku.}",
 								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
-								"gtin"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin.}",
+								"gtin14"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin14.}",
 								"description"=>"OPTIONAL {{?x gr:description   ?description.} UNION {?x rdfs:comment ?description.}}",
 								"manufacturer"=>"OPTIONAL {?x gr:hasManufacturer ?manufacturer.}",
 								"description"=>"OPTIONAL {{?x gr:description   ?description.} UNION {?x rdfs:comment ?description.}}",
@@ -266,7 +266,7 @@ class GR4PHP_Template{
 						"getProductModel"=>array(
 										"?sku",
 										"?ean13",
-										"?gtin",
+										"?gtin14",
 										"?description",
 										"?website",
 										"?manufacturer",
@@ -280,7 +280,7 @@ class GR4PHP_Template{
 									),
 						"getOffers"=>array(
 									"?ean13",
-									"?gtin",
+									"?gtin14",
 									"?sku",
 									"?manufacturer",
 									"?businessFunction",
@@ -346,7 +346,7 @@ class GR4PHP_Template{
 									),
 						"getProductModel"=>array(
 									"ean13",
-									"gtin",
+									"gtin14",
 									"title",
 									"manufacturer",
 									// because of the minimal using..some elements of GR arent in use (at the moment!)

@@ -20,4 +20,4 @@ include_once '../gr4php_configuration.php';
 $gr4php=new GR4PHP(GR4PHP_Configuration::Endpoint_URIBURNER);
 
 // second instruction: Select function, input array, wanted elements, mode and limt
-print_r($gr4php->getStore(array("gln"=>"1234567890123"),FALSE,":lax",30));
+print_r($gr4php->getStore(array("title"=>"Team EWS Ingenieure"),FALSE,":lax",30));
