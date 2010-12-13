@@ -41,21 +41,9 @@ foreach($_POST as $key => $value) {
 			$wantedElements = getString2Array(trim(stripslashes($value)));
 	}
 }
-
 ?>
-<form method="post" action="/"><!--action="?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo trim($_POST["array3"]);?>"-->
+<form method="post" action="/">
 <?php 
-/*if (empty($_GET["array1"])){$default1="title";} else {$default1=trim($_POST["array1"]);}
-if (empty($_GET["array2"])){ $default2="Team EWS Ingenieure";} else {$default2=$_POST["array2"];}
-if (empty($_GET["array3"])){ $default3="x,title";} else {$default3=trim($_POST["array3"]);}
-if (empty($_GET["limit"]) || !is_int($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
-if (empty($_GET["mode"])){ $mode=GR4PHP_Configuration::Mode_LAX;} else {$mode=$_POST["mode"];}
-if (empty($_POST["array3"])){$wantedElements=NULL;} else{$wantedElements=getString2Array(trim(stripslashes($_POST["array3"])));}
-$endpoint=$_POST["endpoint"];
-if (empty($endpoint)){$endpoint=GR4PHP_Configuration::Endpoint_URIBURNER;}
-$function=$_POST["function"];
-if (empty($function)){$function="getStore";}*/
-
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
 $arrayEndpoint=array(GR4PHP_Configuration::Endpoint_URIBURNER,GR4PHP_Configuration::Endpoint_LDURIBURNER,GR4PHP_Configuration::Endpoint_LOC,GR4PHP_Configuration::Endpoint_LOD);
 $arrayMode=array(GR4PHP_Configuration::Mode_LAX,GR4PHP_Configuration::Mode_STRICT);
@@ -222,6 +210,4 @@ function getFunction($endpoint,$function,$inputArray,$wantedElements=NULL,$mode=
 	return array($result,$query); 
 	
 }
-
- 
 
