@@ -22,10 +22,30 @@ include_once '../gr4php_general.php';
 include_once '../gr4php_template.php';
 
 set_time_limit(60);
+
+// defaults
+$array1 = "title";
+$array2 = "Team EWS Ingenieure";
+$array3 = "x,title";
+$limit = "20";
+$mode = GR4PHP_Configuration::Mode_LAX;
+$wantedElements = NULL;
+$endpoint = GR4PHP_Configuration::Endpoint_URIBURNER;
+$function = "getStore";
+
+// read post
+foreach($_POST as $key => $value) {
+	if(!empty($value)) {
+		$$key = trim($value);
+		if($key == "array3")
+			$wantedElements = getString2Array(trim(stripslashes($value)));
+	}
+}
+
 ?>
-<form method="post" action="gr4php_test_tool.php?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo trim($_POST["array3"]);?>">
+<form method="post" action="/"><!--action="?endpoint=<?php echo $_POST["endpoint"]?>&amp;mode=<?php echo $_POST["mode"];?>&amp;function=<?php echo $_POST["function"];?>&amp;array1=<?php echo $_POST["array1"];?>&amp;array2=<?php echo $_POST["array2"];?>&amp;array3=<?php echo trim($_POST["array3"]);?>"-->
 <?php 
-if (empty($_GET["array1"])){$default1="title";} else {$default1=trim($_POST["array1"]);}
+/*if (empty($_GET["array1"])){$default1="title";} else {$default1=trim($_POST["array1"]);}
 if (empty($_GET["array2"])){ $default2="Team EWS Ingenieure";} else {$default2=$_POST["array2"];}
 if (empty($_GET["array3"])){ $default3="x,title";} else {$default3=trim($_POST["array3"]);}
 if (empty($_GET["limit"]) || !is_int($_GET["limit"])){ $limit="20";} else {$limit=$_POST["limit"];}
@@ -34,7 +54,7 @@ if (empty($_POST["array3"])){$wantedElements=NULL;} else{$wantedElements=getStri
 $endpoint=$_POST["endpoint"];
 if (empty($endpoint)){$endpoint=GR4PHP_Configuration::Endpoint_URIBURNER;}
 $function=$_POST["function"];
-if (empty($function)){$function="getStore";}
+if (empty($function)){$function="getStore";}*/
 
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
 $arrayEndpoint=array(GR4PHP_Configuration::Endpoint_URIBURNER,GR4PHP_Configuration::Endpoint_LDURIBURNER,GR4PHP_Configuration::Endpoint_LOC,GR4PHP_Configuration::Endpoint_LOD);
@@ -86,15 +106,15 @@ echo $str;
 echo "<br /><br />";
 ?>
 Keys of array:&nbsp;
-<input  name="array1" size="50" type="text" value="<?php echo $default1;?>"/>
+<input  name="array1" size="50" type="text" value="<?php echo $array1;?>"/>
 Values of array:&nbsp;
-<input  name="array2" size="50" type="text" value="<?php echo $default2;?>"/>
+<input  name="array2" size="50" type="text" value="<?php echo $array2;?>"/>
 <br />
 <i>Possible keys:&nbsp; <?php echo getArray2String(GR4PHP_Template::possibleInputValuesByFunction($function));?></i>
 <br />
 <br />
 Which elements would you like to see?:&nbsp;
-<input  name="array3" size="50" type="text" value="<?php echo $default3;?>"/>
+<input  name="array3" size="50" type="text" value="<?php echo $array3;?>"/>
 <br />
 <i>Possible SELECT-elements are:&nbsp; <?php echo str_replace("?","",getArray2String(array_merge((array)GR4PHP_Template::getSelectPartsByFunction("general"),(array)GR4PHP_Template::getSelectPartsByFunction($function))));?></i>
 <br />
@@ -107,11 +127,11 @@ Result limit:&nbsp;
 
 <hr></hr>
 <?php 
-if (isset($_GET["array1"]) && isset($_GET["array2"])&& isset($_GET["array3"])){
+if (isset($_POST["array1"]) && isset($_POST["array2"])&& isset($_POST["array3"])){
 
 if (isset($_POST["functionChance"])){
 	if (count(getString2Array(stripslashes($_POST["array1"])))!= count(getString2Array(stripslashes($_POST["array2"])))){
-		echo "Amount of elements and values have to be equal!";
+		echo "Amount of elements and values has to be equal!";
 		exit;
 	}
 	$inputArray=array_combine(getString2Array(stripslashes($_POST["array1"])),getString2Array(stripslashes($_POST["array2"])));
@@ -204,3 +224,4 @@ function getFunction($endpoint,$function,$inputArray,$wantedElements=NULL,$mode=
 }
 
  
+
