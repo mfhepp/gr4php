@@ -42,7 +42,7 @@ foreach($_POST as $key => $value) {
 	}
 }
 ?>
-<form method="post" action="/">
+<form method="post" action=".">
 <?php 
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
 $arrayEndpoint=array(GR4PHP_Configuration::Endpoint_URIBURNER,GR4PHP_Configuration::Endpoint_LDURIBURNER,GR4PHP_Configuration::Endpoint_LOC,GR4PHP_Configuration::Endpoint_LOD);
