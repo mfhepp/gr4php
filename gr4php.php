@@ -510,7 +510,7 @@ class GR4PHP{
 					$deleteOptionalInput[]=$column;
 				}
 		}
-		$sparql.=" ?offering a gr:Offering. ";
+		$sparql.=" ?x a gr:Offering. ";
 		
 		///// OPTIONAL-Part
 		

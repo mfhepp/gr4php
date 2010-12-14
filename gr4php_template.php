@@ -19,9 +19,9 @@ class GR4PHP_Template{
 	private static $possibleInputValues=array(
 				":lax"=>array(
 						"gln"=>array("?x gr:hasGlobalLocationNumber ?gln. ?gln bif:contains '\"","value","*\"' ."),
-						"title"=>array("{{?x rdfs:label ?title. ?title bif:contains '\"","value","*\"' .} UNION
-										  {?x rdfs:comment ?title. ?title bif:contains '\"","value","*\"' .} UNION
-										  {?x dc:title ?title. ?title bif:contains '\"","value","*\"' .}}"),
+						"title"=>array("{{{{?x rdfs:label ?title. ?title bif:contains '\"","value","*\"' .} UNION {?x rdfs:label ?title. ?title bif:contains '\"","value","\"' .}}} UNION
+										  {{{?x rdfs:comment ?title. ?title bif:contains '\"","value","*\"' .} UNION {?x rdfs:comment ?title. ?title bif:contains '\"","value","\"' .}}} UNION
+										  {{{?x dc:title ?title. ?title bif:contains '\"","value","*\"' .} UNION {?x dc:title ?title. ?title bif:contains '\"","value","\"' .}}}}"),
 						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country ?country. ?country bif:contains '\"","value","*\"' .} UNION 
 										   {?y vcard:country-name ?country. ?country bif:contains '\"","value","*\"' .}}"),
 						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:locality ?city. ?city bif:contains '\"","value","*\"' .} UNION 
