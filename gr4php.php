@@ -57,7 +57,7 @@ class GR4PHP{
 		
 		// 2) check Limit
 		$limit=GR4PHP_Exception::checkLimit($limit);
-		
+
 		// 3) not empty input array?
 		GR4PHP_Exception::isNotEmptyInputArray($inputArray); 
 		

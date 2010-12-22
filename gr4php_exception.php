@@ -199,10 +199,9 @@ class GR4PHP_Exception extends Exception{
  	 */
 	function checkLimit($limit){
 	
-		if (is_integer($limit)) {
+		if (is_int($limit)) {
 			return $limit;
 		}
-	
 		return GR4PHP_Configuration::Limit;
 	}
 }

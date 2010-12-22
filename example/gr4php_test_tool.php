@@ -1,5 +1,6 @@
 <!-- Define HTML-Header -->
-<html xmlns="http://www.w3.org/1999/xhtml" > 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
 <head> 
 <title>GR4PHP Test-GUI</title>
 </head> 
@@ -27,7 +28,7 @@ set_time_limit(60);
 $array1 = "title";
 $array2 = "Team EWS Ingenieure";
 $array3 = "x,title";
-$limit = "20";
+$limit = 20;
 $mode = GR4PHP_Configuration::Mode_LAX;
 $wantedElements = NULL;
 $endpoint = GR4PHP_Configuration::Endpoint_URIBURNER;
@@ -42,7 +43,7 @@ foreach($_POST as $key => $value) {
 	}
 }
 ?>
-<form method="post" action=".">
+<form method="post" action="gr4php_test_tool.php">
 <?php 
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
 $arrayEndpoint=array(GR4PHP_Configuration::Endpoint_URIBURNER,GR4PHP_Configuration::Endpoint_LDURIBURNER,GR4PHP_Configuration::Endpoint_LOC,GR4PHP_Configuration::Endpoint_LOD);
@@ -55,7 +56,7 @@ $str="";
 foreach($arrayEndpoint as $part){
 $str.='<option value="'.$part.'" ';
 if ($part==$endpoint){
-	$str.='selected';
+	$str.='selected="selected"';
 }
 $str.='>'.$part.'</option>'."\n";
  }
@@ -70,7 +71,7 @@ $str="";
 foreach($arrayfunktion as $part){
 $str.='<option value="'.$part.'" ';
 if ($part==$function){
-	$str.='selected';
+	$str.='selected="selected"';
 }
 $str.='>'.$part.'</option>'."\n";
  }
@@ -85,7 +86,7 @@ $str="";
 foreach($arrayMode as $part){
 $str.='<option value="'.$part.'" ';
 if ($part==$mode){
-	$str.='selected';
+	$str.='selected="selected"';
 }
 $str.='>'.$part.'</option>'."\n";
  }
@@ -135,12 +136,12 @@ if (isset($_POST["functionChance"])){
 <?php 
 }
 
-
-$resultArray=(array)getFunction($endpoint,$function,$inputArray,$wantedElements,$mode,$limit);
+$resultArray=(array)getFunction($endpoint,$function,$inputArray,$wantedElements,$mode,(integer)$_POST["limit"]);
 
 echo "<center><b>---- Query ----- </b></center> <br />"."\n";
 
-echo $resultArray[1];
+echo str_replace("#&gt;","#&gt;<br />",$resultArray[1]);
+//echo $resultArray[1];
 
 echo "<br /><br />"."\n";
 
