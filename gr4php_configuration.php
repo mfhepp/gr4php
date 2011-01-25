@@ -10,18 +10,18 @@
  * @license GNU LESSER GENERAL PUBLIC LICENSE
  * @version 1.0
  */
- class GR4PHP_Configuration{
+ class Configuration{
 	
- 	// query Limit
-	const Limit =20;
+ 	// query limit
+	const LIMIT = 20;
 	
-	// some Endpoints to get the SPARQL information
-	const Endpoint_URIBURNER="http://www.uriburner.com/sparql";
-	const Endpoint_LDURIBURNER="http://linkeddata.uriburner.com/sparql";
-	const Endpoint_LOC="http://linkedopencommerce.com/sparql";
-	const Endpoint_LOD="http://lod.openlinksw.com/sparql";
+	// some endpoints to get the SPARQL information
+	const ENDPOINT_URIBURNER="http://www.uriburner.com/sparql";
+	const ENDPOINT_LDURIBURNER="http://linkeddata.uriburner.com/sparql";
+	const ENDPOINT_LOC="http://linkedopencommerce.com/sparql";
+	const ENDPOINT_LOD="http://lod.openlinksw.com/sparql";
 
 	//variants of mode
-	const Mode_LAX=":lax";
-	const Mode_STRICT=":strict";
+	const MODE_LAX=":lax";
+	const MODE_STRICT=":strict";
 }

@@ -24,7 +24,7 @@ class GR4PHP{
 	private $selectedElements=FALSE;
 	
 	// Constructor of Class
-	public function __construct($endpoint=GR4PHP_Configuration::Endpoint_URIBURNER,$timeout=10000){
+	public function __construct($endpoint=Configuration::ENDPOINT_URIBURNER,$timeout=10000){
 			$this->endpoint=$endpoint;
 			$this->timeout=$timeout;	
 	} 
@@ -46,7 +46,7 @@ class GR4PHP{
 	 * 
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getStore($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX,$limit=GR4PHP_Configuration::Limit ){
+	function getStore($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX,$limit=Configuration::LIMIT){
 		//define variable 
 		$sparql="";
 		
@@ -74,7 +74,7 @@ class GR4PHP{
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
 		// 8) Correct length of some gr-values (only in strict mode.)
-		if ($mode==GR4PHP_Configuration::Mode_STRICT){
+		if ($mode==Configuration::MODE_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		// 9) Check the SELECT elements (only by using a specific SELECT-part)
@@ -124,7 +124,7 @@ class GR4PHP{
 			$inputArray=isLengthOfElementRight($inputArray);
 			foreach ((array)$inputArray as $column => $value){
 				$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
-				if ($mode==GR4PHP_Configuration::Mode_LAX){
+				if ($mode==Configuration::MODE_LAX){
 					$deleteOptionalInput[]=$column;
 				}
 			}
@@ -173,7 +173,7 @@ class GR4PHP{
 	 * 
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getCompany($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getCompany($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
 		//define variable 
 		$sparql="";
 		
@@ -201,7 +201,7 @@ class GR4PHP{
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
 		// 8) Correct length of some gr-values (only in strict mode.)
-		if ($mode==GR4PHP_Configuration::Mode_STRICT){
+		if ($mode==Configuration::MODE_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
@@ -251,7 +251,7 @@ class GR4PHP{
 		$inputArray=isLengthOfElementRight($inputArray);
 		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
-			if ($mode==GR4PHP_Configuration::Mode_LAX){
+			if ($mode==Configuration::MODE_LAX){
 					$deleteOptionalInput[]=$column;
 				}
 		}
@@ -298,7 +298,7 @@ class GR4PHP{
 	 * 
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getProductModel($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getProductModel($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
 		//define variable 
 		$sparql="";
 		
@@ -326,7 +326,7 @@ class GR4PHP{
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
 		// 8) Correct length of some gr-values (only in strict mode.)
-		if ($mode==GR4PHP_Configuration::Mode_STRICT){
+		if ($mode==Configuration::MODE_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
@@ -376,7 +376,7 @@ class GR4PHP{
 		$inputArray=isLengthOfElementRight($inputArray);
 		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
-			if ($mode==GR4PHP_Configuration::Mode_LAX){
+			if ($mode==Configuration::MODE_LAX){
 					$deleteOptionalInput[]=$column;
 				}
 		}
@@ -428,7 +428,7 @@ class GR4PHP{
 	 * 
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getOffers($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getOffers($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
 		//define variable 
 		$sparql="";
 
@@ -456,7 +456,7 @@ class GR4PHP{
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
 		// 8) Correct length of some gr-values (only in strict mode.)
-		if ($mode==GR4PHP_Configuration::Mode_STRICT){
+		if ($mode==Configuration::MODE_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
@@ -506,7 +506,7 @@ class GR4PHP{
 		$inputArray=isLengthOfElementRight($inputArray);
 		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
-			if ($mode==GR4PHP_Configuration::Mode_LAX){
+			if ($mode==Configuration::MODE_LAX){
 					$deleteOptionalInput[]=$column;
 				}
 		}
@@ -547,13 +547,13 @@ class GR4PHP{
 	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
-	 * ":strict"-> Only the given values of all search elements be sougth 
+	 * ":strict"-> Only the given values of all search elements be sought 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
 	 * 
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
 		//define variable 
 		$sparql="";
 
@@ -581,7 +581,7 @@ class GR4PHP{
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
 		// 8) Correct length of some gr-values (only in strict mode.)
-		if ($mode==GR4PHP_Configuration::Mode_STRICT){
+		if ($mode==Configuration::MODE_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
@@ -621,7 +621,7 @@ class GR4PHP{
 		$inputArray=isLengthOfElementRight($inputArray);
 		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
-			if ($mode==GR4PHP_Configuration::Mode_LAX){
+			if ($mode==Configuration::MODE_LAX){
 					$deleteOptionalInput[]=$column;
 				}
 
@@ -669,7 +669,7 @@ class GR4PHP{
 	 * 
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getLocation($inputArray,$wantedElements=FALSE,$mode=GR4PHP_Configuration::Mode_LAX, $limit=GR4PHP_Configuration::Limit ){
+	function getLocation($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
 		//define variable 
 		$sparql="";
 
@@ -697,7 +697,7 @@ class GR4PHP{
 		GR4PHP_Exception::isCorrectLengthOfValueCausedByWildcardRule($inputArray);
 		
 		// 8) Correct length of some gr-values (only in strict mode.)
-		if ($mode==GR4PHP_Configuration::Mode_STRICT){
+		if ($mode==Configuration::MODE_STRICT){
 			GR4PHP_Exception::correctLengthOfValueInSrictMode($inputArray);
 		}
 		
@@ -748,7 +748,7 @@ class GR4PHP{
 
 		foreach ((array)$inputArray as $column => $value){
 			$sparql.=GR4PHP_Template::getInputValues($mode,$column,$value);
-			if ($mode==GR4PHP_Configuration::Mode_LAX){
+			if ($mode==Configuration::MODE_LAX){
 					$deleteOptionalInput[]=$column;
 				}
 		}

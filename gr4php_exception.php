@@ -182,13 +182,13 @@ class GR4PHP_Exception extends Exception{
      * @return 		string		$mode Allowed Mode
  	 */
 	function checkMode($mode){
-		$mode_array=array(GR4PHP_Configuration::Mode_LAX,GR4PHP_Configuration::Mode_STRICT);
+		$mode_array=array(Configuration::MODE_LAX,Configuration::MODE_STRICT);
 	
 		if (in_array($mode,$mode_array)) {
 			return $mode;
 		}
 	
-		return GR4PHP_Configuration::Mode_LAX;
+		return Configuration::MODE_LAX;
 	}
 
 	/**
@@ -202,6 +202,6 @@ class GR4PHP_Exception extends Exception{
 		if (is_int($limit)) {
 			return $limit;
 		}
-		return GR4PHP_Configuration::Limit;
+		return Configuration::LIMIT;
 	}
 }

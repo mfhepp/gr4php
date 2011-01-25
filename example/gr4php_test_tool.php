@@ -29,9 +29,9 @@ $array1 = "title";
 $array2 = "Team EWS Ingenieure";
 $array3 = "x,title";
 $limit = 20;
-$mode = GR4PHP_Configuration::Mode_LAX;
+$mode = Configuration::MODE_LAX;
 $wantedElements = NULL;
-$endpoint = GR4PHP_Configuration::Endpoint_URIBURNER;
+$endpoint = Configuration::ENDPOINT_URIBURNER;
 $function = "getStore";
 
 // read post
@@ -46,8 +46,8 @@ foreach($_POST as $key => $value) {
 <form method="post" action="gr4php_test_tool.php">
 <?php 
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
-$arrayEndpoint=array(GR4PHP_Configuration::Endpoint_URIBURNER,GR4PHP_Configuration::Endpoint_LDURIBURNER,GR4PHP_Configuration::Endpoint_LOC,GR4PHP_Configuration::Endpoint_LOD);
-$arrayMode=array(GR4PHP_Configuration::Mode_LAX,GR4PHP_Configuration::Mode_STRICT);
+$arrayEndpoint=array(Configuration::ENDPOINT_URIBURNER,Configuration::ENDPOINT_LDURIBURNER,Configuration::ENDPOINT_LOC,Configuration::ENDPOINT_LOD);
+$arrayMode=array(Configuration::MODE_LAX,Configuration::MODE_STRICT);
 
 //First DropDown -Enpoint-
 echo "Select an endpoint:&nbsp;";

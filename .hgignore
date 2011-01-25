@@ -1,2 +1,4 @@
-images
-pack_n_images
+images/
+pack_n_images/
+gen_phpdoc.sh
+doc/

@@ -17,7 +17,7 @@ include_once '../gr4php.php';
 include_once '../gr4php_configuration.php';
 
 // first instruction: Instantiation of GR4PHP-Class
-$gr4php=new GR4PHP(GR4PHP_Configuration::Endpoint_URIBURNER);
+$gr4php=new GR4PHP(Configuration::ENDPOINT_URIBURNER);
 
 // second instruction: Select function, input array, wanted elements, mode and limt
 print_r($gr4php->getStore(array("title"=>"Team EWS Ingenieure"),FALSE,":lax",30));
