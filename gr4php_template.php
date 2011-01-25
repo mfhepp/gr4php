@@ -18,46 +18,46 @@ class GR4PHP_Template{
 	// Assoc. array shows all possible input values
 	private static $possibleInputValues=array(
 				":lax"=>array(
-						"gln"=>array("?x gr:hasGlobalLocationNumber ?gln. ?gln bif:contains '\"","value","*\"' ."),
+						"gln"=>array("?x gr:hasGlobalLocationNumber ?gln. ?gln bif:contains '\"","value","\"' ."),
 						"title"=>array("{{?x rdfs:label ?title. ?title bif:contains '\"","value","\"' .} UNION
 										  {?x rdfs:comment ?title. ?title bif:contains '\"","value","\"' .} UNION
 										  {?x dc:title ?title. ?title bif:contains '\"","value","\"' .}}"),
-						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country ?country. ?country bif:contains '\"","value","*\"' .} UNION 
-										   {?y vcard:country-name ?country. ?country bif:contains '\"","value","*\"' .}}"),
-						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:locality ?city. ?city bif:contains '\"","value","*\"' .} UNION 
-										   {?y vcard:locality ?city. ?ity bif:contains '\"","value","*\"' .}}"),
-						"legalName"=>array("?x gr:legalName ?name. ?name bif:contains '\"","value","*\"' ."),
-						"duns"=>array("?x gr:hasDUNS ?duns. ?duns bif:contains '\"","value","*\"' ."),
-						"isicv4"=>array("?x gr:hasISICv4 ?isicv4. ?isicv4 bif:contains '\"","value","*\"' ."),
-						"naics"=>array("?x gr:hasNAICS ?naics. ?naics bif:contains '\"","value","*\"' ."),
+						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country ?country. ?country bif:contains '\"","value","\"' .} UNION 
+										   {?y vcard:country-name ?country. ?country bif:contains '\"","value","\"' .}}"),
+						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:locality ?city. ?city bif:contains '\"","value","\"' .} UNION 
+										   {?y vcard:locality ?city. ?city bif:contains '\"","value","\"' .}}"),
+						"legalName"=>array("?x gr:legalName ?name. ?name bif:contains '\"","value","\"' ."),
+						"duns"=>array("?x gr:hasDUNS ?duns. ?duns bif:contains '\"","value","\"' ."),
+						"isicv4"=>array("?x gr:hasISICv4 ?isicv4. ?isicv4 bif:contains '\"","value","\"' ."),
+						"naics"=>array("?x gr:hasNAICS ?naics. ?naics bif:contains '\"","value","\"' ."),
 						"openNow"=>array("?x gr:hasOpeningHoursSpecification ?spec.
 									?spec gr:hasOpeningHoursDayOfWeek gr:","day",".
 									?spec gr:closes ?closeTime.FILTER (?closeTime >"," \"","time","\" ","^^xsd:time).
 									?spec gr:opens ?openTime.FILTER (?openTime < "," \"","time","\" "," ^^xsd:time)."),
-						"sku"=>array("?x gr:hasStockKeepingUnit ?sku . ?sku bif:contains '\"","value","*\"' ."),
-						"ean13"=>array("?x gr:hasEAN_UCC-13  ?ean13. ?ean13 bif:contains '\"","value","*\"' ."),
-						"gtin14"=>array("?x gr:hasGTIN-14 ?gtin14. ?gtin14 bif:contains '\"","value","*\"' ."),
-						"manufacturer"=>array("?x gr:hasManufacturer ?manufacturer. ?manufacturer bif:contains '\"","value","*\"' ."),
+						"sku"=>array("?x gr:hasStockKeepingUnit ?sku . ?sku bif:contains '\"","value","\"' ."),
+						"ean13"=>array("?x gr:hasEAN_UCC-13 ?ean13. ?ean13 bif:contains '\"","value","\"' ."),
+						"gtin14"=>array("?x gr:hasGTIN-14 ?gtin14. ?gtin14 bif:contains '\"","value","\"' ."),
+						"manufacturer"=>array("?x gr:hasManufacturer ?manufacturer. ?manufacturer bif:contains '\"","value","\"' ."),
 						// because of the minimal using..some elements of GR arent in use (at the moment!)
 						//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
 						//"predecessorOf"=>array("?x gr:predecessorOf  ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
 						//"successorOf"=>array("?x gr:successorOf  ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
-						"validThrough"=>array("?offering gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","*\"'^^xsd:time ."),
-						"validFrom"=>array("?offering gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","*\"'^^xsd:time ."),
+						"validThrough"=>array("?offering gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
+						"validFrom"=>array("?offering gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
 						"price"=>array("?offering gr:hasPriceSpecification ?pricespec.
 										   ?pricespec gr:hasCurrencyValue ?price. FILTER (?price <","price",")."),
 						"currency"=>array("?offering gr:hasPriceSpecification ?pricespec.
-										   ?pricespec gr:hasCurrency ?currency. ?currency bif:contains '\"","value","*\"' ."),
-						"acceptedPaymentMethod"=>array("?offering gr:acceptedPaymentMethods ?acceptedPaymentMethod. ?acceptedPaymentMethod bif:contains '\"","value","*\"' ."),
-						"businessFunction"=>array("?offering gr:hasBusinessFunction ?businessFunction. ?businessFunction bif:contains '\"","value","*\"' ."),
+										   ?pricespec gr:hasCurrency ?currency. ?currency bif:contains '\"","value","\"' ."),
+						"acceptedPaymentMethod"=>array("?offering gr:acceptedPaymentMethods ?acceptedPaymentMethod. ?acceptedPaymentMethod bif:contains '\"","value","\"' ."),
+						"businessFunction"=>array("?offering gr:hasBusinessFunction ?businessFunction. ?businessFunction bif:contains '\"","value","\"' ."),
 						"minWarrantyInMonths"=>array("?offering gr:hasWarrantyPromise ?hasWarrantyPromise.
 													  ?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths
 													  (?minWarrantyInMonths < "," \"","value","\" ",")."),
-						"eligibleCustomerTypes"=>array("?offering gr:eligibleCustomerTypes ?eligibleCustomerTypes. ?eligibleCustomerTypes bif:contains '\"","value","*\"' ."),
-						"eligibleRegions"=>array("?offering gr:eligibleRegions ?eligibleRegions ?eligibleRegions bif:contains '\"","value","*\"' ."),
-						"availabilityStarts"=>array("?offering gr:availabilityStarts ?availabilityStarts. ?availabilityStarts bif:contains '\"","value","*\"' ."),
-						"availabilityEnds"=>array("?offering gr:availabilityEnds ?availabilityEnds. ?availabilityEnds bif:contains '\"","value","*\"' ."),
-						"availableDeliveryMethods"=>array("?offering gr:availableDeliveryMethods ?availabledeliveryMethods. ?availabledeliveryMethods bif:contains '\"","value","*\"' ."),
+						"eligibleCustomerTypes"=>array("?offering gr:eligibleCustomerTypes ?eligibleCustomerTypes. ?eligibleCustomerTypes bif:contains '\"","value","\"' ."),
+						"eligibleRegions"=>array("?offering gr:eligibleRegions ?eligibleRegions ?eligibleRegions bif:contains '\"","value","\"' ."),
+						"availabilityStarts"=>array("?offering gr:availabilityStarts ?availabilityStarts. ?availabilityStarts bif:contains '\"","value","\"' ."),
+						"availabilityEnds"=>array("?offering gr:availabilityEnds ?availabilityEnds. ?availabilityEnds bif:contains '\"","value","\"' ."),
+						"availableDeliveryMethods"=>array("?offering gr:availableDeliveryMethods ?availabledeliveryMethods. ?availabledeliveryMethods bif:contains '\"","value","\"' ."),
 						"geo"=>array("?x geo:geometry ?geo. Filter(( bif:round ( bif:st_distance ( ?geo,bif:st_point(","lat",", ","long",") ) ) ) < ","distance",")")
 				),
 				":strict"=>array(
