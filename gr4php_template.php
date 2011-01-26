@@ -40,8 +40,8 @@ class GR4PHP_Template{
 						"manufacturer"=>array("?x gr:hasManufacturer ?manufacturer. ?manufacturer bif:contains '\"","value","\"' ."),
 						// because of the minimal using..some elements of GR arent in use (at the moment!)
 						//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
-						//"predecessorOf"=>array("?x gr:predecessorOf  ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
-						//"successorOf"=>array("?x gr:successorOf  ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
+						//"predecessorOf"=>array("?x gr:predecessorOf ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
+						//"successorOf"=>array("?x gr:successorOf ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
 						"validThrough"=>array("?offering gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
 						"validFrom"=>array("?offering gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
 						"price"=>array("?offering gr:hasPriceSpecification ?pricespec.
@@ -114,20 +114,29 @@ class GR4PHP_Template{
 								"gln"=>"OPTIONAL {?x gr:hasGlobalLocationNumber ?gln.} ",
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
-								"street"=>"OPTIONAL {{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}} 
-										   OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
+								"street"=>"OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
 								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pobox ?post.}}} ",
 								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:locality ?city.}}} ",
 								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:country ?country.}}} ",
 								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   			OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
-								"lat"=>"OPTIONAL{{{?y vcard:geo ?z.?z vcard:latitude ?lat.}
-   														UNION {?y geo:location ?z.?z geo:lat ?lat.}
-   														UNION {?y vc:GEO ?z.?z vc:latitude ?lat.}}} ",
-								"long"=>"OPTIONAL{{{?y vcard:geo ?z.?z vcard:longitude ?long.}
-   														UNION {?y geo:location ?z.?z geo:long ?long.}
-   														UNION {?y vc:GEO ?z.?z vc:longitude ?long.}}} ",
+								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
+   														UNION {?x geo:location ?z.?z geo:lat ?lat.}
+   														UNION {?x vc:GEO ?z.?z vc:latitude ?lat.}
+														UNION {?x geo:lat ?lat.}
+														UNION {?y vcard:geo ?z.?z vcard:latitude ?lat.}
+						   								UNION {?y geo:location ?z.?z geo:lat ?lat.}
+						   								UNION {?y vc:GEO ?z.?z vc:latitude ?lat.}
+														UNION {?y geo:lat ?lat.}}} ",
+								"long"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:longitude ?long.}
+   														UNION {?x geo:location ?z.?z geo:long ?long.}
+   														UNION {?x vc:GEO ?z.?z vc:longitude ?long.}
+														UNION {?x geo:long ?long.}
+														UNION {?y vcard:geo ?z.?z vcard:longitude ?long.}
+						   								UNION {?y geo:location ?z.?z geo:long ?long.}
+						   								UNION {?y vc:GEO ?z.?z vc:longitude ?long.}
+														UNION {?y geo:long ?long.}}} ",
 	
 								"openTime"=>""),
 						"getCompany"=>array(
@@ -138,28 +147,38 @@ class GR4PHP_Template{
 								"gln"=>"OPTIONAL {?x gr:hasGlobalLocationNumber ?gln.} ",
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
-								"street"=>"OPTIONAL {{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}} 
-										   OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
+								"street"=>"OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
 								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pobox ?post.}}} ",
 								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:locality ?city.}}} ",
 								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:country ?country.}}} ",
 								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   	  OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
-								"lat"=>"OPTIONAL{{{?y vcard:geo ?z.?z vcard:latitude ?lat.}
-   														UNION {?y geo:location ?z.?z geo:lat ?lat.}
-   														UNION {?y vc:GEO ?z.?z vc:latitude ?lat.}}} ",
-								"long"=>"OPTIONAL{{{?y vcard:geo ?z.?z vcard:longitude ?long.}
-   														UNION {?y geo:location ?z.?z geo:long ?long.}
-   														UNION {?y vc:GEO ?z.?z vc:longitude ?long.}}} "),
+								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
+   														UNION {?x geo:location ?z.?z geo:lat ?lat.}
+   														UNION {?x vc:GEO ?z.?z vc:latitude ?lat.}
+														UNION {?x geo:lat ?lat.}
+														UNION {?y vcard:geo ?z.?z vcard:latitude ?lat.}
+						   								UNION {?y geo:location ?z.?z geo:lat ?lat.}
+						   								UNION {?y vc:GEO ?z.?z vc:latitude ?lat.}
+														UNION {?y geo:lat ?lat.}}} ",
+								"long"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:longitude ?long.}
+   														UNION {?x geo:location ?z.?z geo:long ?long.}
+   														UNION {?x vc:GEO ?z.?z vc:longitude ?long.}
+														UNION {?x geo:long ?long.}
+														UNION {?y vcard:geo ?z.?z vcard:longitude ?long.}
+						   								UNION {?y geo:location ?z.?z geo:long ?long.}
+						   								UNION {?y vc:GEO ?z.?z vc:longitude ?long.}
+														UNION {?y geo:long ?long.}}} "
+),
 						"getProductModel"=>array(
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku .}",
 								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
 								"gtin14"=>"OPTIONAL {?x gr:hasGTIN-14  ?gtin14.}",
-								"description"=>"OPTIONAL {{?x gr:description   ?description.} UNION {?x rdfs:comment ?description.}}",
-								"website"=>"OPTIONAL {{?x foaf:page   ?website.} UNION {?x rdfs:seeAlso ?website.}}",
+								"description"=>"OPTIONAL {{?x gr:description ?description.} UNION {?x rdfs:comment ?description.}}",
+								"website"=>"OPTIONAL {{?x foaf:page ?website.} UNION {?x rdfs:seeAlso ?website.}}",
 								"manufacturer"=>"OPTIONAL {?x gr:hasManufacturer ?manufacturer.}",
 								// because of the minimal using..some elements of GR arent in use (at the moment!)
 								//"variantOf"=>"OPTIONAL {?x gr:isVariantOf ?variantOf.}",

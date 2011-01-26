@@ -132,6 +132,7 @@ class GR4PHP{
 		$sparql.=" ?x a gr:LocationOfSalesOrServiceProvisioning. ";
 		
 		///// OPTIONAL-Part
+		$sparql.="OPTIONAL {{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}} ";
 		
 		// get OPTIONAL-part of getStoreInfo (depend on input array)
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getStore");
@@ -259,6 +260,7 @@ class GR4PHP{
 		$sparql.=" ?x a gr:BusinessEntity. ";
 		
 		///// OPTIONAL-Part
+		$sparql.="OPTIONAL {{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}} ";
 		
 		//Optional-Values
 		$outputValues=GR4PHP_Template::getOutputValuesByFunction("getCompany");
