@@ -28,7 +28,7 @@ class GR4PHP_Template{
 										{?y vcard:street-address ?street. ?street bif:contains '\"","value","\"' .}}"),
 						"post"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Pcode ?post. ?post bif:contains '\"","value","\"' .} UNION 
 										{?y vcard:postal-code ?post. ?post bif:contains '\"","value","\"' .}}"),
-						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Locality ?city. ?city bif:contains '\"","value","\"' .} UNION 
+						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:City ?city. ?city bif:contains '\"","value","\"' .} UNION 
 										   {?y vcard:locality ?city. ?city bif:contains '\"","value","\"' .}}"),
 						"legalName"=>array("?x gr:legalName ?name. ?name bif:contains '\"","value","\"' ."),
 						"duns"=>array("?x gr:hasDUNS ?duns. ?duns bif:contains '\"","value","\"' ."),
@@ -75,7 +75,7 @@ class GR4PHP_Template{
 										{?y vcard:street-address \"","value","\"@en.}}"),
 						"post"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Pcode \"","value","\".} UNION 
 										{?y vcard:postal-code \"","value","\".}}"),
-						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:locality \"","value","\"@en.} UNION 
+						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:City \"","value","\"@en.} UNION 
 										   {?y vcard:locality \"","value","\"@en.}}"),
 						"legalName"=>array("?x gr:legalName \"","value","\"^^xsd:Literal."),
 						"duns"=>array("?x gr:hasDUNS \"","value","\"^^xsd:string."),
@@ -123,10 +123,10 @@ class GR4PHP_Template{
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
 								"street"=>"OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
-								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pobox ?post.}}} ",
-								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:locality ?city.}}} ",
-								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:country ?country.}}} ",
-								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
+								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pcode ?post.}}} ",
+								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:City ?city.}}} ",
+								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:Country ?country.}}} ",
+								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?x vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   			OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
 								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
@@ -149,10 +149,10 @@ class GR4PHP_Template{
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
 								"street"=>"OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
-								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pobox ?post.}}} ",
-								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:locality ?city.}}} ",
-								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:country ?country.}}} ",
-								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?y vcard:tel ?phone.}}} ",
+								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pcode ?post.}}} ",
+								"city"=>"OPTIONAL {{{?y vcard:locality ?city.} UNION {?y vc:City ?city.}}} ",
+								"country"=>"OPTIONAL {{{?y vcard:country-name ?country.} UNION {?y vc:Country ?country.}}} ",
+								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?x vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   	  OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
 								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
