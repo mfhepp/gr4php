@@ -24,7 +24,11 @@ class GR4PHP_Template{
 										  {?x dc:title ?title. ?title bif:contains '\"","value","\"' .}}"),
 						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country ?country. ?country bif:contains '\"","value","\"' .} UNION 
 										   {?y vcard:country-name ?country. ?country bif:contains '\"","value","\"' .}}"),
-						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:locality ?city. ?city bif:contains '\"","value","\"' .} UNION 
+						"street"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Street ?street. ?street bif:contains '\"","value","\"' .} UNION 
+										{?y vcard:street-address ?street. ?street bif:contains '\"","value","\"' .}}"),
+						"post"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Pcode ?post. ?post bif:contains '\"","value","\"' .} UNION 
+										{?y vcard:postal-code ?post. ?post bif:contains '\"","value","\"' .}}"),
+						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Locality ?city. ?city bif:contains '\"","value","\"' .} UNION 
 										   {?y vcard:locality ?city. ?city bif:contains '\"","value","\"' .}}"),
 						"legalName"=>array("?x gr:legalName ?name. ?name bif:contains '\"","value","\"' ."),
 						"duns"=>array("?x gr:hasDUNS ?duns. ?duns bif:contains '\"","value","\"' ."),
@@ -67,6 +71,10 @@ class GR4PHP_Template{
 										  {?x dc:title \"","value","\"@en.}}"),
 						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country \"","value","\"@en.} UNION 
 										   {?y vcard:country-name \"","value","\"@en.}}"),
+						"street"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Street \"","value","\"@en.} UNION 
+										{?y vcard:street-address \"","value","\"@en.}}"),
+						"post"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Pcode \"","value","\".} UNION 
+										{?y vcard:postal-code \"","value","\".}}"),
 						"city"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:locality \"","value","\"@en.} UNION 
 										   {?y vcard:locality \"","value","\"@en.}}"),
 						"legalName"=>array("?x gr:legalName \"","value","\"^^xsd:Literal."),
@@ -122,22 +130,15 @@ class GR4PHP_Template{
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   			OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
 								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
+														UNION {?x vcard:latitude ?lat.}
    														UNION {?x geo:location ?z.?z geo:lat ?lat.}
    														UNION {?x vc:GEO ?z.?z vc:latitude ?lat.}
-														UNION {?x geo:lat ?lat.}
-														UNION {?y vcard:geo ?z.?z vcard:latitude ?lat.}
-						   								UNION {?y geo:location ?z.?z geo:lat ?lat.}
-						   								UNION {?y vc:GEO ?z.?z vc:latitude ?lat.}
-														UNION {?y geo:lat ?lat.}}} ",
+														UNION {?x geo:lat ?lat.}}} ",
 								"long"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:longitude ?long.}
+														UNION {?x vcard:longitude ?long.}
    														UNION {?x geo:location ?z.?z geo:long ?long.}
    														UNION {?x vc:GEO ?z.?z vc:longitude ?long.}
-														UNION {?x geo:long ?long.}
-														UNION {?y vcard:geo ?z.?z vcard:longitude ?long.}
-						   								UNION {?y geo:location ?z.?z geo:long ?long.}
-						   								UNION {?y vc:GEO ?z.?z vc:longitude ?long.}
-														UNION {?y geo:long ?long.}}} ",
-	
+														UNION {?x geo:long ?long.}}} ",
 								"openTime"=>""),
 						"getCompany"=>array(
 								"name"=>"OPTIONAL {?x gr:legalName ?name.} ",
@@ -155,21 +156,15 @@ class GR4PHP_Template{
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   	  OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
 								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
+														UNION {?x vcard:latitude ?lat.}
    														UNION {?x geo:location ?z.?z geo:lat ?lat.}
    														UNION {?x vc:GEO ?z.?z vc:latitude ?lat.}
-														UNION {?x geo:lat ?lat.}
-														UNION {?y vcard:geo ?z.?z vcard:latitude ?lat.}
-						   								UNION {?y geo:location ?z.?z geo:lat ?lat.}
-						   								UNION {?y vc:GEO ?z.?z vc:latitude ?lat.}
-														UNION {?y geo:lat ?lat.}}} ",
+														UNION {?x geo:lat ?lat.}}} ",
 								"long"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:longitude ?long.}
+														UNION {?x vcard:longitude ?long.}
    														UNION {?x geo:location ?z.?z geo:long ?long.}
    														UNION {?x vc:GEO ?z.?z vc:longitude ?long.}
-														UNION {?x geo:long ?long.}
-														UNION {?y vcard:geo ?z.?z vcard:longitude ?long.}
-						   								UNION {?y geo:location ?z.?z geo:long ?long.}
-						   								UNION {?y vc:GEO ?z.?z vc:longitude ?long.}
-														UNION {?y geo:long ?long.}}} "
+														UNION {?x geo:long ?long.}}} ",
 ),
 						"getProductModel"=>array(
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
@@ -353,6 +348,8 @@ class GR4PHP_Template{
 									"gln",
 									"title",
 									"country",
+									"street",
+									"post",
 									"city"
 									),
 						"getCompany"=>array(
@@ -405,12 +402,13 @@ class GR4PHP_Template{
 	//Without the memebership the query result can be wrong or incorrect! 
 	private static $prefix=array(
 						"getStore"=>array(
-							"vc"=>"PREFIX vc:<http://www.w3.org/2001/vcard-rdf/3.0#>",
-							"vcard"=>"PREFIX vcard:<http://www.w3.org/2006/vcard/ns#> ",
+							"vc"=>"PREFIX vc: <http://www.w3.org/2001/vcard-rdf/3.0#>",
+							"vcard"=>"PREFIX vcard: <http://www.w3.org/2006/vcard/ns#> ",
+							"geo"=>"PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> "
 							),
 						"getCompany"=>array(
-							"vc"=>"PREFIX vc:<http://www.w3.org/2001/vcard-rdf/3.0#>",
-							"vcard"=>"PREFIX vcard:<http://www.w3.org/2006/vcard/ns#> "
+							"vc"=>"PREFIX vc: <http://www.w3.org/2001/vcard-rdf/3.0#>",
+							"vcard"=>"PREFIX vcard: <http://www.w3.org/2006/vcard/ns#> "
 							)
 	);
 	
