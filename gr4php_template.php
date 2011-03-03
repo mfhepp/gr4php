@@ -134,16 +134,27 @@ class GR4PHP_Template{
 								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?x vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   			OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
+								// x = BE, y = VC:Address
 								"lat"=>"OPTIONAL{{{?x vcard:geo ?zlat.?zlat vcard:latitude ?lat.}
 														UNION {?x vcard:latitude ?lat.}
    														UNION {?x geo:location ?zlat.?zlat geo:lat ?lat.}
    														UNION {?x vc:GEO ?zlat.?zlat vc:latitude ?lat.}
-														UNION {?x geo:lat ?lat.}}} ",
+														UNION {?x geo:lat ?lat.}
+														UNION {?y vcard:geo ?zlat.?zlat vcard:latitude ?lat.}
+														UNION {?y vcard:latitude ?lat.}
+			   											UNION {?y geo:location ?zlat.?zlat geo:lat ?lat.}
+			   											UNION {?y vc:GEO ?zlat.?zlat vc:latitude ?lat.}
+														UNION {?y geo:lat ?lat.}}} ",
 								"long"=>"OPTIONAL{{{?x vcard:geo ?zlong.?zlong vcard:longitude ?long.}
 														UNION {?x vcard:longitude ?long.}
    														UNION {?x geo:location ?zlong.?zlong geo:long ?long.}
    														UNION {?x vc:GEO ?zlong.?zlong vc:longitude ?long.}
-														UNION {?x geo:long ?long.}}} ",
+														UNION {?x geo:long ?long.}
+														UNION {?y vcard:geo ?zlong.?zlong vcard:longitude ?long.}
+														UNION {?y vcard:longitude ?long.}
+						   								UNION {?y geo:location ?zlong.?zlong geo:long ?long.}
+						   								UNION {?y vc:GEO ?zlong.?zlong vc:longitude ?long.}
+														UNION {?y geo:long ?long.}}} ",
 								"openTime"=>""),
 						"getCompany"=>array(
 								"name"=>"OPTIONAL {?x gr:legalName ?name.} ",
@@ -161,16 +172,27 @@ class GR4PHP_Template{
 								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?x vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   	  OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
+								// x = BE, y = VC:Address
 								"lat"=>"OPTIONAL{{{?x vcard:geo ?zlat.?zlat vcard:latitude ?lat.}
 														UNION {?x vcard:latitude ?lat.}
    														UNION {?x geo:location ?zlat.?zlat geo:lat ?lat.}
    														UNION {?x vc:GEO ?zlat.?zlat vc:latitude ?lat.}
-														UNION {?x geo:lat ?lat.}}} ",
+														UNION {?x geo:lat ?lat.}
+														UNION {?y vcard:geo ?zlat.?zlat vcard:latitude ?lat.}
+														UNION {?y vcard:latitude ?lat.}
+			   											UNION {?y geo:location ?zlat.?zlat geo:lat ?lat.}
+			   											UNION {?y vc:GEO ?zlat.?zlat vc:latitude ?lat.}
+														UNION {?y geo:lat ?lat.}}} ",
 								"long"=>"OPTIONAL{{{?x vcard:geo ?zlong.?zlong vcard:longitude ?long.}
 														UNION {?x vcard:longitude ?long.}
    														UNION {?x geo:location ?zlong.?zlong geo:long ?long.}
    														UNION {?x vc:GEO ?zlong.?zlong vc:longitude ?long.}
-														UNION {?x geo:long ?long.}}} ",
+														UNION {?x geo:long ?long.}
+														UNION {?y vcard:geo ?zlong.?zlong vcard:longitude ?long.}
+														UNION {?y vcard:longitude ?long.}
+						   								UNION {?y geo:location ?zlong.?zlong geo:long ?long.}
+						   								UNION {?y vc:GEO ?zlong.?zlong vc:longitude ?long.}
+														UNION {?y geo:long ?long.}}} ",
 ),
 						"getProductModel"=>array(
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
