@@ -20,6 +20,8 @@ class GR4PHP_Template{
 				":lax"=>array(
 						"gln"=>array("?x gr:hasGlobalLocationNumber ?gln. ?gln bif:contains '\"","value","\"' ."),
 						"title"=>array("{{?x rdfs:label ?title. ?title bif:contains '\"","value","\"' .} UNION
+											{?x gr:name ?title. ?title bif:contains '\"","value","\"' .} UNION
+											{?x gr:description ?title. ?title bif:contains '\"","value","\"' .} UNION
 										  {?x rdfs:comment ?title. ?title bif:contains '\"","value","\"' .} UNION
 										  {?x dc:title ?title. ?title bif:contains '\"","value","\"' .}}"),
 						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country ?country. ?country bif:contains '\"","value","\"' .} UNION 
@@ -67,6 +69,8 @@ class GR4PHP_Template{
 				":strict"=>array(
 						"gln"=>array("?x gr:hasGlobalLocationNumber \"","value","\"^^xsd:string."),
 						"title"=>array("{{?x rdfs:label \"","value","\"@en.} UNION
+											{?x gr:name \"","value","\"@en.} UNION
+											{?x gr:description \"","value","\"@en.} UNION
 										  {?x rdfs:comment \"","value","\"@en.} UNION
 										  {?x dc:title \"","value","\"@en.}}"),
 						"country"=>array("{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}. {{?y vc:Country \"","value","\"@en.} UNION 
@@ -121,6 +125,7 @@ class GR4PHP_Template{
 						"getStore"=>array(
 								"gln"=>"OPTIONAL {?x gr:hasGlobalLocationNumber ?gln.} ",
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
+											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
 								"street"=>"OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
 								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pcode ?post.}}} ",
@@ -129,15 +134,15 @@ class GR4PHP_Template{
 								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?x vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   			OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
-								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
+								"lat"=>"OPTIONAL{{{?x vcard:geo ?zlat.?zlat vcard:latitude ?lat.}
 														UNION {?x vcard:latitude ?lat.}
-   														UNION {?x geo:location ?z.?z geo:lat ?lat.}
-   														UNION {?x vc:GEO ?z.?z vc:latitude ?lat.}
+   														UNION {?x geo:location ?zlat.?zlat geo:lat ?lat.}
+   														UNION {?x vc:GEO ?zlat.?zlat vc:latitude ?lat.}
 														UNION {?x geo:lat ?lat.}}} ",
-								"long"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:longitude ?long.}
+								"long"=>"OPTIONAL{{{?x vcard:geo ?zlong.?zlong vcard:longitude ?long.}
 														UNION {?x vcard:longitude ?long.}
-   														UNION {?x geo:location ?z.?z geo:long ?long.}
-   														UNION {?x vc:GEO ?z.?z vc:longitude ?long.}
+   														UNION {?x geo:location ?zlong.?zlong geo:long ?long.}
+   														UNION {?x vc:GEO ?zlong.?zlong vc:longitude ?long.}
 														UNION {?x geo:long ?long.}}} ",
 								"openTime"=>""),
 						"getCompany"=>array(
@@ -147,6 +152,7 @@ class GR4PHP_Template{
 								"naics"=>"OPTIONAL {?x gr:hasNAICS ?naics.} ",
 								"gln"=>"OPTIONAL {?x gr:hasGlobalLocationNumber ?gln.} ",
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
+											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
 								"street"=>"OPTIONAL {{{?y vcard:street-address ?street.} UNION {?y vc:Street ?street.}}} ",
 								"post"=>"OPTIONAL {{{?y vcard:postal-code ?post.} UNION {?y vc:Pcode ?post.}}} ",
@@ -155,19 +161,20 @@ class GR4PHP_Template{
 								"phone"=>"OPTIONAL {{{?y vc:TEL ?phone.} UNION {?x vcard:tel ?phone.}}} ",
 								"email"=>"OPTIONAL {{{?y vc:EMAIL ?b.} UNION {?x vcard:email ?b.}}}
 									   	  OPTIONAL {{{?b rdf:value ?email.} UNION {?b rdfs:comment ?email.}}} ",
-								"lat"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:latitude ?lat.}
+								"lat"=>"OPTIONAL{{{?x vcard:geo ?zlat.?zlat vcard:latitude ?lat.}
 														UNION {?x vcard:latitude ?lat.}
-   														UNION {?x geo:location ?z.?z geo:lat ?lat.}
-   														UNION {?x vc:GEO ?z.?z vc:latitude ?lat.}
+   														UNION {?x geo:location ?zlat.?zlat geo:lat ?lat.}
+   														UNION {?x vc:GEO ?zlat.?zlat vc:latitude ?lat.}
 														UNION {?x geo:lat ?lat.}}} ",
-								"long"=>"OPTIONAL{{{?x vcard:geo ?z.?z vcard:longitude ?long.}
+								"long"=>"OPTIONAL{{{?x vcard:geo ?zlong.?zlong vcard:longitude ?long.}
 														UNION {?x vcard:longitude ?long.}
-   														UNION {?x geo:location ?z.?z geo:long ?long.}
-   														UNION {?x vc:GEO ?z.?z vc:longitude ?long.}
+   														UNION {?x geo:location ?zlong.?zlong geo:long ?long.}
+   														UNION {?x vc:GEO ?zlong.?zlong vc:longitude ?long.}
 														UNION {?x geo:long ?long.}}} ",
 ),
 						"getProductModel"=>array(
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
+											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku .}",
 								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
@@ -186,6 +193,7 @@ class GR4PHP_Template{
 						"getOffers"=>array(
 								""=>"?offering gr:includesObject ?taqn. ?taqn gr:typeOfGood ?x.",
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
+											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}}",
 								"sku"=>"OPTIONAL {?x gr:hasStockKeepingUnit ?sku.}",
 								"ean13"=>"OPTIONAL {?x gr:hasEAN_UCC-13  ?ean13.}",
@@ -220,6 +228,7 @@ class GR4PHP_Template{
 								),
 						"getOpeningHours"=>array(
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
+											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
 								"closeMonday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Monday .?spec gr:opens ?openMonday. ?spec gr:closes ?closeMonday.}",
 								"closeTuesday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Tuesday .?spec gr:opens ?openTuesday. ?spec gr:closes ?closeTuesday.}",
@@ -232,6 +241,7 @@ class GR4PHP_Template{
 						"getLocation"=>array(
 								"gln"=>"OPTIONAL {?x gr:hasGlobalLocationNumber ?gln.} ",
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
+											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} "
 								)
 	);
@@ -408,7 +418,8 @@ class GR4PHP_Template{
 							),
 						"getCompany"=>array(
 							"vc"=>"PREFIX vc: <http://www.w3.org/2001/vcard-rdf/3.0#>",
-							"vcard"=>"PREFIX vcard: <http://www.w3.org/2006/vcard/ns#> "
+							"vcard"=>"PREFIX vcard: <http://www.w3.org/2006/vcard/ns#> ",
+							"geo"=>"PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> "
 							)
 	);
 	
