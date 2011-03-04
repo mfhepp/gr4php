@@ -230,6 +230,13 @@ class GR4PHP_Template{
 								"title"=> "OPTIONAL {{?x rdfs:label ?title.} UNION
 											{?x gr:name ?title.} UNION {?x gr:description ?title.} UNION
 											{?x rdfs:comment ?title.} UNION {?x dc:title ?title.}} ",
+								"openMonday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Monday .?spec gr:opens ?openMonday. ?spec gr:closes ?closeMonday.}",
+								"openTuesday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Tuesday .?spec gr:opens ?openTuesday. ?spec gr:closes ?closeTuesday.}",
+								"openWednesday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Wednesday .?spec gr:opens ?openWednesday. ?spec gr:closes ?closeWednesday.}",
+								"openThursday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Thursday .?spec gr:opens ?openThursday. ?spec gr:closes ?closeThursday.}",
+								"openFriday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Friday .?spec gr:opens ?openFriday. ?spec gr:closes ?closeFriday.}",
+								"openSaturday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Saturday .?spec gr:opens ?openSaturday. ?spec gr:closes ?closeSaturday.}",
+								"openSunday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Sunday .?spec gr:opens ?openSunday. ?spec gr:closes ?closeSunday.}",
 								"closeMonday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Monday .?spec gr:opens ?openMonday. ?spec gr:closes ?closeMonday.}",
 								"closeTuesday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Tuesday .?spec gr:opens ?openTuesday. ?spec gr:closes ?closeTuesday.}",
 								"closeWednesday"=>"OPTIONAL{?spec gr:hasOpeningHoursDayOfWeek gr:Wednesday .?spec gr:opens ?openWednesday. ?spec gr:closes ?closeWednesday.}",
