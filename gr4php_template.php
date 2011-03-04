@@ -4,7 +4,7 @@
 * All function directions, that are used to create the SPARQL-Query can you find in this class.
 * To add new values for a function you have to upgrade the private attributes in this class.
 * 
-* @author	Martin Anding, Stefan Dietrich (University of German Armed Forces Munich)
+* @author	Martin Anding, Stefan Dietrich, Alex Stolz (University of German Armed Forces Munich)
 * 			API is a result of a study project in "GoodRelations" in the year of 2010.
 * 			This work is based on the GoodRelations ontology, developed by Martin Hepp.
 * @link    http://purl.org/goodrelations/

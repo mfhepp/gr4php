@@ -10,7 +10,7 @@
  * --- GR4PHP (GoodRelations FOR PHP) ---
  * A GUI to test GR4PHP API. 
  * 
- * @author	Martin Anding, Stefan Dietrich (University of German Armed Forces Munich)
+ * @author	Martin Anding, Stefan Dietrich, Alex Stolz (University of German Armed Forces Munich)
  * 			API is a result of a study project in "GoodRelations" in the year of 2010.
  * 			This work is based on the GoodRelations ontology, developed by Martin Hepp.
  * @link    http://purl.org/goodrelations/
