@@ -20,7 +20,7 @@ include_once 'gr4php_configuration.php';
  * @param 		string		$zeichen Char that shows the cut-off point (Default: ",")
  * @return 		array		$arrayOfStrings Array
  */
-public function getString2Array($string,$zeichen=","){
+function getString2Array($string,$zeichen=","){
 	
 	$arrayOfStrings=explode($zeichen, $string);
 	
@@ -33,7 +33,7 @@ public function getString2Array($string,$zeichen=","){
  * @param 		array		$array Array
  * @return 		string		$string String
  */
-public function getArray2String($array){
+function getArray2String($array){
 	
 		foreach ((array)$array as $content){
     		$str.=$content.",";
@@ -50,7 +50,7 @@ public function getArray2String($array){
  * @param 		string		$value Value (day or time)
  * @return 		date		$date Date format
  */
-public function getDateByValue($value){
+function getDateByValue($value){
 	$date=array("day"=>"l","time"=>"H:i");
 	return date($date[$value]);
 }
@@ -61,7 +61,7 @@ public function getDateByValue($value){
  * @param 		array		$inputArray Input Array with search elements
  * @return 		array		$resultArray Input Array with elements of right length
  */
-public function isLengthOfElementRight($inputArray){
+function isLengthOfElementRight($inputArray){
 		$elementLength=GR4PHP_Template::checkLengthOfElements();
 		$resultArray=$inputArray;
 			foreach ((array)$inputArray as $element=>$value) {
@@ -82,7 +82,7 @@ public function isLengthOfElementRight($inputArray){
  * @param 		string		$char Char for an element
  * @return 		array		$resultArray Array of all wanted elements
  */
-public function getWantedElements($wantedElements,$possibleElements,$char="?"){
+function getWantedElements($wantedElements,$possibleElements,$char="?"){
 	$resultArray=array();
 	foreach ((array)$wantedElements as $ownElement){
 		if (in_array($char.$ownElement,$possibleElements)){
