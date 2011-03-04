@@ -44,10 +44,12 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sougth 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	private function createQuery($functionName, $inputArray, $wantedElements, $mode, $limit){
+	private function createQuery($functionName, $inputArray, $wantedElements, $mode, $limit, $searchProperties){
 		// define variable 
 		$sparql="";
 
@@ -122,6 +124,14 @@ class GR4PHP{
 			$selectPart=getWantedElements((array)$wantedElements,$selectPartComplete);
 			$this->selectedElements=(array)$wantedElements;
 		}
+		
+		// custom properties to search for - Result Form
+		if(!empty($searchProperties)) {
+			foreach($searchProperties as $prop) {
+				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
+					$selectPart[] = "?".preg_replace("/:/", "_", $prop);
+			}
+		}
 
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 
@@ -152,14 +162,23 @@ class GR4PHP{
 			$sparql.=" ?x a gr:Offering. ";
 		}
 		else if($functionName == "getOpeningHours") {
-			$sparql.= "?x a gr:LocationOfSalesOrServiceProvisioning. ?x gr:hasOpeningHoursSpecification ?spec. ";
+			$sparql.= " ?x a gr:LocationOfSalesOrServiceProvisioning. ?x gr:hasOpeningHoursSpecification ?spec. ";
 		}
 		else if($functionName == "getLocation") {
-			$sparql.= " ?x a gr:LocationOfSalesOrServiceProvisioning.";
+			$sparql.= " ?x a gr:LocationOfSalesOrServiceProvisioning. ";
 		}
 
 		///// OPTIONAL-Part
+		
+		// custom properties to search for - OPTIONAL clause
+		if(!empty($searchProperties)) {
+			foreach($searchProperties as $prop) {
+				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
+					$sparql.="OPTIONAL {?x $prop "."?".preg_replace("/:/", "_", $prop).".} ";
+			}
+		}
 
+		// just attach this OPTIONAL clause, if country, street, ... patterns are not already covered by inputArray processing
 		if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {
 			$sparql.="OPTIONAL {{?x vc:ADR ?y} UNION {?x vcard:adr ?y}} ";
 		}
@@ -171,7 +190,7 @@ class GR4PHP{
 			// set OPTIONAL-part
 			if (!in_array($aloneOutput, $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
 				if (in_array($aloneOutput, array("openTime","closeTime"))){
-					if(!in_array("openNow", array_keys($inputArray))) // else, openTime and closeTime are known
+					if(!in_array("openNow", array_keys($inputArray))) // else, openTime and closeTime are supposed to be already known
 						$sparql.=GR4PHP_Template::getSpecialOutputValues($functionName, $aloneOutput);
 				}
 				else
@@ -205,11 +224,13 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sougth 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getStore($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX,$limit=Configuration::LIMIT){
-		return self::createQuery("getStore", $inputArray, $wantedElements, $mode, $limit);
+	function getStore($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX,$limit=Configuration::LIMIT, $searchProperties=FALSE){
+		return self::createQuery("getStore", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
 	/**
@@ -227,11 +248,13 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sougth 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getCompany($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
-		return self::createQuery("getCompany", $inputArray, $wantedElements, $mode, $limit);
+	function getCompany($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+		return self::createQuery("getCompany", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
 	/**
@@ -249,11 +272,13 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sougth 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getProductModel($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
-		return self::createQuery("getProductModel", $inputArray, $wantedElements, $mode, $limit);
+	function getProductModel($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+		return self::createQuery("getProductModel", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
 	/**
@@ -276,11 +301,13 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sougth 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getOffers($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
-		return self::createQuery("getOffers", $inputArray, $wantedElements, $mode, $limit);
+	function getOffers($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+		return self::createQuery("getOffers", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
 	/**
@@ -299,11 +326,13 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sought 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
-		return self::createQuery("getOpeningHours", $inputArray, $wantedElements, $mode, $limit);
+	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+		return self::createQuery("getOpeningHours", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
 	/**
@@ -321,11 +350,13 @@ class GR4PHP{
 	 * ":strict"-> Only the given values of all search elements be sougth 
 	 * 
 	 * @param 		integer		$limit Result-Limit (Default: 20 --> see configuration.php)
-	 * 
+	 *
+	 * @param		array 		$searchProperties Properties that can be provided for doing custom property searches on the main conceptual element (denoted by x), e.g. array("foo:bar","foo:prop")
+	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getLocation($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT){
-		return self::createQuery("getLocation", $inputArray, $wantedElements, $mode, $limit);
+	function getLocation($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+		return self::createQuery("getLocation", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
 	/**
