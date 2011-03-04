@@ -184,27 +184,27 @@ function getFunction($endpoint,$function,$inputArray,$wantedElements=NULL,$mode=
 	switch ($function){
 		case "getStore":
 	           $result=$gr4php->getStore($inputArray,$wantedElements,$mode,$limit);
-	           $query=$gr4php->getSparqlQuery();
+	           $query=$gr4php->printSparqlQuery();
                break;
         case "getCompany":
 	           $result=$gr4php->getCompany($inputArray,$wantedElements,$mode,$limit);
-	           $query=$gr4php->getSparqlQuery();
+	           $query=$gr4php->printSparqlQuery();
                break;
         case "getProductModel":
 	           $result=$gr4php->getProductModel($inputArray,$wantedElements,$mode,$limit);
-	           $query=$gr4php->getSparqlQuery();
+	           $query=$gr4php->printSparqlQuery();
                break;
         case "getOffers":
 	           $result=$gr4php->getOffers($inputArray,$wantedElements,$mode,$limit);
-	           $query=$gr4php->getSparqlQuery();
+	           $query=$gr4php->printSparqlQuery();
                break;
         case "getOpeningHours":
 	           $result=$gr4php->getOpeningHours($inputArray,$wantedElements,$mode,$limit);
-	           $query=$gr4php->getSparqlQuery();
+	           $query=$gr4php->printSparqlQuery();
                break;
         case "getLocation":
 	           $result=$gr4php->getLocation($inputArray,$wantedElements,$mode,$limit);
-	           $query=$gr4php->getSparqlQuery();
+	           $query=$gr4php->printSparqlQuery();
                break;
 	}
 	

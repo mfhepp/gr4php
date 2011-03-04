@@ -470,7 +470,7 @@ class GR4PHP_Template{
 	 * @param 		string		$sparql SPARQL query string
 	 */
 
-	static function appendPrefixes(&$sparql) {
+	public static function appendPrefixes(&$sparql) {
 		foreach (Configuration::$prefixes as $ns=>$uri) {
 			if(preg_match("/$ns:/i", $sparql))
 				$sparql = "PREFIX $ns: <$uri>\n".$sparql;
@@ -483,7 +483,7 @@ class GR4PHP_Template{
 	 * @param 		string		$part Function
 	 * @return 		array		$possibleSelectParts Possible SELECT elements  
 	 */
-	static function getSelectPartsByFunction($part){
+	public static function getSelectPartsByFunction($part){
 		return self::$possibleSelectParts[$part];
 	}
 	
@@ -495,7 +495,7 @@ class GR4PHP_Template{
 	 * @param 		string		$value Assign value to the input part
 	 * @return 		string		$sparql	Finished input order
 	 */ 
-	static function getInputValues($mode,$column,$value){
+	public static function getInputValues($mode,$column,$value){
 
 		foreach ((array)self::$possibleInputValues[$mode][$column] as $part){
 			if ($part=="value"){
@@ -522,7 +522,7 @@ class GR4PHP_Template{
 	 * @param 		string		$part Function
 	 * @return 		string		$sparql Finished specific output values of the query 
 	 */
-	static function getSpecialOutputValues($functionName, $part){
+	public static function getSpecialOutputValues($functionName, $part){
 		$sparql="";
 		foreach ((array)self::$possibleOutputValues[$functionName][$part] as $part){
 			if ($part=="day"){
@@ -539,7 +539,7 @@ class GR4PHP_Template{
 	 * @param 		string		$part Function
 	 * @return 		array		$possibleOutputValues Finished optional output-part of the query 
 	 */
-	static function getOutputValuesByFunction($part){
+	public static function getOutputValuesByFunction($part){
 		return self::$possibleOutputValues[$part];
 	}
 	
@@ -549,7 +549,7 @@ class GR4PHP_Template{
 	 * @param 		string		$part Function
 	 * @return 		array		$possibleInputValuesByFunction Array of possible input values 
 	 */
-	static function possibleInputValuesByFunction($function){
+	public static function possibleInputValuesByFunction($function){
 		return self::$possibleInputValuesByFunction[$function];
 	}
 	
@@ -559,7 +559,7 @@ class GR4PHP_Template{
 	 * @param 		string		$element Element in input array
 	 * @return 		string		$type Format of the element
 	 */
-	static function checkFormatOfInputValue($element){
+	public static function checkFormatOfInputValue($element){
 		$type=NULL;
 		foreach ((array)self::$inputValueFormat as $formatGroup => $possibleArray){
 			if (in_array($element,$possibleArray)){
@@ -575,7 +575,7 @@ class GR4PHP_Template{
 	 * Return an array with information of certain elements and length
 	 * @return 		array		$correctLengthOfElements Array of lengths 
 	 */
-	static function checkLengthOfElements(){
+	public static function checkLengthOfElements(){
 		return self::$correctLengthOfElements;
 	}
 	
@@ -586,7 +586,7 @@ class GR4PHP_Template{
 	 * @param 		array		$inputArray Input array
 	 * @return 		array		$statement	Special select statement 
 	 */
-	static function getSpecialSelectPartsByFunction($functionName, $inputArray){
+	public static function getSpecialSelectPartsByFunction($functionName, $inputArray){
 		$statement = array();
 		if($functionName == "getLocation") {
 			$prepare="( bif:round ( bif:st_distance ( ?geo,bif:st_point(".$inputArray['geo']['lat'].", ".$inputArray['geo']['long'].") ) ) ) AS ?distance";

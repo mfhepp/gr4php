@@ -229,7 +229,7 @@ class GR4PHP{
 	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getStore($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX,$limit=Configuration::LIMIT, $searchProperties=FALSE){
+	public function getStore($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX,$limit=Configuration::LIMIT, $searchProperties=FALSE){
 		return self::createQuery("getStore", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
@@ -253,7 +253,7 @@ class GR4PHP{
 	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getCompany($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+	public function getCompany($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
 		return self::createQuery("getCompany", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
@@ -277,7 +277,7 @@ class GR4PHP{
 	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getProductModel($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+	public function getProductModel($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
 		return self::createQuery("getProductModel", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
@@ -306,7 +306,7 @@ class GR4PHP{
 	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getOffers($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+	public function getOffers($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
 		return self::createQuery("getOffers", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
@@ -331,7 +331,7 @@ class GR4PHP{
 	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+	public function getOpeningHours($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
 		return self::createQuery("getOpeningHours", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
@@ -355,7 +355,7 @@ class GR4PHP{
 	 *
 	 * @return 		string		$sparql	SPARQL Query
 	 */
-	function getLocation($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
+	public function getLocation($inputArray,$wantedElements=FALSE,$mode=Configuration::MODE_LAX, $limit=Configuration::LIMIT, $searchProperties=FALSE){
 		return self::createQuery("getLocation", $inputArray, $wantedElements, $mode, $limit, $searchProperties);
 	}
 	
@@ -366,7 +366,7 @@ class GR4PHP{
 	 * @param 		string		$function Function
 	 * @return 		array		$resultArray Result array
 	 */
-	function connectGR4PHP($query,$function){
+	private function connectGR4PHP($query,$function){
 		$url="";
 		$this->sparqlQuery=$query;		
 		$url = self::buildURL($query, "json");
@@ -383,7 +383,7 @@ class GR4PHP{
 	 * @param 		string		$result_format Result format(here: json)
 	 * @return 		string		$url	Complete URL
 	 */
-	function buildURL($query, $result_format){
+	private function buildURL($query, $result_format){
     	$url="";
 		$url .= $this->endpoint."?default-graph-uri=&should-sponge=&query=".str_replace("%26", "&", str_replace("%29", ")", str_replace("%28", "(", str_replace("%7D", "}",str_replace("%7B", "{", str_replace("%3B", ";", str_replace("%26amp%3B", "&", urlencode($query))))))));; // \" to "
     	$url .= "&format=".$result_format;
@@ -397,7 +397,7 @@ class GR4PHP{
 	 * @param 		string		$url	URL
 	 * @return 		string		HTTP GET Response 
 	 */
-	function httpGet($url)
+	private function httpGet($url)
 	{
     	if (ini_get('allow_url_fopen') == '1') {
     		
@@ -445,7 +445,7 @@ class GR4PHP{
 	 * @param 		string		$sparqlQuery Function gr function
 	 * @return 		array		$resultArray Result array
 	 */
-	function getResultArray($httpResult, $sparqlQueryFunction){
+	private function getResultArray($httpResult, $sparqlQueryFunction){
 		$httpResultArray = json_decode($httpResult, true);
 		$ra = (array) $httpResultArray["results"]["bindings"];
 		
@@ -472,19 +472,10 @@ class GR4PHP{
 	
 	/**
 	 *
-	 * Return SPARQL Query
+	 * Print SPARQL Query String
 	 * @return 		string		SPARQL QUERY
 	 */
-	function getSparqlQuery(){
+	public function printSparqlQuery(){
 		return htmlentities($this->sparqlQuery);
-	}
-	
-	/**
-	 *
-	 * Return URL for endpoint
-	 * @return 		string		URL
-	 */
-	function getCompleteURL(){
-		return $this->url;
 	}
 }

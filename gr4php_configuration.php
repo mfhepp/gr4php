@@ -26,7 +26,7 @@
 	const MODE_STRICT=":strict";
 	
 	// list of available standard namespace prefixes
-	static $prefixes = array(
+	public static $prefixes = array(
 		"gr"=>"http://purl.org/goodrelations/v1#",
 		"rdfs"=>"http://www.w3.org/2000/01/rdf-schema#",
 		"dc"=>"http://purl.org/dc/elements/1.1/",
@@ -37,8 +37,13 @@
 		"geo"=>"http://www.w3.org/2003/01/geo/wgs84_pos#"
 	);
 	
-	// bind your custom namespace prefix
-	static function bindPrefix($ns="foo", $uri) {
+	/**
+ 	 *
+	 * Create your custom namespace prefix binding
+     * @param 		string		$ns Namespace Prefix
+     * @param 		string		$uri URI of Namespace
+ 	 */
+	public static function bindPrefix($ns="foo", $uri) {
 		self::$prefixes[$ns] = $uri;
 	}
 }

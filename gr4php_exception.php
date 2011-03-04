@@ -74,7 +74,7 @@ class GR4PHP_Exception extends Exception{
 		}
 	}
 	
-/**
+	/**
 	 *
 	 * Check the value format of every element in array
 	 * @param 		array		$inputArray Input Array with search elements
@@ -129,7 +129,7 @@ class GR4PHP_Exception extends Exception{
 		
 	}
 	
-/**
+	/**
 	 *
 	 * Check length of some input values only in strict mode
 	 * @param 		array		$inputArray Input Array with search elements
@@ -181,7 +181,7 @@ class GR4PHP_Exception extends Exception{
      * @param 		string		$mode Mode
      * @return 		string		$mode Allowed Mode
  	 */
-	function checkMode($mode){
+	public static function checkMode($mode){
 		$mode_array=array(Configuration::MODE_LAX,Configuration::MODE_STRICT);
 	
 		if (in_array($mode,$mode_array)) {
@@ -197,7 +197,7 @@ class GR4PHP_Exception extends Exception{
  	 * @param 		integer		$limit Limit
  	 * @return 		integer		$limit Allowed Limit
  	 */
-	function checkLimit($limit){
+	public static function checkLimit($limit){
 	
 		if (is_int($limit)) {
 			return $limit;
