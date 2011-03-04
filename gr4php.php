@@ -83,18 +83,6 @@ class GR4PHP{
 			GR4PHP_Exception::isPossibleSelectElementOfFunction($wantedElements,$functionName);
 		}
 
-		///// ONTOLOGIES-Part (PREFIX)
-
-		// get Ontologies of function
-		$ontologies=GR4PHP_Template::getPrefixByFunction($functionName);
-
-		// add Ontologies to query
-		if(!empty($ontologies)){
-			foreach((array)$ontologies as $ontologie => $prefix){
-				$sparql.=$prefix." "."\n";
-			}
-		}
-
 		///// SELECT-Part
 
 		if($functionName == "getLocation") {
@@ -111,7 +99,7 @@ class GR4PHP{
 			}
 			// get SELECT-part of getOffers
 			$selectPartspec=GR4PHP_Template::getSelectPartsByFunction($functionName);
-			$selectPartspec2=GR4PHP_Template::getSpecialSelectPartsByFunction($inputArray);
+			$selectPartspec2=GR4PHP_Template::getSpecialSelectPartsByFunction($functionName, $inputArray);
 			// get SELECT-part (here:general-part)
 			$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
 			$selectPartComplete=array_merge($selectPartDefault,$selectPartspec,$selectPartspec2);
@@ -172,8 +160,8 @@ class GR4PHP{
 
 		///// OPTIONAL-Part
 
-		if(in_array($functionName,array("getStore", "getCompany"))) {
-			$sparql.="OPTIONAL {{{?x vc:ADR ?y} UNION {?x vcard:adr ?y}}} ";
+		if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {
+			$sparql.="OPTIONAL {{?x vc:ADR ?y} UNION {?x vcard:adr ?y}} ";
 		}
 
 		// Optional Values
@@ -182,10 +170,12 @@ class GR4PHP{
 		foreach((array)$outputValues as $aloneOutput => $output){
 			// set OPTIONAL-part
 			if (!in_array($aloneOutput, $deleteOptionalInput) && in_array("?".$aloneOutput,$selectPart)){
-				if ($aloneOutput=="openTime"){
-					$sparql.=GR4PHP_Template::getSpecialOutputValues($aloneOutput);
+				if (in_array($aloneOutput, array("openTime","closeTime"))){
+					if(!in_array("openNow", array_keys($inputArray))) // else, openTime and closeTime are known
+						$sparql.=GR4PHP_Template::getSpecialOutputValues($functionName, $aloneOutput);
 				}
-				$sparql.=$output;
+				else
+					$sparql.=$output;
 			}
 		}
 
@@ -193,6 +183,9 @@ class GR4PHP{
 
 		//set LIMIT of query
 		$sparql.="} LIMIT ".$limit;
+		
+		// NAMESPACE PREFIX addition
+		GR4PHP_TEMPLATE::appendPrefixes($sparql);
 
 		return self::connectGR4PHP($sparql,$functionName);
 	}

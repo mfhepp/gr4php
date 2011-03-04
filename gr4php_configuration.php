@@ -24,4 +24,19 @@
 	//variants of mode
 	const MODE_LAX=":lax";
 	const MODE_STRICT=":strict";
+	
+	static $prefixes = array(
+		"gr"=>"http://purl.org/goodrelations/v1#",
+		"rdfs"=>"http://www.w3.org/2000/01/rdf-schema#",
+		"dc"=>"http://purl.org/dc/elements/1.1/",
+		"vc"=>"http://www.w3.org/2001/vcard-rdf/3.0#",
+		"vcard"=>"http://www.w3.org/2006/vcard/ns#",
+		"rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"foaf"=>"http://xmlns.com/foaf/0.1/",
+		"geo"=>"http://www.w3.org/2003/01/geo/wgs84_pos#"
+	);
+	
+	static function bindPrefix($ns="foo", $uri) {
+		self::$prefixes[$ns] = $uri;
+	}
 }
