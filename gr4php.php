@@ -206,7 +206,7 @@ class GR4PHP{
 		// NAMESPACE PREFIX addition
 		GR4PHP_TEMPLATE::appendPrefixes($sparql);
 
-		return self::connectGR4PHP($sparql,$functionName);
+		return self::connectGR4PHP($sparql);
 	}
 	
 	/**
@@ -363,15 +363,14 @@ class GR4PHP{
 	 *
 	 * Send Query to endpoint and give result back
 	 * @param 		string		$query SPARQL Query
-	 * @param 		string		$function Function
 	 * @return 		array		$resultArray Result array
 	 */
-	private function connectGR4PHP($query,$function){
+	private function connectGR4PHP($query){
 		$url="";
 		$this->sparqlQuery=$query;		
 		$url = self::buildURL($query, "json");
 		$result = self::httpGet($url);
-		$resultArray = (array)self::getResultArray($result, $function);
+		$resultArray = (array)self::getResultArray($result);
 		$this->url=$url;
 		return $resultArray;
 	}
@@ -442,31 +441,20 @@ class GR4PHP{
 	 *
 	 * Return result as Array
 	 * @param 		string		$httpResult HTTP GET Result
-	 * @param 		string		$sparqlQuery Function gr function
 	 * @return 		array		$resultArray Result array
 	 */
-	private function getResultArray($httpResult, $sparqlQueryFunction){
+	private function getResultArray($httpResult){
 		$httpResultArray = json_decode($httpResult, true);
 		$ra = (array) $httpResultArray["results"]["bindings"];
 		
-		$selectPartspec=GR4PHP_Template::getSelectPartsByFunction($sparqlQueryFunction);
-		$selectPartDefault=GR4PHP_Template::getSelectPartsByFunction("general");
-		$selectPartComplete=array_merge($selectPartDefault,$selectPartspec);
-		//get only wanted Elements
-		if ($this->selectedElements==FALSE){}
-		else{
-			$selectPartComplete=getWantedElements((array)$this->selectedElements,$selectPartComplete);
-		}
-		
 		$elemArray = array();
 		$resultArray = array();
-		foreach((array)$ra as $elem) {
-			foreach((array)$selectPartComplete as $spc){
-				$ergItem = $elem[str_replace("?", "", $spc)]["value"];
-				$elemArray[str_replace("?", "", $spc)] = $ergItem;
-			}	
-		$resultArray[] = $elemArray;
+		foreach($ra as $key => $value) {
+			foreach($value as $subkey => $subvalue)
+				$elemArray[$subkey] = $subvalue["value"];
+			$resultArray[] = $elemArray;
 		}
+
 		return $resultArray;
 	}
 	
