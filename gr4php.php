@@ -399,7 +399,6 @@ class GR4PHP{
 	private function httpGet($url)
 	{
     	if (ini_get('allow_url_fopen') == '1') {
-    		
     		$result=@file_get_contents($url);
 				if (false==$result)
 				{

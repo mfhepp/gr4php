@@ -54,8 +54,8 @@ class GR4PHP_Template{
 				//"successorOf"=>array("?x gr:successorOf ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
 				"validThrough"=>array("?offering gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
 				"validFrom"=>array("?offering gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
-				"price"=>array("?offering gr:hasPriceSpecification ?pricespec.
-					?pricespec gr:hasCurrencyValue ?price. FILTER (?price <","price",")."),
+				"price"=>array("?x gr:hasPriceSpecification ?pricespec.
+					?pricespec gr:hasCurrencyValue ?price. FILTER (?price < ","price",")."),
 				"currency"=>array("?offering gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrency ?currency. ?currency bif:contains '\"","value","\"' ."),
 				"acceptedPaymentMethod"=>array("?offering gr:acceptedPaymentMethods ?acceptedPaymentMethod. ?acceptedPaymentMethod bif:contains '\"","value","\"' ."),
@@ -401,7 +401,7 @@ class GR4PHP_Template{
 			"manufacturer",
 			"validThrough",
 			"validFrom",
-			"maxPrice",
+			"price",
 			"currency",
 			"acceptedPaymentMethod",
 			"businessFunction",
