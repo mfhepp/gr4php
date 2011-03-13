@@ -150,22 +150,22 @@ class GR4PHP{
 		}
 
 		if($functionName == "getStore") {
-			$sparql.=" ?x a gr:LocationOfSalesOrServiceProvisioning. ";
+			$sparql.=" ?uri a gr:LocationOfSalesOrServiceProvisioning. ";
 		}
 		else if($functionName == "getCompany") {
-			$sparql.=" ?x a gr:BusinessEntity. ";
+			$sparql.=" ?uri a gr:BusinessEntity. ";
 		}
 		else if($functionName == "getProductModel") {
-			$sparql.=" ?x a gr:ProductOrServiceModel. ";
+			$sparql.=" ?uri a gr:ProductOrServiceModel. ";
 		}
 		else if($functionName == "getOffers") {
-			$sparql.=" ?x a gr:Offering. ";
+			$sparql.=" ?uri a gr:Offering. ";
 		}
 		else if($functionName == "getOpeningHours") {
-			$sparql.= " ?x a gr:LocationOfSalesOrServiceProvisioning. ?x gr:hasOpeningHoursSpecification ?spec. ";
+			$sparql.= " ?uri a gr:LocationOfSalesOrServiceProvisioning. ?uri gr:hasOpeningHoursSpecification ?time. ";
 		}
 		else if($functionName == "getLocation") {
-			$sparql.= " ?x a gr:LocationOfSalesOrServiceProvisioning. ";
+			$sparql.= " ?uri a gr:LocationOfSalesOrServiceProvisioning. ";
 		}
 
 		///// OPTIONAL-Part
@@ -174,13 +174,13 @@ class GR4PHP{
 		if(!empty($searchProperties)) {
 			foreach($searchProperties as $prop) {
 				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
-					$sparql.="OPTIONAL {?x $prop "."?".preg_replace("/:/", "_", $prop).".} ";
+					$sparql.="OPTIONAL {?uri $prop "."?".preg_replace("/:/", "_", $prop).".} ";
 			}
 		}
 
 		// just attach this OPTIONAL clause, if country, street, ... patterns are not already covered by inputArray processing
 		if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {
-			$sparql.="OPTIONAL {{?x vc:ADR ?y} UNION {?x vcard:adr ?y}} ";
+			$sparql.="OPTIONAL {{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}} ";
 		}
 
 		// Optional Values
@@ -453,7 +453,6 @@ class GR4PHP{
 				$elemArray[$subkey] = $subvalue["value"];
 			$resultArray[] = $elemArray;
 		}
-
 		return $resultArray;
 	}
 	

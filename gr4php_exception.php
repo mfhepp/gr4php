@@ -87,12 +87,12 @@ class GR4PHP_Exception extends Exception{
 				switch ($format) {
     				case "integer":
        	 				if (!is_numeric($value)){
-       	 					throw new GR4PHP_Exception("Please check the format of the input value of the element <i>".$element."</i>. It must be <b>".$format."</b>");
+       	 					throw new GR4PHP_Exception("Please check the format of the input value of the element <i>".$element."</i>. It should be <b>".$format."</b>");
        	 				}
         				break;
     				case "string":
        	 				if (!is_string($value)){
-       	 					throw new GR4PHP_Exception("Please check the format of the input value of the element <i>".$element."</i>. It must be <b>".$format."</b>");
+       	 					throw new GR4PHP_Exception("Please check the format of the input value of the element <i>".$element."</i>. It should be <b>".$format."</b>");
        	 				}
         				break;
         			case NULL:

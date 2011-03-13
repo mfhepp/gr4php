@@ -27,7 +27,7 @@ set_time_limit(60);
 // defaults
 $array1 = "title";
 $array2 = "Team EWS Ingenieure";
-$array3 = "x,title";
+$array3 = "uri,title";
 $limit = 20;
 $mode = Configuration::MODE_LAX;
 $wantedElements = NULL;
@@ -158,14 +158,22 @@ if ($wantedElements!=NULL){
 	
 $selectPartComplete=getWantedElements($wantedElements,$selectPartComplete);
 }
+$selectWithout=array();
 foreach($selectPartComplete as $spc){
-				echo "<th>". str_replace("?", "", $spc)."</th>"."\n";
+				$name=str_replace("?", "", $spc);
+				echo "<th>".$name."</th>"."\n";
+				$selectWithout[]=$name;
 			}	
 echo "</tr>"."\n";
 foreach((array)$resultArray[0] as $ar){
 	echo "<tr>"."\n";
-	foreach($ar as $item){
-		echo "<td>". $item . "</td> "."\n";
+	foreach($selectWithout as $spc){
+		if (array_key_exists($spc, $ar)){
+			echo "<td>". $ar[$spc] . "</td> "."\n";
+		}
+		else{
+			echo "<td>&nbsp;</td>"."\n";
+		}
 	}
 	echo "</tr>"."\n";
 }
