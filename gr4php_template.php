@@ -52,22 +52,22 @@ class GR4PHP_Template{
 				//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
 				//"predecessorOf"=>array("?x gr:predecessorOf ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
 				//"successorOf"=>array("?x gr:successorOf ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
-				"validThrough"=>array("?offering gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
-				"validFrom"=>array("?offering gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
-				"price"=>array("?offering gr:hasPriceSpecification ?pricespec.
+				"validThrough"=>array("?uri gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
+				"validFrom"=>array("?uri gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
+				"price"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrencyValue ?price. FILTER (?price < ","price",")."),
-				"currency"=>array("?offering gr:hasPriceSpecification ?pricespec.
+				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrency ?currency. ?currency bif:contains '\"","value","\"' ."),
-				"acceptedPaymentMethod"=>array("?offering gr:acceptedPaymentMethods ?acceptedPaymentMethod. ?acceptedPaymentMethod bif:contains '\"","value","\"' ."),
-				"businessFunction"=>array("?offering gr:hasBusinessFunction ?businessFunction. ?businessFunction bif:contains '\"","value","\"' ."),
-				"minWarrantyInMonths"=>array("?offering gr:hasWarrantyPromise ?hasWarrantyPromise.
+				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods ?acceptedPaymentMethod. ?acceptedPaymentMethod bif:contains '\"","value","\"' ."),
+				"businessFunction"=>array("?uri gr:hasBusinessFunction ?businessFunction. ?businessFunction bif:contains '\"","value","\"' ."),
+				"minWarrantyInMonths"=>array("?uri gr:hasWarrantyPromise ?hasWarrantyPromise.
 					?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths.
 					FILTER (?minWarrantyInMonths < "," \"","value","\" ",")."),
-				"eligibleCustomerTypes"=>array("?offering gr:eligibleCustomerTypes ?eligibleCustomerTypes. ?eligibleCustomerTypes bif:contains '\"","value","\"' ."),
-				"eligibleRegions"=>array("?offering gr:eligibleRegions ?eligibleRegions ?eligibleRegions bif:contains '\"","value","\"' ."),
-				"availabilityStarts"=>array("?offering gr:availabilityStarts ?availabilityStarts. ?availabilityStarts bif:contains '\"","value","\"' ."),
-				"availabilityEnds"=>array("?offering gr:availabilityEnds ?availabilityEnds. ?availabilityEnds bif:contains '\"","value","\"' ."),
-				"availableDeliveryMethods"=>array("?offering gr:availableDeliveryMethods ?availabledeliveryMethods. ?availabledeliveryMethods bif:contains '\"","value","\"' ."),
+				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes ?eligibleCustomerTypes. ?eligibleCustomerTypes bif:contains '\"","value","\"' ."),
+				"eligibleRegions"=>array("?uri gr:eligibleRegions ?eligibleRegions ?eligibleRegions bif:contains '\"","value","\"' ."),
+				"availabilityStarts"=>array("?uri gr:availabilityStarts ?availabilityStarts. ?availabilityStarts bif:contains '\"","value","\"' ."),
+				"availabilityEnds"=>array("?uri gr:availabilityEnds ?availabilityEnds. ?availabilityEnds bif:contains '\"","value","\"' ."),
+				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods ?availabledeliveryMethods. ?availabledeliveryMethods bif:contains '\"","value","\"' ."),
 				"geo"=>array("?uri geo:geometry ?geo. FILTER(bif:round ( bif:st_distance ( ?geo,bif:st_point(","lat",", ","long",") ) ) < ","distance",")")
 		),
 		":strict"=>array(
@@ -105,22 +105,22 @@ class GR4PHP_Template{
 				//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
 				//"predecessorOf"=>array("?x gr:predecessorOf  ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
 				//"successorOf"=>array("?x gr:successorOf  ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
-				"validThrough"=>array("?offering gr:validThrough \"","value","\"^^xsd:dateTime."),
-				"validFrom"=>array("?offering gr:validFrom \"","value","\"^^xsd:dateTime."),
-				"price"=>array("?offering gr:hasPriceSpecification ?pricespec.
+				"validThrough"=>array("?uri gr:validThrough \"","value","\"^^xsd:dateTime."),
+				"validFrom"=>array("?uri gr:validFrom \"","value","\"^^xsd:dateTime."),
+				"price"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrencyValue ?price. FILTER (?price <","price",")."),
-				"currency"=>array("?offering gr:hasPriceSpecification ?pricespec.
+				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrency \"","value","\"^^xsd:string."),
-				"acceptedPaymentMethod"=>array("?offering gr:acceptedPaymentMethods \"","value","\"."),
-				"businessFunction"=>array("?offering gr:hasBusinessFunction \"","value","\"."),
-				"minWarrantyInMonths"=>array("?offering gr:hasWarrantyPromise ?hasWarrantyPromise.
+				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods \"","value","\"."),
+				"businessFunction"=>array("?uri gr:hasBusinessFunction \"","value","\"."),
+				"minWarrantyInMonths"=>array("?uri gr:hasWarrantyPromise ?hasWarrantyPromise.
 					?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths.
 					FILTER (?minWarrantyInMonths < "," \"","value","\" ",")."),
-				"eligibleCustomerTypes"=>array("?offering gr:eligibleCustomerTypes \"","value","\"."),
-				"eligibleRegions"=>array("?offering gr:eligibleRegions \"","value","\"^^xsd:string."),
-				"availabilityStarts"=>array("?offering gr:availabilityStarts \"","value","\"^^xsd:dateTime."),
-				"availabilityEnds"=>array("?offering gr:availabilityEnds \"","value","\"^^xsd:dateTime."),
-				"availableDeliveryMethods"=>array("?offering gr:availableDeliveryMethods \"","value","\"."),
+				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes \"","value","\"."),
+				"eligibleRegions"=>array("?uri gr:eligibleRegions \"","value","\"^^xsd:string."),
+				"availabilityStarts"=>array("?uri gr:availabilityStarts \"","value","\"^^xsd:dateTime."),
+				"availabilityEnds"=>array("?uri gr:availabilityEnds \"","value","\"^^xsd:dateTime."),
+				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods \"","value","\"."),
 				"geo"=>array("?uri geo:geometry ?geo. Filter(bif:round ( bif:st_distance ( ?geo,bif:st_point(","lat",", ","long",") ) ) < ","distance",")")
 		)
 				
@@ -128,7 +128,7 @@ class GR4PHP_Template{
 	
 	// Assoc. array shows all possible optional output values. 
 	// A second-dimension array, that shows in the first dimension the memebership of the function 
-	// and the second dimesnion all possible ouput values of it.
+	// and the second dimension all possible ouput values of it.
 	private static $possibleOutputValues=array(
 		"getStore"=>array(
 				"gln"=>"OPTIONAL {?uri gr:hasGlobalLocationNumber ?gln.} ",
@@ -149,8 +149,8 @@ class GR4PHP_Template{
 					{?uri geo:lat ?lat.}}} ",
 				"long"=>"OPTIONAL{{{?uri vcard:geo ?zlong.?zlong vcard:longitude ?long.} UNION
 					{?uri vcard:longitude ?long.} UNION
-								{?uri geo:location ?zlong.?zlong geo:long ?long.} UNION
-								{?uri vc:GEO ?zlong.?zlong vc:longitude ?long.} UNION
+					{?uri geo:location ?zlong.?zlong geo:long ?long.} UNION
+					{?uri vc:GEO ?zlong.?zlong vc:longitude ?long.} UNION
 					{?uri geo:long ?long.}}} ",
 				"openTime"=>array("OPTIONAL {?uri gr:hasOpeningHoursSpecification ?time.
 					?time gr:hasOpeningHoursDayOfWeek gr:","day",".
@@ -176,13 +176,13 @@ class GR4PHP_Template{
 					 OPTIONAL {{{?mail rdf:value ?email.} UNION {?mail rdfs:comment ?email.}}} ",
 				"lat"=>"OPTIONAL{{{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
 					{?uri vcard:latitude ?lat.} UNION
-								{?uri geo:location ?zlat.?zlat geo:lat ?lat.} UNION
-								{?uri vc:GEO ?zlat.?zlat vc:latitude ?lat.} UNION
+					{?uri geo:location ?zlat.?zlat geo:lat ?lat.} UNION
+					{?uri vc:GEO ?zlat.?zlat vc:latitude ?lat.} UNION
 					{?uri geo:lat ?lat.}}} ",
 				"long"=>"OPTIONAL{{{?uri vcard:geo ?zlong.?zlong vcard:longitude ?long.} UNION
 				 	{?uri vcard:longitude ?long.} UNION
-								{?uri geo:location ?zlong.?zlong geo:long ?long.} UNION
-								{?uri vc:GEO ?zlong.?zlong vc:longitude ?long.} UNION
+					{?uri geo:location ?zlong.?zlong geo:long ?long.} UNION
+					{?uri vc:GEO ?zlong.?zlong vc:longitude ?long.} UNION
 					{?uri geo:long ?long.}}} ",
 ),
 		"getProductModel"=>array(
@@ -215,20 +215,20 @@ class GR4PHP_Template{
 				"manufacturer"=>"OPTIONAL {?uri gr:hasManufacturer ?manufacturer.}",
 				"description"=>"OPTIONAL {{?uri gr:description ?description.} UNION {?uri rdfs:comment ?description.}}",
 				"minValue"=>"OPTIONAL {?uri gr:hasInventoryLevel ?inventoryLevel.?inventoryLevel gr:hasMinValue ?minValue.}",
-				"validThrough"=>"OPTIONAL {?offering gr:validThrough ?validThrough.}",
-				"validFrom"=>"OPTIONAL {?offering gr:validFrom ?validFrom.}",
-				"businessFunction"=>"OPTIONAL {?offering gr:hasBusinessFunction ?businessFunction.}",
-				"price"=>"OPTIONAL {?offering gr:hasPriceSpecification ?pricespec. ?pricespec gr:hasCurrencyValue ?price.}",
+				"validThrough"=>"OPTIONAL {?uri gr:validThrough ?validThrough.}",
+				"validFrom"=>"OPTIONAL {?uri gr:validFrom ?validFrom.}",
+				"businessFunction"=>"OPTIONAL {?uri gr:hasBusinessFunction ?businessFunction.}",
+				"price"=>"OPTIONAL {?uri gr:hasPriceSpecification ?pricespec. ?pricespec gr:hasCurrencyValue ?price.}",
 				"currency"=>"OPTIONAL {?pricespec gr:hasCurrency ?currency.}",
-				"acceptedPaymentMethod"=>"OPTIONAL {?offering gr:acceptedPaymentMethods ?acceptedPaymentMethod.}",
-				"minWarrantyInMonths"=>"OPTIONAL {?offering gr:hasWarrantyPromise ?hasWarrantyPromise.
+				"acceptedPaymentMethod"=>"OPTIONAL {?uri gr:acceptedPaymentMethods ?acceptedPaymentMethod.}",
+				"minWarrantyInMonths"=>"OPTIONAL {?uri gr:hasWarrantyPromise ?hasWarrantyPromise.
 					?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths.}",
-				"eligibleCustomerTypes"=>"OPTIONAL {?offering gr:eligibleCustomerTypes ?eligibleCustomerTypes.}",
-				"eligibleRegions"=>"OPTIONAL {?offering gr:eligibleRegions ?eligibleRegions.}",
-				"availabilityStarts"=>"OPTIONAL {?offering gr:availabilityStarts ?availabilityStarts.}",
-				"availabilityEnds"=>"OPTIONAL {?offering gr:availabilityEnds ?availabilityEnds.}",
-				"availableDeliveryMethods"=>"OPTIONAL {?offering gr:availableDeliveryMethods ?availableDeliveryMethods.}",
-				"availableAtOrFrom"=>"OPTIONAL {?offering gr:availableAtOrFrom ?availableAtOrFrom.}",
+				"eligibleCustomerTypes"=>"OPTIONAL {?uri gr:eligibleCustomerTypes ?eligibleCustomerTypes.}",
+				"eligibleRegions"=>"OPTIONAL {?uri gr:eligibleRegions ?eligibleRegions.}",
+				"availabilityStarts"=>"OPTIONAL {?uri gr:availabilityStarts ?availabilityStarts.}",
+				"availabilityEnds"=>"OPTIONAL {?uri gr:availabilityEnds ?availabilityEnds.}",
+				"availableDeliveryMethods"=>"OPTIONAL {?uri gr:availableDeliveryMethods ?availableDeliveryMethods.}",
+				"availableAtOrFrom"=>"OPTIONAL {?uri gr:availableAtOrFrom ?availableAtOrFrom.}",
 				"paymentCurrency"=>"",
 				"paymentCurrencyValue"=>"",
 				"paymentTaxIncluded"=>"OPTIONAL {?pricespec gr:hasCurrency ?paymentCurrency. ?pricespec gr:hasCurrencyValue ?paymentCurrencyValue. ?pricespec gr:valueAddedTaxIncluded ?paymentTaxIncluded.}",
