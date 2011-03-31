@@ -181,8 +181,6 @@ class GR4PHP{
 		// just attach this OPTIONAL clause, if country, street, ... patterns are not already covered by inputArray processing
 		//if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {
 		// Thanks to Philipp Feucht and his team for spotting an issue with the above if-clause and providing this bugfix!!
-		echo "function name: ".$functionName."<br />";
-		print_r(array_intersect(array("country","street","post","city"),array_merge(array_keys($inputArray), array_values($wantedElements))));
 		if(in_array($functionName,array("getStore", "getCompany")) && count(array_intersect(array("country","street","post","city"), array_merge(array_keys($inputArray), array_values($wantedElements)))) > 0) {
 			$sparql.="OPTIONAL {{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}} ";
 		}
