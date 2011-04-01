@@ -132,16 +132,17 @@ class GR4PHP_Template{
 	private static $possibleOutputValues=array(
 		"getStore"=>array(
 				"gln"=>"OPTIONAL {?uri gr:hasGlobalLocationNumber ?gln.} ",
-				"title"=> "OPTIONAL {{?urirdfs:label ?title.} UNION
+				"title"=> "OPTIONAL {{?uri rdfs:label ?title.} UNION
 					{?uri gr:name ?title.} UNION {?uri gr:description ?title.} UNION
 					{?uri rdfs:comment ?title.} UNION {?uri dc:title ?title.}} ",
 				"street"=>"OPTIONAL {{{?adr vcard:street-address ?street.} UNION {?adr vc:Street ?street.}}} ",
 				"post"=>"OPTIONAL {{{?adr vcard:postal-code ?post.} UNION {?adr vc:Pcode ?post.}}} ",
 				"city"=>"OPTIONAL {{{?adr vcard:locality ?city.} UNION {?adr vc:City ?city.}}} ",
 				"country"=>"OPTIONAL {{{?adr vcard:country-name ?country.} UNION {?adr vc:Country ?country.}}} ",
-				"phone"=>"OPTIONAL {{{?adr vc:TEL ?phone.} UNION {?adr vcard:tel ?phone.}}} ",
-				"email"=>"OPTIONAL {{{?adr vc:EMAIL ?email.} UNION {?adr vcard:email ?email.}}}
-					OPTIONAL {{{?mail rdf:value ?email.} UNION {?mail rdfs:comment ?email.}}} ",
+				"phone"=>"OPTIONAL {{{?uri vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?uri vcard:tel ?phone.}}}
+					OPTIONAL {{{?adr vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?adr vcard:tel ?phone.}}} ",
+				"email"=>"OPTIONAL {{{?uri vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?uri vcard:email ?email.}}}
+				 	OPTIONAL {{{?adr vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?adr vcard:email ?email.}}} ",
 				"lat"=>"OPTIONAL{{{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
 					{?uri vcard:latitude ?lat.} UNION
 					{?uri geo:location ?zlat.?zlat geo:lat ?lat.} UNION
@@ -171,9 +172,10 @@ class GR4PHP_Template{
 				"post"=>"OPTIONAL {{{?adr vcard:postal-code ?post.} UNION {?adr vc:Pcode ?post.}}} ",
 				"city"=>"OPTIONAL {{{?adr vcard:locality ?city.} UNION {?adr vc:City ?city.}}} ",
 				"country"=>"OPTIONAL {{{?adr vcard:country-name ?country.} UNION {?adr vc:Country ?country.}}} ",
-				"phone"=>"OPTIONAL {{{?adr vc:TEL ?phone.} UNION {?uri vcard:tel ?phone.}}} ",
-				"email"=>"OPTIONAL {{{?adr vc:EMAIL ?mail.} UNION {?uri vcard:email ?mail.}}}
-					 OPTIONAL {{{?mail rdf:value ?email.} UNION {?mail rdfs:comment ?email.}}} ",
+				"phone"=>"OPTIONAL {{{?uri vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?uri vcard:tel ?phone.}}}
+				 	OPTIONAL {{{?adr vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?adr vcard:tel ?phone.}}} ",
+				"email"=>"OPTIONAL {{{?uri vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?uri vcard:email ?email.}}}
+				 	OPTIONAL {{{?adr vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?adr vcard:email ?email.}}} ",
 				"lat"=>"OPTIONAL{{{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
 					{?uri vcard:latitude ?lat.} UNION
 					{?uri geo:location ?zlat.?zlat geo:lat ?lat.} UNION
