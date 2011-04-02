@@ -53,6 +53,23 @@ class GR4PHP{
 		// define variable 
 		$sparql="";
 
+		$customPropOptional = "";
+		$selectPart = array();
+		$customInputValues = array(":lax"=>array(), ":strict"=>array());
+		$customOutputValues = array($functionName => array());
+		// custom properties to search for
+		if(!empty($searchProperties)) {
+			foreach($searchProperties as $prop) {
+				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
+					$var = preg_replace("/:/", "_", $prop);
+					$selectPart[] = "?$var"; // Result Form
+					$customInputValues[":lax"][$var] = array("?uri $prop ?$var. ?$var bif:contains '\"","value","\"' .");
+					$customInputValues[":strict"][$var] = array("?uri $prop '\"","value","\"'^^xsd:string.");
+					$customOutputValues[$functionName][$var] = "OPTIONAL {?uri $prop ?$var.} "; // OPTIONAL clause
+			}
+			GR4PHP_Template::addCustomValues($mode, $functionName, $customInputValues, $customOutputValues);
+		}
+
 		///// EXCEPTION-Part: At first check all possible errors
 
 		// 1) check Mode
@@ -125,14 +142,6 @@ class GR4PHP{
 			$this->selectedElements=(array)$wantedElements;
 		}
 		
-		// custom properties to search for - Result Form
-		if(!empty($searchProperties)) {
-			foreach($searchProperties as $prop) {
-				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
-					$selectPart[] = "?".preg_replace("/:/", "_", $prop);
-			}
-		}
-
 		$sparql.= "SELECT DISTINCT ".getArray2String($selectPart)." WHERE { ";
 
 		///// WHERE-Part
@@ -171,12 +180,13 @@ class GR4PHP{
 		///// OPTIONAL-Part
 		
 		// custom properties to search for - OPTIONAL clause
-		if(!empty($searchProperties)) {
+/*		if(!empty($searchProperties)) {
 			foreach($searchProperties as $prop) {
 				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
 					$sparql.="OPTIONAL {?uri $prop "."?".preg_replace("/:/", "_", $prop).".} ";
 			}
-		}
+		}*/
+		$sparql .= $customPropOptional;
 
 		// just attach this OPTIONAL clause, if country, street, ... patterns are not already covered by inputArray processing
 		//if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {

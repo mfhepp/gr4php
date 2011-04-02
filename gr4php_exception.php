@@ -30,7 +30,7 @@ class GR4PHP_Exception extends Exception{
 						throw new GR4PHP_Exception("Please use at least one input value!");}
 			}
 		} catch (GR4PHP_Exception $e) {
-			echo "<b>Error: ".$e->getMessage()."<b>";
+			echo "<b>Error: ".$e->getMessage()."</b>";
   			exit;
 		}
 	}
@@ -50,7 +50,7 @@ class GR4PHP_Exception extends Exception{
 						throw new GR4PHP_Exception("The element -".$element."- is not allowed in function: ".$function.". Please check the manual!");}
 			}
 		} catch (GR4PHP_Exception $e) {
-			echo "<b>Error: ".$e->getMessage()."<b>";
+			echo "<b>Error: ".$e->getMessage()."</b>";
   			exit;
 		}
 	}
@@ -69,7 +69,7 @@ class GR4PHP_Exception extends Exception{
 						throw new GR4PHP_Exception("There are ".$amountOfElements." but only ".$amountOfValues." values: The amount of elements and values have to be equal!");}
 			
 		} catch (GR4PHP_Exception $e) {
-			echo "<b>Error: ".$e->getMessage()."<b>";
+			echo "<b>Error: ".$e->getMessage()."</b>";
   			exit;
 		}
 	}
@@ -101,7 +101,7 @@ class GR4PHP_Exception extends Exception{
 				}
 			}
 			catch (GR4PHP_Exception $e) {
-				echo "<b>Error: ".$e->getMessage()."<b>";
+				echo "<b>Error: ".$e->getMessage()."</b>";
   				exit;
 			}
 		
@@ -123,7 +123,7 @@ class GR4PHP_Exception extends Exception{
 						}
 					}
 				} catch (GR4PHP_Exception $e) {
-					echo "<b>Error: ".$e->getMessage()."<b>";
+					echo "<b>Error: ".$e->getMessage()."</b>";
   					exit;
 				}
 		
@@ -146,7 +146,7 @@ class GR4PHP_Exception extends Exception{
 						}
 					}
 				} catch (GR4PHP_Exception $e) {
-					echo "<b>Error: ".$e->getMessage()."<b>";
+					echo "<b>Error: ".$e->getMessage()."</b>";
   					exit;
 				}
 		
@@ -170,7 +170,7 @@ class GR4PHP_Exception extends Exception{
 						throw new GR4PHP_Exception("The SELECT-element -".$element."- is not allowed in function: ".$function.". Please check the manual!");}
 			}
 		} catch (GR4PHP_Exception $e) {
-			echo "<b>Error: ".$e->getMessage()."<b>";
+			echo "<b>Error: ".$e->getMessage()."</b>";
   			exit;
 		}
 	}

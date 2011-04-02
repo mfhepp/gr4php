@@ -596,5 +596,20 @@ class GR4PHP_Template{
 		}
 		return $statement;
 	}
+	
+	/**
+	 *
+	 * Add new custom input values to array of possible input values
+	 * @param 		array		$customInputValues Array with custom input values
+	 */
+	public static function addCustomValues($mode, $functionName, $customInputValues, $customOutputValues) {
+		self::$possibleInputValues[$mode] = array_merge(self::$possibleInputValues[$mode], $customInputValues[$mode]);
+		self::$possibleInputValuesByFunction[$functionName] = array_merge(self::$possibleInputValuesByFunction[$functionName], array_keys($customInputValues[$mode]));
+		$keys = array_keys($customInputValues[$mode]);
+		array_walk($keys, function(&$k) {$k = "?$k";});
+		self::$possibleSelectParts[$functionName] = array_merge(self::$possibleSelectParts[$functionName], $keys);
+		self::$possibleOutputValues[$functionName] = array_merge(self::$possibleOutputValues[$functionName], $customOutputValues[$functionName]);
+		print_r($possibleOutputValues);
+	}
 /////End function section
 }
