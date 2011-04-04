@@ -53,7 +53,6 @@ class GR4PHP{
 		// define variable 
 		$sparql="";
 
-		$customPropOptional = "";
 		$selectPart = array();
 		$customInputValues = array(":lax"=>array(), ":strict"=>array());
 		$customOutputValues = array($functionName => array());
@@ -179,15 +178,6 @@ class GR4PHP{
 
 		///// OPTIONAL-Part
 		
-		// custom properties to search for - OPTIONAL clause
-/*		if(!empty($searchProperties)) {
-			foreach($searchProperties as $prop) {
-				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
-					$sparql.="OPTIONAL {?uri $prop "."?".preg_replace("/:/", "_", $prop).".} ";
-			}
-		}*/
-		$sparql .= $customPropOptional;
-
 		// just attach this OPTIONAL clause, if country, street, ... patterns are not already covered by inputArray processing
 		//if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {
 		// Thanks to Philipp Feucht and his team for spotting an issue with the above if-clause and providing this bugfix!!

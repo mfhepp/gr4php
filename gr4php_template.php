@@ -600,7 +600,10 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Add new custom input values to array of possible input values
+	 * @param		string		$mode Mode of Sparql (lax or strict)
+	 * @param		string		$functionName Function that uses these prepared special parts
 	 * @param 		array		$customInputValues Array with custom input values
+	 * @param 		array		$customOutputValues Array with custom output values
 	 */
 	public static function addCustomValues($mode, $functionName, $customInputValues, $customOutputValues) {
 		self::$possibleInputValues[$mode] = array_merge(self::$possibleInputValues[$mode], $customInputValues[$mode]);
@@ -609,7 +612,6 @@ class GR4PHP_Template{
 		array_walk($keys, function(&$k) {$k = "?$k";});
 		self::$possibleSelectParts[$functionName] = array_merge(self::$possibleSelectParts[$functionName], $keys);
 		self::$possibleOutputValues[$functionName] = array_merge(self::$possibleOutputValues[$functionName], $customOutputValues[$functionName]);
-		print_r($possibleOutputValues);
 	}
 /////End function section
 }
