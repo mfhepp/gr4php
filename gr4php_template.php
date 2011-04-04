@@ -609,9 +609,13 @@ class GR4PHP_Template{
 		self::$possibleInputValues[$mode] = array_merge(self::$possibleInputValues[$mode], $customInputValues[$mode]);
 		self::$possibleInputValuesByFunction[$functionName] = array_merge(self::$possibleInputValuesByFunction[$functionName], array_keys($customInputValues[$mode]));
 		$keys = array_keys($customInputValues[$mode]);
-		array_walk($keys, function(&$k) {$k = "?$k";});
+		array_walk($keys, "attachQM");
 		self::$possibleSelectParts[$functionName] = array_merge(self::$possibleSelectParts[$functionName], $keys);
 		self::$possibleOutputValues[$functionName] = array_merge(self::$possibleOutputValues[$functionName], $customOutputValues[$functionName]);
 	}
 /////End function section
+}
+
+function attachQM(&$k) {
+	$k = "?$k";
 }
