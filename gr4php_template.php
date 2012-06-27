@@ -54,7 +54,7 @@ class GR4PHP_Template{
 				//"successorOf"=>array("?x gr:successorOf ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
 				"validThrough"=>array("?uri gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
 				"validFrom"=>array("?uri gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
-				"price"=>array("?uri gr:hasPriceSpecification ?pricespec.
+				"maxPrice"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrencyValue ?price. FILTER (?price < ","price",")."),
 				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrency ?currency. ?currency bif:contains '\"","value","\"' ."),
@@ -107,7 +107,7 @@ class GR4PHP_Template{
 				//"successorOf"=>array("?x gr:successorOf  ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
 				"validThrough"=>array("?uri gr:validThrough \"","value","\"^^xsd:dateTime."),
 				"validFrom"=>array("?uri gr:validFrom \"","value","\"^^xsd:dateTime."),
-				"price"=>array("?uri gr:hasPriceSpecification ?pricespec.
+				"maxPrice"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrencyValue ?price. FILTER (?price <","price",")."),
 				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrency \"","value","\"^^xsd:string."),
@@ -403,7 +403,7 @@ class GR4PHP_Template{
 			"manufacturer",
 			"validThrough",
 			"validFrom",
-			"price",
+			"maxPrice",
 			"currency",
 			"acceptedPaymentMethod",
 			"businessFunction",
