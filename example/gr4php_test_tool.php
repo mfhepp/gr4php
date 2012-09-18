@@ -46,7 +46,7 @@ foreach($_POST as $key => $value) {
 <form method="post" action="gr4php_test_tool.php">
 <?php 
 $arrayfunktion=array("getStore","getCompany","getProductModel","getOffers","getOpeningHours","getLocation");
-$arrayEndpoint=array(Configuration::ENDPOINT_URIBURNER,Configuration::ENDPOINT_LDURIBURNER,Configuration::ENDPOINT_LOC,Configuration::ENDPOINT_LOD);
+$arrayEndpoint=array(Configuration::ENDPOINT_URIBURNER,Configuration::ENDPOINT_LOC,Configuration::ENDPOINT_LOD);
 $arrayMode=array(Configuration::MODE_LAX,Configuration::MODE_STRICT);
 
 //First DropDown -Enpoint-

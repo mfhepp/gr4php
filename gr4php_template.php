@@ -18,56 +18,56 @@ class GR4PHP_Template{
 	// Assoc. array shows all possible input values
 	private static $possibleInputValues=array(
 		":lax"=>array(
-				"gln"=>array("?uri gr:hasGlobalLocationNumber ?gln. FILTER(contains(?gln, '\"","value","\"')) ."),
-				"title"=>array("{?uri rdfs:label ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
-					{?uri gr:name ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
-					{?uri gr:description ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
-					{?uri rdfs:comment ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
-					{?uri dc:title ?title. FILTER(contains(?title, '\"","value","\"')) .}"),
+				"gln"=>array("?uri gr:hasGlobalLocationNumber ?gln. FILTER(contains(?gln, '","value","')) ."),
+				"title"=>array("{?uri rdfs:label ?title. FILTER(contains(?title, '","value","')) .} UNION
+					{?uri gr:name ?title. FILTER(contains(?title, '","value","')) .} UNION
+					{?uri gr:description ?title. FILTER(contains(?title, '","value","')) .} UNION
+					{?uri rdfs:comment ?title. FILTER(contains(?title, '","value","')) .} UNION
+					{?uri dc:title ?title. FILTER(contains(?title, '","value","')) .}"),
 				"country"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
-					{?adr vc:Country ?country. FILTER(contains(?country, '\"","value","\"')) .} UNION 
-					{?adr vcard:country-name ?country. FILTER(contains(?country, '\"","value","\"')) .}"),
+					{?adr vc:Country ?country. FILTER(contains(?country, '","value","')) .} UNION 
+					{?adr vcard:country-name ?country. FILTER(contains(?country, '","value","')) .}"),
 				"street"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
-					{?adr vc:Street ?street. FILTER(contains(?street, '\"","value","\"')) .} UNION 
-					{?adr vcard:street-address ?street. FILTER(contains(?street, '\"","value","\"')) .}"),
+					{?adr vc:Street ?street. FILTER(contains(?street, '","value","')) .} UNION 
+					{?adr vcard:street-address ?street. FILTER(contains(?street, '","value","')) .}"),
 				"post"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
-					{?adr vc:Pcode ?post. FILTER(contains(?post, '\"","value","\"')) .} UNION
-					{?adr vcard:postal-code ?post. FILTER(contains(?post, '\"","value","\"')) .}}"),
+					{?adr vc:Pcode ?post. FILTER(contains(?post, '","value","')) .} UNION
+					{?adr vcard:postal-code ?post. FILTER(contains(?post, '","value","')) .}}"),
 				"city"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
-					{?adr vc:City ?city. FILTER(contains(?city, '\"","value","\"')) .} UNION
-					{?adr vcard:locality ?city. FILTER(contains(?city, '\"","value","\"')) .}"),
-				"legalName"=>array("?uri gr:legalName ?legalName. FILTER(contains(?legalName, '\"","value","\"')) ."),
-				"duns"=>array("?uri gr:hasDUNS ?duns. FILTER(contains(?duns, '\"","value","\"')) ."),
-				"isicv4"=>array("?uri gr:hasISICv4 ?isicv4. FILTER(contains(?isicv4, '\"","value","\"')) ."),
-				"naics"=>array("?uri gr:hasNAICS ?naics. FILTER(contains(?naics, '\"","value","\"')) ."),
+					{?adr vc:City ?city. FILTER(contains(?city, '","value","')) .} UNION
+					{?adr vcard:locality ?city. FILTER(contains(?city, '","value","')) .}"),
+				"legalName"=>array("?uri gr:legalName ?legalName. FILTER(contains(?legalName, '","value","')) ."),
+				"duns"=>array("?uri gr:hasDUNS ?duns. FILTER(contains(?duns, '","value","')) ."),
+				"isicv4"=>array("?uri gr:hasISICv4 ?isicv4. FILTER(contains(?isicv4, '","value","')) ."),
+				"naics"=>array("?uri gr:hasNAICS ?naics. FILTER(contains(?naics, '","value","')) ."),
 				"openNow"=>array("?uri gr:hasOpeningHoursSpecification ?time.
 					?time gr:hasOpeningHoursDayOfWeek gr:","day",".
 					?time gr:closes ?closeTime. FILTER(?closeTime >"," \"","time","\" ","^^xsd:time) .
 					?time gr:opens ?openTime. FILTER(?openTime < "," \"","time","\" "," ^^xsd:time) ."),
-				"sku"=>array("?uri gr:hasStockKeepingUnit ?sku . FILTER(contains(?sku, '\"","value","\"')) ."),
-				"ean13"=>array("?uri gr:hasEAN_UCC-13 ?ean13. FILTER(contains(?ean13, '\"","value","\"')) ."),
-				"gtin14"=>array("?uri gr:hasGTIN-14 ?gtin14. FILTER(contains(?gtin14, '\"","value","\"')) ."),
-				"manufacturer"=>array("?uri gr:hasManufacturer ?manufacturer. FILTER(contains(?manufacturer, '\"","value","\"')) ."),
+				"sku"=>array("?uri gr:hasStockKeepingUnit ?sku . FILTER(contains(?sku, '","value","')) ."),
+				"ean13"=>array("?uri gr:hasEAN_UCC-13 ?ean13. FILTER(contains(?ean13, '","value","')) ."),
+				"gtin14"=>array("?uri gr:hasGTIN-14 ?gtin14. FILTER(contains(?gtin14, '","value","')) ."),
+				"manufacturer"=>array("?uri gr:hasManufacturer ?manufacturer. FILTER(contains(?manufacturer, '","value","')) ."),
 				// because of the minimal using..some elements of GR don't be in use (at the moment!)
 				//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
 				//"predecessorOf"=>array("?x gr:predecessorOf ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
 				//"successorOf"=>array("?x gr:successorOf ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
-				"validThrough"=>array("?uri gr:validThrough ?validThrough. FILTER(contains(?validThrough, '\"","value","\"')) ."),
-				"validFrom"=>array("?uri gr:validFrom ?validFrom. FILTER(contains(?validFrom, '\"","value","\"')) ."),
+				"validThrough"=>array("?uri gr:validThrough ?validThrough. FILTER(contains(?validThrough, '","value","')) ."),
+				"validFrom"=>array("?uri gr:validFrom ?validFrom. FILTER(contains(?validFrom, '","value","')) ."),
 				"maxPrice"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrencyValue ?price. FILTER(?price < ","price",") ."),
 				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
-					?pricespec gr:hasCurrency ?currency. FILTER(contains(?currency, '\"","value","\"')) ."),
-				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods ?acceptedPaymentMethod. FILTER(contains(?acceptedPaymentMethod, '\"","value","\"')) ."),
-				"businessFunction"=>array("?uri gr:hasBusinessFunction ?businessFunction. FILTER(contains(?businessFunction, '\"","value","\"')) ."),
+					?pricespec gr:hasCurrency ?currency. FILTER(contains(?currency, '","value","')) ."),
+				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods ?acceptedPaymentMethod. FILTER(contains(?acceptedPaymentMethod, '","value","')) ."),
+				"businessFunction"=>array("?uri gr:hasBusinessFunction ?businessFunction. FILTER(contains(?businessFunction, '","value","')) ."),
 				"minWarrantyInMonths"=>array("?uri gr:hasWarrantyPromise ?hasWarrantyPromise.
 					?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths.
 					FILTER(?minWarrantyInMonths < "," \"","value","\" ",") ."),
-				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes ?eligibleCustomerTypes. FILTER(contains(?eligibleCustomerTypes, '\"","value","\"')) ."),
-				"eligibleRegions"=>array("?uri gr:eligibleRegions ?eligibleRegions. FILTER(contains(?eligibleRegions, '\"","value","\"')) ."),
-				"availabilityStarts"=>array("?uri gr:availabilityStarts ?availabilityStarts. FILTER(contains(?availabilityStarts, '\"","value","\"')) ."),
-				"availabilityEnds"=>array("?uri gr:availabilityEnds ?availabilityEnds. FILTER(contains(?availabilityEnds, '\"","value","\"')) ."),
-				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods ?availabledeliveryMethods. FILTER(contains(?availabledeliveryMethods, '\"","value","\"')) ."),
+				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes ?eligibleCustomerTypes. FILTER(contains(?eligibleCustomerTypes, '","value","')) ."),
+				"eligibleRegions"=>array("?uri gr:eligibleRegions ?eligibleRegions. FILTER(contains(?eligibleRegions, '","value","')) ."),
+				"availabilityStarts"=>array("?uri gr:availabilityStarts ?availabilityStarts. FILTER(contains(?availabilityStarts, '","value","')) ."),
+				"availabilityEnds"=>array("?uri gr:availabilityEnds ?availabilityEnds. FILTER(contains(?availabilityEnds, '","value","')) ."),
+				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods ?availabledeliveryMethods. FILTER(contains(?availabledeliveryMethods, '","value","')) ."),
 				"geo"=>array("?uri geo:geometry ?geo. FILTER(bif:round(bif:st_distance(?geo, bif:st_point(","lat",", ","long","))) < ","distance",") .")
 		),
 		":strict"=>array(

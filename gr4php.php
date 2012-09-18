@@ -62,8 +62,8 @@ class GR4PHP{
 				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
 					$var = preg_replace("/:/", "_", $prop);
 					$selectPart[] = "?$var"; // Result Form
-					$customInputValues[":lax"][$var] = array("?uri $prop ?$var. FILTER(contains(?$var, '\"","value","\"')) .");
-					$customInputValues[":strict"][$var] = array("?uri $prop '\"","value","\"'^^xsd:string.");
+					$customInputValues[":lax"][$var] = array("?uri $prop ?$var. FILTER(contains(?$var, '","value","')) .");
+					$customInputValues[":strict"][$var] = array("?uri $prop '","value","'^^xsd:string.");
 					$customOutputValues[$functionName][$var] = "OPTIONAL {?uri $prop ?$var.} "; // OPTIONAL clause
 			}
 			GR4PHP_Template::addCustomValues($mode, $functionName, $customInputValues, $customOutputValues);
