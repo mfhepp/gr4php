@@ -18,85 +18,85 @@ class GR4PHP_Template{
 	// Assoc. array shows all possible input values
 	private static $possibleInputValues=array(
 		":lax"=>array(
-				"gln"=>array("?uri gr:hasGlobalLocationNumber ?gln. ?gln bif:contains '\"","value","\"' ."),
-				"title"=>array("{{?uri rdfs:label ?title. ?title bif:contains '\"","value","\"' .} UNION
-					{?uri gr:name ?title. ?title bif:contains '\"","value","\"' .} UNION
-					{?uri gr:description ?title. ?title bif:contains '\"","value","\"' .} UNION
-					{?uri rdfs:comment ?title. ?title bif:contains '\"","value","\"' .} UNION
-					{?uri dc:title ?title. ?title bif:contains '\"","value","\"' .}}"),
-				"country"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
-					{{?adr vc:Country ?country. ?country bif:contains '\"","value","\"' .} UNION 
-					{?adr vcard:country-name ?country. ?country bif:contains '\"","value","\"' .}}"),
-				"street"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
-					{{?adr vc:Street ?street. ?street bif:contains '\"","value","\"' .} UNION 
-					{?adr vcard:street-address ?street. ?street bif:contains '\"","value","\"' .}}"),
-				"post"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
-					{{?adr vc:Pcode ?post. ?post bif:contains '\"","value","\"' .} UNION
-					{?adr vcard:postal-code ?post. ?post bif:contains '\"","value","\"' .}}"),
-				"city"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
-					{{?adr vc:City ?city. ?city bif:contains '\"","value","\"' .} UNION
-					{?adr vcard:locality ?city. ?city bif:contains '\"","value","\"' .}}"),
-				"legalName"=>array("?uri gr:legalName ?legalName. ?legalName bif:contains '\"","value","\"' ."),
-				"duns"=>array("?uri gr:hasDUNS ?duns. ?duns bif:contains '\"","value","\"' ."),
-				"isicv4"=>array("?uri gr:hasISICv4 ?isicv4. ?isicv4 bif:contains '\"","value","\"' ."),
-				"naics"=>array("?uri gr:hasNAICS ?naics. ?naics bif:contains '\"","value","\"' ."),
+				"gln"=>array("?uri gr:hasGlobalLocationNumber ?gln. FILTER(contains(?gln, '\"","value","\"')) ."),
+				"title"=>array("{?uri rdfs:label ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
+					{?uri gr:name ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
+					{?uri gr:description ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
+					{?uri rdfs:comment ?title. FILTER(contains(?title, '\"","value","\"')) .} UNION
+					{?uri dc:title ?title. FILTER(contains(?title, '\"","value","\"')) .}"),
+				"country"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
+					{?adr vc:Country ?country. FILTER(contains(?country, '\"","value","\"')) .} UNION 
+					{?adr vcard:country-name ?country. FILTER(contains(?country, '\"","value","\"')) .}"),
+				"street"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
+					{?adr vc:Street ?street. FILTER(contains(?street, '\"","value","\"')) .} UNION 
+					{?adr vcard:street-address ?street. FILTER(contains(?street, '\"","value","\"')) .}"),
+				"post"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
+					{?adr vc:Pcode ?post. FILTER(contains(?post, '\"","value","\"')) .} UNION
+					{?adr vcard:postal-code ?post. FILTER(contains(?post, '\"","value","\"')) .}}"),
+				"city"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}
+					{?adr vc:City ?city. FILTER(contains(?city, '\"","value","\"')) .} UNION
+					{?adr vcard:locality ?city. FILTER(contains(?city, '\"","value","\"')) .}"),
+				"legalName"=>array("?uri gr:legalName ?legalName. FILTER(contains(?legalName, '\"","value","\"')) ."),
+				"duns"=>array("?uri gr:hasDUNS ?duns. FILTER(contains(?duns, '\"","value","\"')) ."),
+				"isicv4"=>array("?uri gr:hasISICv4 ?isicv4. FILTER(contains(?isicv4, '\"","value","\"')) ."),
+				"naics"=>array("?uri gr:hasNAICS ?naics. FILTER(contains(?naics, '\"","value","\"')) ."),
 				"openNow"=>array("?uri gr:hasOpeningHoursSpecification ?time.
 					?time gr:hasOpeningHoursDayOfWeek gr:","day",".
-					?time gr:closes ?closeTime.FILTER (?closeTime >"," \"","time","\" ","^^xsd:time).
-					?time gr:opens ?openTime.FILTER (?openTime < "," \"","time","\" "," ^^xsd:time)."),
-				"sku"=>array("?uri gr:hasStockKeepingUnit ?sku . ?sku bif:contains '\"","value","\"' ."),
-				"ean13"=>array("?uri gr:hasEAN_UCC-13 ?ean13. ?ean13 bif:contains '\"","value","\"' ."),
-				"gtin14"=>array("?uri gr:hasGTIN-14 ?gtin14. ?gtin14 bif:contains '\"","value","\"' ."),
-				"manufacturer"=>array("?uri gr:hasManufacturer ?manufacturer. ?manufacturer bif:contains '\"","value","\"' ."),
+					?time gr:closes ?closeTime. FILTER(?closeTime >"," \"","time","\" ","^^xsd:time) .
+					?time gr:opens ?openTime. FILTER(?openTime < "," \"","time","\" "," ^^xsd:time) ."),
+				"sku"=>array("?uri gr:hasStockKeepingUnit ?sku . FILTER(contains(?sku, '\"","value","\"')) ."),
+				"ean13"=>array("?uri gr:hasEAN_UCC-13 ?ean13. FILTER(contains(?ean13, '\"","value","\"')) ."),
+				"gtin14"=>array("?uri gr:hasGTIN-14 ?gtin14. FILTER(contains(?gtin14, '\"","value","\"')) ."),
+				"manufacturer"=>array("?uri gr:hasManufacturer ?manufacturer. FILTER(contains(?manufacturer, '\"","value","\"')) ."),
 				// because of the minimal using..some elements of GR don't be in use (at the moment!)
 				//"variantOf"=>array("?x gr:isVariantOf ?variantOf. Filter regex(str(?variantOf),\"","value","\",\"i\")."),
 				//"predecessorOf"=>array("?x gr:predecessorOf ?predecessorOf. Filter regex(str(?predecessorOf),\"","value","\",\"i\")."),
 				//"successorOf"=>array("?x gr:successorOf ?successorOf. Filter regex(str(?successorOf),\"","value","\",\"i\")."),
-				"validThrough"=>array("?uri gr:validThrough ?validThrough. ?validThrough bif:contains '\"","value","\"'^^xsd:time ."),
-				"validFrom"=>array("?uri gr:validFrom ?validFrom. ?validFrom bif:contains '\"","value","\"'^^xsd:time ."),
+				"validThrough"=>array("?uri gr:validThrough ?validThrough. FILTER(contains(?validThrough, '\"","value","\"')) ."),
+				"validFrom"=>array("?uri gr:validFrom ?validFrom. FILTER(contains(?validFrom, '\"","value","\"')) ."),
 				"maxPrice"=>array("?uri gr:hasPriceSpecification ?pricespec.
-					?pricespec gr:hasCurrencyValue ?price. FILTER (?price < ","price",")."),
+					?pricespec gr:hasCurrencyValue ?price. FILTER(?price < ","price",") ."),
 				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
-					?pricespec gr:hasCurrency ?currency. ?currency bif:contains '\"","value","\"' ."),
-				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods ?acceptedPaymentMethod. ?acceptedPaymentMethod bif:contains '\"","value","\"' ."),
-				"businessFunction"=>array("?uri gr:hasBusinessFunction ?businessFunction. ?businessFunction bif:contains '\"","value","\"' ."),
+					?pricespec gr:hasCurrency ?currency. FILTER(contains(?currency, '\"","value","\"')) ."),
+				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods ?acceptedPaymentMethod. FILTER(contains(?acceptedPaymentMethod, '\"","value","\"')) ."),
+				"businessFunction"=>array("?uri gr:hasBusinessFunction ?businessFunction. FILTER(contains(?businessFunction, '\"","value","\"')) ."),
 				"minWarrantyInMonths"=>array("?uri gr:hasWarrantyPromise ?hasWarrantyPromise.
 					?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths.
-					FILTER (?minWarrantyInMonths < "," \"","value","\" ",")."),
-				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes ?eligibleCustomerTypes. ?eligibleCustomerTypes bif:contains '\"","value","\"' ."),
-				"eligibleRegions"=>array("?uri gr:eligibleRegions ?eligibleRegions ?eligibleRegions bif:contains '\"","value","\"' ."),
-				"availabilityStarts"=>array("?uri gr:availabilityStarts ?availabilityStarts. ?availabilityStarts bif:contains '\"","value","\"' ."),
-				"availabilityEnds"=>array("?uri gr:availabilityEnds ?availabilityEnds. ?availabilityEnds bif:contains '\"","value","\"' ."),
-				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods ?availabledeliveryMethods. ?availabledeliveryMethods bif:contains '\"","value","\"' ."),
-				"geo"=>array("?uri geo:geometry ?geo. FILTER(bif:round ( bif:st_distance ( ?geo,bif:st_point(","lat",", ","long",") ) ) < ","distance",")")
+					FILTER(?minWarrantyInMonths < "," \"","value","\" ",") ."),
+				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes ?eligibleCustomerTypes. FILTER(contains(?eligibleCustomerTypes, '\"","value","\"')) ."),
+				"eligibleRegions"=>array("?uri gr:eligibleRegions ?eligibleRegions. FILTER(contains(?eligibleRegions, '\"","value","\"')) ."),
+				"availabilityStarts"=>array("?uri gr:availabilityStarts ?availabilityStarts. FILTER(contains(?availabilityStarts, '\"","value","\"')) ."),
+				"availabilityEnds"=>array("?uri gr:availabilityEnds ?availabilityEnds. FILTER(contains(?availabilityEnds, '\"","value","\"')) ."),
+				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods ?availabledeliveryMethods. FILTER(contains(?availabledeliveryMethods, '\"","value","\"')) ."),
+				"geo"=>array("?uri geo:geometry ?geo. FILTER(bif:round(bif:st_distance(?geo, bif:st_point(","lat",", ","long","))) < ","distance",") .")
 		),
 		":strict"=>array(
 				"gln"=>array("?uri gr:hasGlobalLocationNumber \"","value","\"^^xsd:string."),
-				"title"=>array("{{?uri rdfs:label \"","value","\"@en.} UNION
+				"title"=>array("{?uri rdfs:label \"","value","\"@en.} UNION
 					{?uri gr:name \"","value","\"@en.} UNION
 					{?uri gr:description \"","value","\"@en.} UNION
 					{?uri rdfs:comment \"","value","\"@en.} UNION
-					{?uri dc:title \"","value","\"@en.}}"),
-				"country"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
+					{?uri dc:title \"","value","\"@en.}"),
+				"country"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
 					{{?y vc:Country \"","value","\"@en.} UNION 
-					{?y vcard:country-name \"","value","\"@en.}}"),
-				"street"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
+					{?y vcard:country-name \"","value","\"@en.}"),
+				"street"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
 					{{?y vc:Street \"","value","\"@en.} UNION 
-					{?y vcard:street-address \"","value","\"@en.}}"),
-				"post"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
+					{?y vcard:street-address \"","value","\"@en.}"),
+				"post"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
 					{{?y vc:Pcode \"","value","\".} UNION 
-					{?y vcard:postal-code \"","value","\".}}"),
-				"city"=>array("{{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
+					{?y vcard:postal-code \"","value","\".}"),
+				"city"=>array("{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}}
 					{{?adr vc:City \"","value","\"@en.} UNION 
-					{?adr vcard:locality \"","value","\"@en.}}"),
+					{?adr vcard:locality \"","value","\"@en.}"),
 				"legalName"=>array("?uri gr:legalName \"","value","\"^^xsd:Literal."),
 				"duns"=>array("?uri gr:hasDUNS \"","value","\"^^xsd:string."),
 				"isicv4"=>array("?uri gr:hasISICv4 \"","value","\"^^xsd:int."),
 				"naics"=>array("?uri gr:hasNAICS \"","value","\"^^xsd:int."),
 				"openNow"=>array("?uri gr:hasOpeningHoursSpecification ?time.
 					?time gr:hasOpeningHoursDayOfWeek gr:","day",".
-					?time gr:closes ?closeTime.FILTER (?closeTime >"," \"","time","\" ","^^xsd:time).
-					?time gr:opens ?openTime.FILTER (?openTime < "," \"","time","\" "," ^^xsd:time)."),
+					?time gr:closes ?closeTime. FILTER(?closeTime >"," \"","time","\" ","^^xsd:time) .
+					?time gr:opens ?openTime. FILTER(?openTime < "," \"","time","\" "," ^^xsd:time) ."),
 				"sku"=>array("?uri gr:hasStockKeepingUnit \"","value","\"^^xsd:string."),
 				"ean13"=>array("?uri gr:hasEAN_UCC-13  \"","value","\"^^xsd:string."),
 				"gtin14"=>array("?uri gr:hasGTIN-14 ?gtin14 \"","value","\"^^xsd:string."),
@@ -108,20 +108,20 @@ class GR4PHP_Template{
 				"validThrough"=>array("?uri gr:validThrough \"","value","\"^^xsd:dateTime."),
 				"validFrom"=>array("?uri gr:validFrom \"","value","\"^^xsd:dateTime."),
 				"maxPrice"=>array("?uri gr:hasPriceSpecification ?pricespec.
-					?pricespec gr:hasCurrencyValue ?price. FILTER (?price <","price",")."),
+					?pricespec gr:hasCurrencyValue ?price. FILTER(?price <","price",") ."),
 				"currency"=>array("?uri gr:hasPriceSpecification ?pricespec.
 					?pricespec gr:hasCurrency \"","value","\"^^xsd:string."),
 				"acceptedPaymentMethod"=>array("?uri gr:acceptedPaymentMethods \"","value","\"."),
 				"businessFunction"=>array("?uri gr:hasBusinessFunction \"","value","\"."),
 				"minWarrantyInMonths"=>array("?uri gr:hasWarrantyPromise ?hasWarrantyPromise.
 					?hasWarrantyPromise gr:durationOfWarrantyInMonths ?minWarrantyInMonths.
-					FILTER (?minWarrantyInMonths < "," \"","value","\" ",")."),
+					FILTER(?minWarrantyInMonths < "," \"","value","\" ",") ."),
 				"eligibleCustomerTypes"=>array("?uri gr:eligibleCustomerTypes \"","value","\"."),
 				"eligibleRegions"=>array("?uri gr:eligibleRegions \"","value","\"^^xsd:string."),
 				"availabilityStarts"=>array("?uri gr:availabilityStarts \"","value","\"^^xsd:dateTime."),
 				"availabilityEnds"=>array("?uri gr:availabilityEnds \"","value","\"^^xsd:dateTime."),
 				"availableDeliveryMethods"=>array("?uri gr:availableDeliveryMethods \"","value","\"."),
-				"geo"=>array("?uri geo:geometry ?geo. Filter(bif:round ( bif:st_distance ( ?geo,bif:st_point(","lat",", ","long",") ) ) < ","distance",")")
+				"geo"=>array("?uri geo:geometry ?geo. FILTER(bif:round(bif:st_distance(?geo, bif:st_point(","lat",", ","long","))) < ","distance",") .")
 		)
 				
 	);
@@ -135,24 +135,24 @@ class GR4PHP_Template{
 				"title"=> "OPTIONAL {{?uri rdfs:label ?title.} UNION
 					{?uri gr:name ?title.} UNION {?uri gr:description ?title.} UNION
 					{?uri rdfs:comment ?title.} UNION {?uri dc:title ?title.}} ",
-				"street"=>"OPTIONAL {{{?adr vcard:street-address ?street.} UNION {?adr vc:Street ?street.}}} ",
-				"post"=>"OPTIONAL {{{?adr vcard:postal-code ?post.} UNION {?adr vc:Pcode ?post.}}} ",
-				"city"=>"OPTIONAL {{{?adr vcard:locality ?city.} UNION {?adr vc:City ?city.}}} ",
-				"country"=>"OPTIONAL {{{?adr vcard:country-name ?country.} UNION {?adr vc:Country ?country.}}} ",
-				"phone"=>"OPTIONAL {{{?uri vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?uri vcard:tel ?phone.}}}
-					OPTIONAL {{{?adr vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?adr vcard:tel ?phone.}}} ",
-				"email"=>"OPTIONAL {{{?uri vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?uri vcard:email ?email.}}}
-				 	OPTIONAL {{{?adr vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?adr vcard:email ?email.}}} ",
-				"lat"=>"OPTIONAL{{{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
+				"street"=>"OPTIONAL {{?adr vcard:street-address ?street.} UNION {?adr vc:Street ?street.}} ",
+				"post"=>"OPTIONAL {{?adr vcard:postal-code ?post.} UNION {?adr vc:Pcode ?post.}} ",
+				"city"=>"OPTIONAL {{?adr vcard:locality ?city.} UNION {?adr vc:City ?city.}} ",
+				"country"=>"OPTIONAL {{?adr vcard:country-name ?country.} UNION {?adr vc:Country ?country.}} ",
+				"phone"=>"OPTIONAL {{?uri vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?uri vcard:tel ?phone.}}
+					OPTIONAL {{?adr vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?adr vcard:tel ?phone.}} ",
+				"email"=>"OPTIONAL {{?uri vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?uri vcard:email ?email.}}
+				 	OPTIONAL {{?adr vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?adr vcard:email ?email.}} ",
+				"lat"=>"OPTIONAL {{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
 					{?uri vcard:latitude ?lat.} UNION
 					{?uri geo:location ?zlat.?zlat geo:lat ?lat.} UNION
 					{?uri vc:GEO ?zlat.?zlat vc:latitude ?lat.} UNION
-					{?uri geo:lat ?lat.}}} ",
-				"long"=>"OPTIONAL{{{?uri vcard:geo ?zlong.?zlong vcard:longitude ?long.} UNION
+					{?uri geo:lat ?lat.}} ",
+				"long"=>"OPTIONAL {{?uri vcard:geo ?zlong.?zlong vcard:longitude ?long.} UNION
 					{?uri vcard:longitude ?long.} UNION
 					{?uri geo:location ?zlong.?zlong geo:long ?long.} UNION
 					{?uri vc:GEO ?zlong.?zlong vc:longitude ?long.} UNION
-					{?uri geo:long ?long.}}} ",
+					{?uri geo:long ?long.}} ",
 				"openTime"=>array("OPTIONAL {?uri gr:hasOpeningHoursSpecification ?time.
 					?time gr:hasOpeningHoursDayOfWeek gr:","day",".
 					?time gr:opens ?openTime.}"),
@@ -168,24 +168,24 @@ class GR4PHP_Template{
 				"title"=> "OPTIONAL {{?uri rdfs:label ?title.} UNION
 					{?uri gr:name ?title.} UNION {?uri gr:description ?title.} UNION
 					{?uri rdfs:comment ?title.} UNION {?uri dc:title ?title.}} ",
-				"street"=>"OPTIONAL {{{?adr vcard:street-address ?street.} UNION {?adr vc:Street ?street.}}} ",
-				"post"=>"OPTIONAL {{{?adr vcard:postal-code ?post.} UNION {?adr vc:Pcode ?post.}}} ",
-				"city"=>"OPTIONAL {{{?adr vcard:locality ?city.} UNION {?adr vc:City ?city.}}} ",
-				"country"=>"OPTIONAL {{{?adr vcard:country-name ?country.} UNION {?adr vc:Country ?country.}}} ",
-				"phone"=>"OPTIONAL {{{?uri vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?uri vcard:tel ?phone.}}}
-				 	OPTIONAL {{{?adr vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?adr vcard:tel ?phone.}}} ",
-				"email"=>"OPTIONAL {{{?uri vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?uri vcard:email ?email.}}}
-				 	OPTIONAL {{{?adr vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?adr vcard:email ?email.}}} ",
-				"lat"=>"OPTIONAL{{{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
+				"street"=>"OPTIONAL {{?adr vcard:street-address ?street.} UNION {?adr vc:Street ?street.}} ",
+				"post"=>"OPTIONAL {{?adr vcard:postal-code ?post.} UNION {?adr vc:Pcode ?post.}} ",
+				"city"=>"OPTIONAL {{?adr vcard:locality ?city.} UNION {?adr vc:City ?city.}} ",
+				"country"=>"OPTIONAL {{?adr vcard:country-name ?country.} UNION {?adr vc:Country ?country.}} ",
+				"phone"=>"OPTIONAL {{?uri vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?uri vcard:tel ?phone.}}
+				 	OPTIONAL {{?adr vc:TEL ?tel. ?tel rdf:value ?phone.} UNION {?adr vcard:tel ?phone.}} ",
+				"email"=>"OPTIONAL {{?uri vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?uri vcard:email ?email.}}
+				 	OPTIONAL {{?adr vc:EMAIL ?mail. ?mail rdf:value ?email.} UNION {?adr vcard:email ?email.}} ",
+				"lat"=>"OPTIONAL {{?uri vcard:geo ?zlat.?zlat vcard:latitude ?lat.} UNION
 					{?uri vcard:latitude ?lat.} UNION
 					{?uri geo:location ?zlat.?zlat geo:lat ?lat.} UNION
 					{?uri vc:GEO ?zlat.?zlat vc:latitude ?lat.} UNION
-					{?uri geo:lat ?lat.}}} ",
-				"long"=>"OPTIONAL{{{?uri vcard:geo ?zlong.?zlong vcard:longitude ?long.} UNION
+					{?uri geo:lat ?lat.}} ",
+				"long"=>"OPTIONAL {{?uri vcard:geo ?zlong.?zlong vcard:longitude ?long.} UNION
 				 	{?uri vcard:longitude ?long.} UNION
 					{?uri geo:location ?zlong.?zlong geo:long ?long.} UNION
 					{?uri vc:GEO ?zlong.?zlong vc:longitude ?long.} UNION
-					{?uri geo:long ?long.}}} ",
+					{?uri geo:long ?long.}} ",
 ),
 		"getProductModel"=>array(
 				"title"=> "OPTIONAL {{?uri rdfs:label ?title.} UNION
@@ -243,20 +243,20 @@ class GR4PHP_Template{
 				"title"=> "OPTIONAL {{?uri rdfs:label ?title.} UNION
 					{?uri gr:name ?title.} UNION {?uri gr:description ?title.} UNION
 					{?uri rdfs:comment ?title.} UNION {?uri dc:title ?title.}} ",
-				"openMonday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Monday. ?time gr:opens ?openMonday. ?time gr:closes ?closeMonday.}",
-				"openTuesday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Tuesday. ?time gr:opens ?openTuesday. ?time gr:closes ?closeTuesday.}",
-				"openWednesday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Wednesday. ?time gr:opens ?openWednesday. ?time gr:closes ?closeWednesday.}",
-				"openThursday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Thursday. ?time gr:opens ?openThursday. ?time gr:closes ?closeThursday.}",
-				"openFriday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Friday. ?time gr:opens ?openFriday. ?time gr:closes ?closeFriday.}",
-				"openSaturday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Saturday. ?time gr:opens ?openSaturday. ?time gr:closes ?closeSaturday.}",
-				"openSunday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Sunday. ?time gr:opens ?openSunday. ?time gr:closes ?closeSunday.}",
-				"closeMonday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Monday. ?time gr:opens ?openMonday. ?time gr:closes ?closeMonday.}",
-				"closeTuesday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Tuesday. ?time gr:opens ?openTuesday. ?time gr:closes ?closeTuesday.}",
-				"closeWednesday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Wednesday. ?time gr:opens ?openWednesday. ?time gr:closes ?closeWednesday.}",
-				"closeThursday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Thursday. ?time gr:opens ?openThursday. ?time gr:closes ?closeThursday.}",
-				"closeFriday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Friday. ?time gr:opens ?openFriday. ?time gr:closes ?closeFriday.}",
-				"closeSaturday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Saturday. ?time gr:opens ?openSaturday. ?time gr:closes ?closeSaturday.}",
-				"closeSunday"=>"OPTIONAL{?time gr:hasOpeningHoursDayOfWeek gr:Sunday. ?time gr:opens ?openSunday. ?time gr:closes ?closeSunday.}",
+				"openMonday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Monday. ?time gr:opens ?openMonday. ?time gr:closes ?closeMonday.}",
+				"openTuesday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Tuesday. ?time gr:opens ?openTuesday. ?time gr:closes ?closeTuesday.}",
+				"openWednesday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Wednesday. ?time gr:opens ?openWednesday. ?time gr:closes ?closeWednesday.}",
+				"openThursday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Thursday. ?time gr:opens ?openThursday. ?time gr:closes ?closeThursday.}",
+				"openFriday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Friday. ?time gr:opens ?openFriday. ?time gr:closes ?closeFriday.}",
+				"openSaturday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Saturday. ?time gr:opens ?openSaturday. ?time gr:closes ?closeSaturday.}",
+				"openSunday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Sunday. ?time gr:opens ?openSunday. ?time gr:closes ?closeSunday.}",
+				"closeMonday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Monday. ?time gr:opens ?openMonday. ?time gr:closes ?closeMonday.}",
+				"closeTuesday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Tuesday. ?time gr:opens ?openTuesday. ?time gr:closes ?closeTuesday.}",
+				"closeWednesday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Wednesday. ?time gr:opens ?openWednesday. ?time gr:closes ?closeWednesday.}",
+				"closeThursday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Thursday. ?time gr:opens ?openThursday. ?time gr:closes ?closeThursday.}",
+				"closeFriday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Friday. ?time gr:opens ?openFriday. ?time gr:closes ?closeFriday.}",
+				"closeSaturday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Saturday. ?time gr:opens ?openSaturday. ?time gr:closes ?closeSaturday.}",
+				"closeSunday"=>"OPTIONAL {?time gr:hasOpeningHoursDayOfWeek gr:Sunday. ?time gr:opens ?openSunday. ?time gr:closes ?closeSunday.}",
 				),
 		"getLocation"=>array(
 				"gln"=>"OPTIONAL {?uri gr:hasGlobalLocationNumber ?gln.} ",
@@ -538,17 +538,17 @@ class GR4PHP_Template{
 	/**
 	 *
 	 * Return optional output-part of a query depend on function
-	 * @param 		string		$part Function
+	 * @param 		string		$function Function name
 	 * @return 		array		$possibleOutputValues Finished optional output-part of the query 
 	 */
-	public static function getOutputValuesByFunction($part){
-		return self::$possibleOutputValues[$part];
+	public static function getOutputValuesByFunction($function){
+		return self::$possibleOutputValues[$function];
 	}
 	
 	/**
 	 *
 	 * Return an array of all possible input values of the given function
-	 * @param 		string		$part Function
+	 * @param 		string		$function Function name
 	 * @return 		array		$possibleInputValuesByFunction Array of possible input values 
 	 */
 	public static function possibleInputValuesByFunction($function){
@@ -591,7 +591,7 @@ class GR4PHP_Template{
 	public static function getSpecialSelectPartsByFunction($functionName, $inputArray){
 		$statement = array();
 		if($functionName == "getLocation") {
-			$prepare="( bif:round ( bif:st_distance ( ?geo,bif:st_point(".$inputArray['geo']['lat'].", ".$inputArray['geo']['long'].") ) ) ) AS ?distance";
+			$prepare="(bif:round(bif:st_distance(?geo, bif:st_point(".$inputArray['geo']['lat'].", ".$inputArray['geo']['long'].")))) AS ?distance";
 			$statement[]=$prepare;
 		}
 		return $statement;

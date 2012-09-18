@@ -16,13 +16,13 @@ include_once 'gr4php_configuration.php';
 /**
  *
  * Convert a String in Array by split the String
- * @param 		string		$string String that want to be convert
- * @param 		string		$zeichen Char that shows the cut-off point (Default: ",")
+ * @param 		string		$string String that is to be converted
+ * @param 		string		$delimiter Character that shows the cut-off point (Default: ",")
  * @return 		array		$arrayOfStrings Array
  */
-function getString2Array($string,$zeichen=","){
+function getString2Array($string,$delimiter=","){
 	
-	$arrayOfStrings=explode($zeichen, $string);
+	$arrayOfStrings=explode($delimiter, $string);
 	
 	return (array)$arrayOfStrings; 
 }

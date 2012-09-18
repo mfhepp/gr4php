@@ -33,12 +33,12 @@ class GR4PHP{
 	 * Wrapper function for creating a SPARQL Query (private function)
 	 * @param		string		$functionName String designating the function that is calling the wrapper function
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are:gln,title,country,city (see example 1)
-	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+	 * @example example/examples.php 2) $wantedElements=array("street","post")
+	 *
+	 * @example example/examples.php 1) $inputArray=array("gln"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: gln,street,post,city,country,phone,email,long,lat,openTime,closeTime (see example 2)
-	 * @example example 2: $wantedElements=array("street","post")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sougth 
@@ -62,7 +62,7 @@ class GR4PHP{
 				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
 					$var = preg_replace("/:/", "_", $prop);
 					$selectPart[] = "?$var"; // Result Form
-					$customInputValues[":lax"][$var] = array("?uri $prop ?$var. ?$var bif:contains '\"","value","\"' .");
+					$customInputValues[":lax"][$var] = array("?uri $prop ?$var. FILTER(contains(?$var, '\"","value","\"')) .");
 					$customInputValues[":strict"][$var] = array("?uri $prop '\"","value","\"'^^xsd:string.");
 					$customOutputValues[$functionName][$var] = "OPTIONAL {?uri $prop ?$var.} "; // OPTIONAL clause
 			}
@@ -158,7 +158,7 @@ class GR4PHP{
 		}
 
 		if($functionName == "getStore") {
-			$sparql.=" ?uri a gr:LocationOfSalesOrServiceProvisioning. ";
+			$sparql.=" {?uri a gr:LocationOfSalesOrServiceProvisioning} UNION {?uri a gr:Location} ";
 		}
 		else if($functionName == "getCompany") {
 			$sparql.=" ?uri a gr:BusinessEntity. ";
@@ -170,10 +170,10 @@ class GR4PHP{
 			$sparql.=" ?uri a gr:Offering. ";
 		}
 		else if($functionName == "getOpeningHours") {
-			$sparql.= " ?uri a gr:LocationOfSalesOrServiceProvisioning. ?uri gr:hasOpeningHoursSpecification ?time. ";
+			$sparql.= " {?uri a gr:LocationOfSalesOrServiceProvisioning. ?uri gr:hasOpeningHoursSpecification ?time.} UNION {?uri a gr:Location. ?uri gr:hasOpeningHoursSpecification ?time.} ";
 		}
 		else if($functionName == "getLocation") {
-			$sparql.= " ?uri a gr:LocationOfSalesOrServiceProvisioning. ";
+			$sparql.= " {?uri a gr:LocationOfSalesOrServiceProvisioning} UNION {?uri a gr:Location} ";
 		}
 
 		///// OPTIONAL-Part
@@ -182,7 +182,7 @@ class GR4PHP{
 		//if(in_array($functionName,array("getStore", "getCompany")) && !array_intersect(array("country","street","post","city"), array_keys($inputArray))) {
 		// Thanks to Philipp Feucht and his team for spotting an issue with the above if-clause and providing this bugfix!!
 		if(in_array($functionName,array("getStore", "getCompany")) && count(array_intersect(array("country","street","post","city","phone","email"), array_merge(array_keys($inputArray), array_values($wantedElements)))) > 0) {
-			$sparql.="OPTIONAL {{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr}} ";
+			$sparql.="OPTIONAL {{?uri vc:ADR ?adr} UNION {?uri vcard:adr ?adr} ";
 		}
 
 		// Optional Values
@@ -198,6 +198,11 @@ class GR4PHP{
 				else
 					$sparql.=$output;
 			}
+		}
+		
+		// close the outer OPTIONAL opened above
+		if(in_array($functionName,array("getStore", "getCompany")) && count(array_intersect(array("country","street","post","city","phone","email"), array_merge(array_keys($inputArray), array_values($wantedElements)))) > 0) {
+			$sparql.="} ";
 		}
 
 		///// LIMIT-Part
@@ -215,12 +220,12 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:LocationOfSalesOrServiceProvisioning
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are:gln,title,country,city (see example 1)
-	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+ 	 * @example example/examples.php 2) $wantedElements=array("street","post")
+ 	 *
+	 * @example example/examples.php 1) $inputArray=array("gln"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: gln,street,post,city,country,phone,email,long,lat,openTime,closeTime (see example 2)
-	 * @example example 2: $wantedElements=array("street","post")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sougth 
@@ -239,12 +244,12 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:BusinessEntity
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: legalName, title, duns, gln, isicv4, naics (see example 1)
-	 * @example example 1: $inputArray=array("legalName"=>"value1","title"=>value2)
+ 	 * @example example/examples.php 2) $wantedElements=array("street","post")
+ 	 *
+	 * @example example/examples.php 1) $inputArray=array("legalName"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: gln, name, duns, isicv4, naics, street, post, city, country, phone, email, long, lat (see example 2)
-	 * @example example 2: $wantedElements=array("street","post")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sougth 
@@ -263,12 +268,12 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:ProductModelInfo
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: ean13, gtin, title, manufacturer (see example 1)
-	 * @example example 1: $inputArray=array("ean13"=>"value1","title"=>value2)
+ 	 * @example example/examples.php 2) $wantedElements=array("sku","ean13")
+ 	 *
+	 * @example example/examples.php 1) $inputArray=array("ean13"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: sku, ean13, gtin, description, website, manufacturer (see example 2)
-	 * @example example 2: $wantedElements=array("sku","ean13")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sougth 
@@ -289,15 +294,15 @@ class GR4PHP{
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: ean13, gtin14, title, sku, manufacturer,
 	 * validThrough, validFrom, maxPrice, currency, acceptedPaymentMethod, businessFunction, minWarrantyInMonths, eligibleCustomerTypes,
 	 * eligibleRegions, availabilityStarts, availabilityAtOrFrom (see example 1)
-	 * @example example 1: $inputArray=array("ean13"=>"value1","title"=>value2)
+ 	 * @example example/examples.php 2) $wantedElements=array("sku","ean13")
+ 	 *
+	 * @example example/examples.php 1) $inputArray=array("ean13"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: ean13, gtin, sku, manufacturer, businessFunction, acceptedPaymentMethod, price, currency,
 	 * eligibleRegions, eligibleCustomerTypes, minValue, validFrom, validThrough, description, availableAtOrFrom, availabilityStarts,
 	 * availabilityEnds, availableDeliveryMethods, minWarrantyInMonths, paymentCurrency, paymentCurrencyValue, paymentTaxIncluded,
 	 * deliveryRegion, deliveryCurrency, deliveryCurrencyValue, deliveryTaxIncluded (see example 2)
-	 * @example example 2: $wantedElements=array("sku","ean13")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sougth 
@@ -316,13 +321,13 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for gr:LocationOfSalesOrServiceProvisioning
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: gln, title (see example 1)
-	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+ 	 * @example example/examples.php 2) $wantedElements=array("openMonday","closeMonday")
+ 	 *
+	 * @example example/examples.php 1) $inputArray=array("gln"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: openMonday, closeMonday, openTuesday, closeTuesday, openWednesday, closeWednesday, openThursday,
 	 * closeThursday, openFriday, closeFriday, openSaturday, closeSaturday, openSunday, closeSunday (see example 2)
-	 * @example example 2: $wantedElements=array("openMonday","closeMonday")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sought 
@@ -341,12 +346,12 @@ class GR4PHP{
 	 *
 	 * Return SPARQL Query for stores near by...
 	 * @param 		array  		$inputArray	Array with search elements. Allowed elements are: gln, title (see example 1)
-	 * @example example 1: $inputArray=array("gln"=>"value1","title"=>value2)
+ 	 * @example example/examples.php 2) $wantedElements=array("gln","geo")
+ 	 *
+	 * @example example/examples.php 1) $inputArray=array("gln"=>"value1","title"=>"value2")
 	 * 
 	 * @param 		array  		$wantedElements Which elements should be shown? Default: All elements of the function.
 	 * Allowed elements are: gln, geo (see example 2)
-	 * @example example 2: $wantedElements=array("gln","geo")
-	 * 
 	 * @param 		string		$mode  Mode of SPARQL-Query. Options are: 
 	 * ":lax"-> At the end of the values of all search elements a wildcard "*" is added to get more results.
 	 * ":strict"-> Only the given values of all search elements be sougth 

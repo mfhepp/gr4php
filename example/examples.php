@@ -1,0 +1,1 @@
+/* This file was intentionally left empty. You'll find the examples in the PHP documentation of the GR4PHP library. */

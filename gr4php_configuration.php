@@ -10,6 +10,7 @@
  * @license GNU LESSER GENERAL PUBLIC LICENSE
  * @version 1.0
  */
+ 
  class Configuration{
 	
  	// query limit
@@ -17,7 +18,6 @@
 	
 	// some endpoints to get the SPARQL information
 	const ENDPOINT_URIBURNER="http://www.uriburner.com/sparql";
-	const ENDPOINT_LDURIBURNER="http://linkeddata.uriburner.com/sparql";
 	const ENDPOINT_LOC="http://linkedopencommerce.com/sparql";
 	const ENDPOINT_LOD="http://lod.openlinksw.com/sparql";
 
