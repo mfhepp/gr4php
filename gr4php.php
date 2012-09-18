@@ -58,13 +58,21 @@ class GR4PHP{
 		$customOutputValues = array($functionName => array());
 		// custom properties to search for
 		if(!empty($searchProperties)) {
-			foreach($searchProperties as $prop) {
-				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes)))
+			foreach($searchProperties as $prop) { // custom prefix binding
+				if(in_array(strtok($prop, ":"), array_keys(Configuration::$prefixes))) {
 					$var = preg_replace("/:/", "_", $prop);
 					$selectPart[] = "?$var"; // Result Form
 					$customInputValues[":lax"][$var] = array("?uri $prop ?$var. FILTER(contains(?$var, '","value","')) .");
 					$customInputValues[":strict"][$var] = array("?uri $prop '","value","'^^xsd:string.");
 					$customOutputValues[$functionName][$var] = "OPTIONAL {?uri $prop ?$var.} "; // OPTIONAL clause
+				}
+				elseif(strpos($prop, "://")) { // full URIs
+				    $var = "custom_".preg_replace("/.*[\/#]/")
+					$selectPart[] = "?$var"; // Result Form
+					$customInputValues[":lax"][$var] = array("?uri <$prop> ?$var. FILTER(contains(?$var, '","value","')) .");
+					$customInputValues[":strict"][$var] = array("?uri <$prop> '","value","'^^xsd:string.");
+					$customOutputValues[$functionName][$var] = "OPTIONAL {?uri <$prop> ?$var.} "; // OPTIONAL clause
+				}
 			}
 			GR4PHP_Template::addCustomValues($mode, $functionName, $customInputValues, $customOutputValues);
 		}
