@@ -18,8 +18,8 @@ class GR4PHP_Template{
 	// Assoc. array shows all possible input values
 	private static $possibleInputValues=array(
 		":lax"=>array(
-				"gln"=>array("?uri gr:hasGlobalLocationNumber ?gln. FILTER(contains(lcase(str(?gln)), lcase('","value","'))) ."),
-				"title"=>array("{?uri rdfs:label ?title. FILTER(contains(lcase(str(?title)), lcase('","value","'))) .} UNION
+				"gln"=>array("?uri gr:hasGlobalLocationNumber ?gln. FILTER(contains(str(?gln), '","value","')) ."),
+				"title"=>array("{?uri rdfs:label ?title. FILTER(contains(str(?title), '","value","')) .} UNION
 					{?uri gr:name ?title. FILTER(contains(str(?title), '","value","')) .} UNION
 					{?uri gr:description ?title. FILTER(contains(str(?title), '","value","')) .} UNION
 					{?uri rdfs:comment ?title. FILTER(contains(str(?title), '","value","')) .} UNION
