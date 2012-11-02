@@ -115,7 +115,7 @@ class GR4PHP_Exception extends Exception{
 	 */
 	public static function isCorrectLengthOfValueCausedByWildcardRule($inputArray){
 				try {
-					$lesserThanFour=array("geo","price","currency");
+					$lesserThanFour=array("geo","maxPrice","currency");
 					foreach ((array)$inputArray as $element=>$value) {
 					if (!in_array($element,$lesserThanFour)){	
 						if (strlen((string)$value)<4){
